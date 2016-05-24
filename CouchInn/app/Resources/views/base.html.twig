@@ -27,26 +27,42 @@
         {% block body %}
 
             {% block menu %}
-                <nav class="navbar navbar-inverse" style="padding: 200px;">
-                    <div class="container">
-                        <div class="navbar-header">
-                            <a href="{{ path("_index") }}" class="navbar-brand">CouchInn</a>
-                        </div>
-                        <div class="nav navbar-nav">
-                            {% block menudentro %}
-                            {% endblock %}
-                        </div>
+                <nav class="navbar navbar-static-top" role="navigation" style="padding: 50px 100px">
+                    <div class="navbar-header btn-group">
+                        {% block menupublico %}
+                            <a href="{{ path('_home') }}" class="btn btn-primary">Home</a>
+                            <a href="#" class="btn btn-default">Publicaciones</a>
+                            <a href="{{ path('_listaDeUsuarios') }}" class="btn btn-default">Usuarios</a>
+                            <a href="#" class="btn btn-default">Contacto</a>
+                        {% endblock %}
                     </div>
+                    {% block menuusuario %}
+                        <div class="dropdown navbar-right">
+                            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-chevron-down"></span> Mi perfil
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Ver mi informacion</a></li>
+                                <li><a href="{{ path('_registro') }}">Modificar mi informacion</a></li>
+                            </ul>
+                        </div>
+                    {% endblock %}
                 </nav>
             {% endblock %}
 
             {% block seccion %}
-            <div class="col-md-12 text-center">
+            <div class="col-md-12 text-center" style="padding: 100px">
                 <div class="container">
-                {% block contenedor %}
-                    <div class="well well-lg" style="background-color: #0f0f0f">
-                        {% block containerwell %}
-                        {% endblock %}
+                {% block seccioncentro %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 style="text-align: left">{% block panelhead %}{% endblock %}</h4>
+                        </div>
+
+                        <div class="panel-body" style="text-align: left">
+                            {% block panelbody %}
+                            {% endblock %}
+                        </div>
                     </div>
                 {% endblock %}
                 </div>

@@ -121,7 +121,7 @@ input,
 optgroup,
 select,
 textarea {
-  color: inherit;
+  color: #0f0f0f;
   font: inherit;
   margin: 0;
 }
@@ -6774,5 +6774,8 @@ body {
 .cover .cover-image.background-image-fixed,
 .cover .cover-image.cover-image-fixed {
   background-attachment: fixed;
+}
+.formulario{
+  text-align: left;
 }
 /* PINGENDO COMMENT DO NOT REMOVE */

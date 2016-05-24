@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block navbar %}
+{% block menu %}
 {% endblock %}
 
-{% block container %}
+{% block seccioncentro %}
     <h1>Welcome to CouchInn!</h1>
     <p>The website for everyone who dreams to travel around the world!</p>
     <div class="btn-group" role="group">
-        <a href="#" class="btn btn-success">Sign in</a>
-        <a href="#" class="btn btn-default">Home</a>
-        <a href="#" class="btn btn-danger">Register</a>
+        <a href="#" class="btn btn-success">Iniciar Sesión</a>
+        <a href="{{ path('_home') }}" class="btn btn-default">Home</a>
+        <a href="{{ path('_registro') }}" class="btn btn-danger">Registrarme</a>
     </div>
     <div id="form"></div>
 {% endblock %}

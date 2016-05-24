@@ -9,7 +9,15 @@
 namespace AppBundle\Controller;
 
 
-class HomepageController
-{
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+class HomepageController extends Controller
+{
+    /**
+     * @Route("/home", name="_home")
+     */
+    public function homePageController(){
+        return $this->render(':default:homepage.html.twig');
+    }
 }
