@@ -17,7 +17,21 @@ class HomepageController extends Controller
     /**
      * @Route("/home", name="_home")
      */
-    public function homePageController(){
+    public function homepageAction(){
         return $this->render(':default:homepage.html.twig');
+    }
+
+    /**
+     * @Route("/hecho", name="_hecho")
+     */
+    public function succesAction(){
+        return $this->render(':default:hecho.html.twig');
+    }
+
+    /**
+     * @Route("/confirmacion", name="_confirmacion")
+     */
+    public function confirmAction(){
+        return $this->render(':default:confirmacion.html.twig');
     }
 }

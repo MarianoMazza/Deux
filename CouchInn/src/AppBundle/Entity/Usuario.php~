@@ -1,278 +1,166 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: alephzero
+ * Date: 22/05/16
+ * Time: 20:50
+ */
 
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="usuario")
+ * @ORM\Table(name="usuarios")
  */
-class Usuario
+class Usuario implements UserInterface, \Serializable
 {
     /**
      * @ORM\Column(type="integer")
-     * @ORM\Id
+     * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true, length=10)
+     * @Assert\NotBlank()
      */
-    private $nombreDeUsuario;
+    private $username;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=10)
+     * @Assert\NotBlank()
      */
-    private $contraseña;
+    private $password;
+    /**
+     * @ORM\Column(type="string", length=30)
+     */
+    private $pregunta;
+    /**
+     * @ORM\Column(type="string", length=15)
+     */
+    private $respuesta;
     /**
      * @ORM\Column(type="integer")
-     */
-    private $edad;
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $fechaDeNacimiento;
-    /**
-     * @ORM\Column(type="string")
+     * @Assert\Choice({1,2,3})
      */
     private $rol;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="date")
+     * @Assert\Date()
      */
-    private $calle;
+    private $fechaDeNacimiento;
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\GreaterThanOrEqual(18)
+     * @Assert\LessThan(100)
+     */
+    private $edad;
     /**
      * @ORM\Column(type="string")
+     * @Assert\Country()
      */
     private $pais;
     /**
      * @ORM\Column(type="string")
+     * @Assert\Locale()
      */
-    private $provinicia;
+    private $provincia;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", length=20)
      */
     private $localidad;
-
     /**
-     * Get id
-     *
-     * @return integer 
+     * @ORM\Column(type="string", length=20)
      */
-
+    private $calle;
     /**
-     * Get id
-     *
-     * @return integer 
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CalificacionPublicacion", mappedBy="usuario")
      */
-    public function getId()
+    private $publicaciones;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CalificacionUsuario", mappedBy="paraUsuario")
+     */
+    private $calificaciones;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CalificacionUsuario", mappedBy="deUsuario")
+     */
+    private $misCalificacionesAUsuarios;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CalificacionPublicacion", mappedBy="deUsuario")
+     */
+    private $misCalificacionesAPublicaciones;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comentario", mappedBy="deUsuario")
+     */
+    private $misComentarios;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Pago", mappedBy="usuario")
+     */
+    private $pagos;
+    /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
+    /**
+     * Constructor
+     */
+    public function __construct()
     {
-        return $this->id;
+        $this->publicaciones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->calificaciones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->misCalificacionesAUsuarios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->misCalificacionesAPublicaciones = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->misComentarios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->pagos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->isActive = true;
     }
 
-    /**
-     * Set nombreDeUsuario
-     *
-     * @param string $nombreDeUsuario
-     * @return Usuario
-     */
-    public function setNombreDeUsuario($nombreDeUsuario)
+    public function getUsername()
     {
-        $this->nombreDeUsuario = $nombreDeUsuario;
-
-        return $this;
+        return $this->username;
     }
 
-    /**
-     * Get nombreDeUsuario
-     *
-     * @return string 
-     */
-    public function getNombreDeUsuario()
+    public function getSalt()
     {
-        return $this->nombreDeUsuario;
+        return null;
     }
 
-    /**
-     * Set contraseña
-     *
-     * @param string $contraseña
-     * @return Usuario
-     */
-    public function setContraseña($contraseña)
+    public function getPassword()
     {
-        $this->contraseña = $contraseña;
-
-        return $this;
+        return $this->password;
     }
 
-    /**
-     * Get contraseña
-     *
-     * @return string 
-     */
-    public function getContraseña()
+
+    public function getRoles()
     {
-        return $this->contraseña;
+        return array('ROLE_USER');
     }
 
-    /**
-     * Set edad
-     *
-     * @param integer $edad
-     * @return Usuario
-     */
-    public function setEdad($edad)
+    public function eraseCredentials()
     {
-        $this->edad = $edad;
-
-        return $this;
     }
 
-    /**
-     * Get edad
-     *
-     * @return integer 
-     */
-    public function getEdad()
+    /** @see \Serializable::serialize() */
+    public function serialize()
     {
-        return $this->edad;
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+        ));
     }
 
-    /**
-     * Set fechaDeNacimiento
-     *
-     * @param \DateTime $fechaDeNacimiento
-     * @return Usuario
-     */
-    public function setFechaDeNacimiento($fechaDeNacimiento)
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
     {
-        $this->fechaDeNacimiento = $fechaDeNacimiento;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaDeNacimiento
-     *
-     * @return \DateTime 
-     */
-    public function getFechaDeNacimiento()
-    {
-        return $this->fechaDeNacimiento;
-    }
-
-    /**
-     * Set rol
-     *
-     * @param string $rol
-     * @return Usuario
-     */
-    public function setRol($rol)
-    {
-        $this->rol = $rol;
-
-        return $this;
-    }
-
-    /**
-     * Get rol
-     *
-     * @return string 
-     */
-    public function getRol()
-    {
-        return $this->rol;
-    }
-
-    /**
-     * Set calle
-     *
-     * @param string $calle
-     * @return Usuario
-     */
-    public function setCalle($calle)
-    {
-        $this->calle = $calle;
-
-        return $this;
-    }
-
-    /**
-     * Get calle
-     *
-     * @return string 
-     */
-    public function getCalle()
-    {
-        return $this->calle;
-    }
-
-    /**
-     * Set pais
-     *
-     * @param string $pais
-     * @return Usuario
-     */
-    public function setPais($pais)
-    {
-        $this->pais = $pais;
-
-        return $this;
-    }
-
-    /**
-     * Get pais
-     *
-     * @return string 
-     */
-    public function getPais()
-    {
-        return $this->pais;
-    }
-
-    /**
-     * Set provinicia
-     *
-     * @param string $provinicia
-     * @return Usuario
-     */
-    public function setProvinicia($provinicia)
-    {
-        $this->provinicia = $provinicia;
-
-        return $this;
-    }
-
-    /**
-     * Get provinicia
-     *
-     * @return string 
-     */
-    public function getProvinicia()
-    {
-        return $this->provinicia;
-    }
-
-    /**
-     * Set localidad
-     *
-     * @param string $localidad
-     * @return Usuario
-     */
-    public function setLocalidad($localidad)
-    {
-        $this->localidad = $localidad;
-
-        return $this;
-    }
-
-    /**
-     * Get localidad
-     *
-     * @return string 
-     */
-    public function getLocalidad()
-    {
-        return $this->localidad;
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            ) = unserialize($serialized);
     }
 }

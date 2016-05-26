@@ -30,7 +30,7 @@ class CalificacionUsuario
      */
     private $calificacion;
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario", inversedBy="misCalificaciones")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario", inversedBy="misCalificacionesAUsuarios")
      * @ORM\JoinColumn(name="deUsuario_id", referencedColumnName="id")
      */
     private $deUsuario;

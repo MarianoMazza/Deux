@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,7 +18,7 @@ class UsuarioController extends Controller
 {
     /**
      * Lists all Usuario entities.
-     * @Route("/usuariosDelSitio", name="_listaDeUsuarios")
+     * @Route("/usuarios", name="_listaDeUsuarios")
      */
     public function indexAction()
     {
@@ -38,8 +38,7 @@ class UsuarioController extends Controller
     public function newAction(Request $request)
     {
         $usuario = new Usuario();
-        $usuario->setRol(1);
-
+        $usuario->setRol('ROLE_ADMIN');
         $form = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
         $form->handleRequest($request);
 
@@ -48,7 +47,7 @@ class UsuarioController extends Controller
             $em->persist($usuario);
             $em->flush();
 
-            return $this->redirectToRoute('_index', array('id' => $usuario->getId()));
+            return $this->redirectToRoute('_hecho', array('id' => $usuario->getId()));
         }
 
         return $this->render(':default:registro.html.twig', array(
@@ -86,7 +85,7 @@ class UsuarioController extends Controller
             $em->persist($usuario);
             $em->flush();
 
-            return $this->redirectToRoute('usuario_edit', array('id' => $usuario->getId()));
+            return $this->redirectToRoute('user_edit', array('id' => $usuario->getId()));
         }
 
         return $this->render('usuario/edit.html.twig', array(
@@ -98,7 +97,8 @@ class UsuarioController extends Controller
 
     /**
      * Deletes a Usuario entity.
-     * @Route("/", name="_eliminarUsuario")
+     * @Route("/eliminar", name="_eliminarUsuario")
+     * @ParamConverter("usuario", class="AppBundle:Usuario", )
      */
     public function deleteAction(Request $request, Usuario $usuario)
     {
@@ -111,7 +111,7 @@ class UsuarioController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('_index');
+        return $this->redirectToRoute('_hecho');
     }
 
     /**

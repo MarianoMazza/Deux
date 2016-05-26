@@ -6,9 +6,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\LocaleType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,18 +23,23 @@ class UsuarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nombreDeUsuario', TextType::class, ['label'=>'Nombre de Usuario:'])
-            ->add('password', PasswordType::class, ['label'=>'Contraseña:'])
-            ->add('pregunta', TextType::class, ['label'=>'Pregunta para recuperacion de contraseña:'])
-            ->add('respuesta', TextType::class, ['label'=>'Respuesta para recuperación de contraseña:'])
+            ->add('username', TextType::class)
+            ->add('password', RepeatedType::class, [
+                    'type'=>PasswordType::class,
+                    'first_options'=>['label'=>'Password'],
+                    'second_options'=>['label'=>'Repeat password']
+                ])
+            ->add('pregunta', TextType::class)
+            ->add('respuesta', TextType::class)
             ->add('rol', HiddenType::class)
-            ->add('fechaDeNacimiento', DateType::class, ['label'=>'Fecha de Nacimiento:'])
-            ->add('edad', IntegerType::class, ['label'=>'Su edad:'])
-            ->add('pais', CountryType::class, ['label'=>'Pais donde vive:'])
-            ->add('provincia', LocaleType::class, ['label'=>'Provincia donde vive:'])
-            ->add('localidad', TextType::class, ['label'=>'Localidad donde vive:'])
-            ->add('calle', TextType::class, ['label'=>'Domicilio donde vive:'])
-            ->add('registrar', SubmitType::class, ['label'=>'Registrar'])
+            ->add('fechaDeNacimiento', DateType::class)
+            ->add('edad', NumberType::class)
+            ->add('pais', CountryType::class)
+            ->add('provincia', TextType::class)
+            ->add('localidad', TextType::class)
+            ->add('calle', TextType::class)
+            ->add('isActive', HiddenType::class)
+            ->add('Registrarme', SubmitType::class)
         ;
     }
     

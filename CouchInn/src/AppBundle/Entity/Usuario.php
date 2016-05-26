@@ -9,6 +9,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -16,7 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity()
  * @ORM\Table(name="usuarios")
  */
-class Usuario
+class Usuario implements UserInterface, \Serializable
 {
     /**
      * @ORM\Column(type="integer")
@@ -25,12 +26,12 @@ class Usuario
      */
     private $id;
     /**
-     * @ORM\Column(type="string", unique=true, length=10)
+     * @ORM\Column(type="string", unique=true, length=25)
      * @Assert\NotBlank()
      */
-    private $nombreDeUsuario;
+    private $username;
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=64)
      * @Assert\NotBlank()
      */
     private $password;
@@ -43,8 +44,7 @@ class Usuario
      */
     private $respuesta;
     /**
-     * @ORM\Column(type="integer")
-     * @Assert\Choice({1,2,3})
+     * @ORM\Column(type="string")
      */
     private $rol;
     /**
@@ -65,7 +65,6 @@ class Usuario
     private $pais;
     /**
      * @ORM\Column(type="string")
-     * @Assert\Locale()
      */
     private $provincia;
     /**
@@ -77,7 +76,7 @@ class Usuario
      */
     private $calle;
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CalificacionPublicacion", mappedBy="usuario")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Publicacion", mappedBy="usuario")
      */
     private $publicaciones;
     /**
@@ -101,6 +100,10 @@ class Usuario
      */
     private $pagos;
     /**
+     * @ORM\Column(name="is_active", type="boolean")
+     */
+    private $isActive;
+    /**
      * Constructor
      */
     public function __construct()
@@ -111,6 +114,52 @@ class Usuario
         $this->misCalificacionesAPublicaciones = new \Doctrine\Common\Collections\ArrayCollection();
         $this->misComentarios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->pagos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->isActive = true;
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+        ));
+    }
+
+    /** @see \Serializable::unserialize() */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            ) = unserialize($serialized);
     }
 
     /**
@@ -124,56 +173,36 @@ class Usuario
     }
 
     /**
-     * Set nombreDeUsuario
+     * Set username
      *
-     * @param string $nombreDeUsuario
-     * @return UsuarioController
+     * @param string $username
+     * @return Usuario
      */
-    public function setNombreDeUsuario($nombreDeUsuario)
+    public function setUsername($username)
     {
-        $this->nombreDeUsuario = $nombreDeUsuario;
+        $this->username = $username;
 
         return $this;
     }
 
     /**
-     * Get nombreDeUsuario
+     * Set password
      *
-     * @return string 
+     * @param string $password
+     * @return Usuario
      */
-    public function getNombreDeUsuario()
+    public function setPassword($password)
     {
-        return $this->nombreDeUsuario;
-    }
-
-    /**
-     * Set contraseña
-     *
-     * @param string $contraseña
-     * @return UsuarioController
-     */
-    public function setContraseña($contraseña)
-    {
-        $this->contraseña = $contraseña;
+        $this->password = $password;
 
         return $this;
-    }
-
-    /**
-     * Get contraseña
-     *
-     * @return string 
-     */
-    public function getContraseña()
-    {
-        return $this->contraseña;
     }
 
     /**
      * Set pregunta
      *
      * @param string $pregunta
-     * @return UsuarioController
+     * @return Usuario
      */
     public function setPregunta($pregunta)
     {
@@ -196,7 +225,7 @@ class Usuario
      * Set respuesta
      *
      * @param string $respuesta
-     * @return UsuarioController
+     * @return Usuario
      */
     public function setRespuesta($respuesta)
     {
@@ -219,7 +248,7 @@ class Usuario
      * Set rol
      *
      * @param integer $rol
-     * @return UsuarioController
+     * @return Usuario
      */
     public function setRol($rol)
     {
@@ -242,7 +271,7 @@ class Usuario
      * Set fechaDeNacimiento
      *
      * @param \DateTime $fechaDeNacimiento
-     * @return UsuarioController
+     * @return Usuario
      */
     public function setFechaDeNacimiento($fechaDeNacimiento)
     {
@@ -265,7 +294,7 @@ class Usuario
      * Set edad
      *
      * @param integer $edad
-     * @return UsuarioController
+     * @return Usuario
      */
     public function setEdad($edad)
     {
@@ -288,7 +317,7 @@ class Usuario
      * Set pais
      *
      * @param string $pais
-     * @return UsuarioController
+     * @return Usuario
      */
     public function setPais($pais)
     {
@@ -311,7 +340,7 @@ class Usuario
      * Set provincia
      *
      * @param string $provincia
-     * @return UsuarioController
+     * @return Usuario
      */
     public function setProvincia($provincia)
     {
@@ -334,7 +363,7 @@ class Usuario
      * Set localidad
      *
      * @param string $localidad
-     * @return UsuarioController
+     * @return Usuario
      */
     public function setLocalidad($localidad)
     {
@@ -357,7 +386,7 @@ class Usuario
      * Set calle
      *
      * @param string $calle
-     * @return UsuarioController
+     * @return Usuario
      */
     public function setCalle($calle)
     {
@@ -377,12 +406,35 @@ class Usuario
     }
 
     /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return Usuario
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
      * Add publicaciones
      *
-     * @param \AppBundle\Entity\Publicacion $publicaciones
-     * @return UsuarioController
+     * @param \AppBundle\Entity\CalificacionPublicacion $publicaciones
+     * @return Usuario
      */
-    public function addPublicacione(\AppBundle\Entity\Publicacion $publicaciones)
+    public function addPublicacione(\AppBundle\Entity\CalificacionPublicacion $publicaciones)
     {
         $this->publicaciones[] = $publicaciones;
 
@@ -392,9 +444,9 @@ class Usuario
     /**
      * Remove publicaciones
      *
-     * @param \AppBundle\Entity\Publicacion $publicaciones
+     * @param \AppBundle\Entity\CalificacionPublicacion $publicaciones
      */
-    public function removePublicacione(\AppBundle\Entity\Publicacion $publicaciones)
+    public function removePublicacione(\AppBundle\Entity\CalificacionPublicacion $publicaciones)
     {
         $this->publicaciones->removeElement($publicaciones);
     }
@@ -413,7 +465,7 @@ class Usuario
      * Add calificaciones
      *
      * @param \AppBundle\Entity\CalificacionUsuario $calificaciones
-     * @return UsuarioController
+     * @return Usuario
      */
     public function addCalificacione(\AppBundle\Entity\CalificacionUsuario $calificaciones)
     {
@@ -446,7 +498,7 @@ class Usuario
      * Add misCalificacionesAUsuarios
      *
      * @param \AppBundle\Entity\CalificacionUsuario $misCalificacionesAUsuarios
-     * @return UsuarioController
+     * @return Usuario
      */
     public function addMisCalificacionesAUsuario(\AppBundle\Entity\CalificacionUsuario $misCalificacionesAUsuarios)
     {
@@ -479,7 +531,7 @@ class Usuario
      * Add misCalificacionesAPublicaciones
      *
      * @param \AppBundle\Entity\CalificacionPublicacion $misCalificacionesAPublicaciones
-     * @return UsuarioController
+     * @return Usuario
      */
     public function addMisCalificacionesAPublicacione(\AppBundle\Entity\CalificacionPublicacion $misCalificacionesAPublicaciones)
     {
@@ -512,7 +564,7 @@ class Usuario
      * Add misComentarios
      *
      * @param \AppBundle\Entity\Comentario $misComentarios
-     * @return UsuarioController
+     * @return Usuario
      */
     public function addMisComentario(\AppBundle\Entity\Comentario $misComentarios)
     {
@@ -545,7 +597,7 @@ class Usuario
      * Add pagos
      *
      * @param \AppBundle\Entity\Pago $pagos
-     * @return UsuarioController
+     * @return Usuario
      */
     public function addPago(\AppBundle\Entity\Pago $pagos)
     {
@@ -572,28 +624,5 @@ class Usuario
     public function getPagos()
     {
         return $this->pagos;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return UsuarioController
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string 
-     */
-    public function getPassword()
-    {
-        return $this->password;
     }
 }
