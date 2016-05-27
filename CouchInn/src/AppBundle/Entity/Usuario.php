@@ -10,31 +10,21 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints as Assert;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity
  * @ORM\Table(name="usuarios")
  */
-class Usuario implements UserInterface, \Serializable
+class Usuario extends BaseUser implements UserInterface, \Serializable
 {
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-    /**
-     * @ORM\Column(type="string", unique=true, length=25)
-     * @Assert\NotBlank()
-     */
-    private $username;
-    /**
-     * @ORM\Column(type="string", length=64)
-     * @Assert\NotBlank()
-     */
-    private $password;
+    protected $id;
     /**
      * @ORM\Column(type="string", length=30)
      */
@@ -43,10 +33,6 @@ class Usuario implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=15)
      */
     private $respuesta;
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $rol;
     /**
      * @ORM\Column(type="date")
      * @Assert\Date()
@@ -100,21 +86,17 @@ class Usuario implements UserInterface, \Serializable
      */
     private $pagos;
     /**
-     * @ORM\Column(name="is_active", type="boolean")
-     */
-    private $isActive;
-    /**
      * Constructor
      */
     public function __construct()
     {
+        parent::__construct();
         $this->publicaciones = new \Doctrine\Common\Collections\ArrayCollection();
         $this->calificaciones = new \Doctrine\Common\Collections\ArrayCollection();
         $this->misCalificacionesAUsuarios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->misCalificacionesAPublicaciones = new \Doctrine\Common\Collections\ArrayCollection();
         $this->misComentarios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->pagos = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->isActive = true;
     }
 
     public function getUsername()

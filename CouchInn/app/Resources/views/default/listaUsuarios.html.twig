@@ -18,7 +18,7 @@
                     <td>{{ usuario.username }}</td>
                     <td>{{ usuario.password }}</td>
                     <td>{{ usuario.rol }}</td>
-                    <td><a href="{{ path('_eliminarUsuario', { 'usuario': usuario }) }}" class="btn btn-default glyphicon glyphicon-erase"></a></td>
+                    <td><a href="{{ path('_eliminarUsuario', { 'id': usuario.id }) }}" class="btn btn-default glyphicon glyphicon-erase"></a></td>
                 </tr>
             {% endfor %}
         </tbody>

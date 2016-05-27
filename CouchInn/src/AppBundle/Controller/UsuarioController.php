@@ -97,21 +97,24 @@ class UsuarioController extends Controller
 
     /**
      * Deletes a Usuario entity.
-     * @Route("/eliminar", name="_eliminarUsuario")
-     * @ParamConverter("usuario", class="AppBundle:Usuario", )
+     * @Route("/eliminar/{id}", name="_eliminarUsuario")
      */
-    public function deleteAction(Request $request, Usuario $usuario)
+    public function deleteAction(Request $request,$id)
     {
-        $form = $this->createDeleteForm($usuario);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+	
+
+	$form = $this->createDeleteForm($id);
+        $form->handleRequest($request);
+	if (!empty($id)){
             $em = $this->getDoctrine()->getManager();
-            $em->remove($usuario);
+		$usuario=$em->getRepository("AppBundle:Usuario")->find($id);            
+		$em->remove($usuario);
             $em->flush();
+		return $this->redirectToRoute('_hecho');
         }
 
-        return $this->redirectToRoute('_hecho');
+       return $this->redirectToRoute('_listaDeUsuarios');
     }
 
     /**
@@ -121,10 +124,10 @@ class UsuarioController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Usuario $usuario)
+    private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('_eliminarUsuario', array('id' => $usuario->getId())))
+            ->setAction($this->generateUrl('_eliminarUsuario', array('id' => $id)))
             ->setMethod('DELETE')
             ->getForm()
         ;
