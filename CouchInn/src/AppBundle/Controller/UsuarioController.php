@@ -97,24 +97,25 @@ class UsuarioController extends Controller
 
     /**
      * Deletes a Usuario entity.
-     *
+     * @Route("/eliminar/{id}", name="_eliminarUsuario")
      */
-    public function deleteAction(Request $request, Usuario $usuario)
+    public function deleteAction(Request $request, $id)
     {
+        $usuario = $this->getDoctrine()->getRepository('AppBundle:Usuario')->find($id);
         $form = $this->createDeleteForm($usuario);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
+        if (!empty($usuario)) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($usuario);
             $em->flush();
+            return $this->render(':default:hecho.html.twig');
         }
 
-        return $this->redirectToRoute('usuario_index');
+        return $this->redirectToRoute('_listaDeUsuarios');
     }
 
     /**
-     * Creates a form to delete a Usuario entity.
+     * Creates a form to elete a Usuario entity.
      *
      * @param Usuario $usuario The Usuario entity
      *
@@ -123,10 +124,9 @@ class UsuarioController extends Controller
     private function createDeleteForm(Usuario $usuario)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('usuario_delete', array('id' => $usuario->getId())))
+            ->setAction($this->generateUrl('_eliminarUsuario', array('id' => $usuario->getId())))
             ->setMethod('DELETE')
             ->getForm()
             ;
-    }
     }
 }

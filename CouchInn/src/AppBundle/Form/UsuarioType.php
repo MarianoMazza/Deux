@@ -21,10 +21,10 @@ class UsuarioType extends BaseType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->remove('email')
             ->add('pregunta', TextType::class, ['label'=>'Pregunta secreta: '])
             ->add('respuesta', TextType::class, ['label'=>'Respuesta: '])
             ->add('fechaDeNacimiento', DateType::class)
-            ->add('edad', NumberType::class, ['label'=>'Su edad: '])
             ->add('pais', CountryType::class)
             ->add('provincia', TextType::class)
             ->add('localidad', TextType::class)

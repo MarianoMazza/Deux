@@ -39,12 +39,6 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      */
     private $fechaDeNacimiento;
     /**
-     * @ORM\Column(type="integer")
-     * @Assert\GreaterThanOrEqual(18)
-     * @Assert\LessThan(100)
-     */
-    private $edad;
-    /**
      * @ORM\Column(type="string")
      * @Assert\Country()
      */
@@ -224,29 +218,6 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     public function getRespuesta()
     {
         return $this->respuesta;
-    }
-
-    /**
-     * Set rol
-     *
-     * @param integer $rol
-     * @return Usuario
-     */
-    public function setRol($rol)
-    {
-        $this->rol = $rol;
-
-        return $this;
-    }
-
-    /**
-     * Get rol
-     *
-     * @return integer 
-     */
-    public function getRol()
-    {
-        return $this->rol;
     }
 
     /**
