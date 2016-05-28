@@ -18,27 +18,28 @@ class UsuarioController extends Controller
 {
     /**
      * Lists all Usuario entities.
-     * @Route("/usuarios", name="_listaDeUsuarios")
+     * @Route("/admin/usuarios", name="_listaDeUsuarios")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
         $usuarios = $em->getRepository('AppBundle:Usuario')->findAll();
-        return $this->render(':default/usuario:listaUsuarios.html.twig', array(
+        return $this->render(':default/administrador:listaUsuarios.html.twig', array(
             'usuarios' => $usuarios,
         ));
     }
 
     /**
      * Finds and displays a Usuario entity.
-     *
+     * @Route("/miperfil", name="_miperfil")
      */
-    public function showAction(Usuario $usuario)
+    public function showAction()
     {
+        $usuario = $this->getUser();
         $deleteForm = $this->createDeleteForm($usuario);
 
-        return $this->render('usuario/show.html.twig', array(
+        return $this->render(':default/usuario:perfil.html.twig', array(
             'usuario' => $usuario,
             'delete_form' => $deleteForm->createView(),
         ));

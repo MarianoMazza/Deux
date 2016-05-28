@@ -1,12 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block menu %}
-{% endblock %}
+{% block panelhead %}Publicar{% endblock %}
 
-{% block seccioncentro %}
-    <div class="well well-sm" style="text-align: left; color: #0f0f0f">
-        {{ form_start(form) }}
-        {{ form_row(form) }}
-        {{ form_end(form) }}
-    </div>
+{% block panelbody %}
+    {{ form_start(form) }}
+    {{ form_row(form) }}
+    {{ form_end(form) }}
 {% endblock %}

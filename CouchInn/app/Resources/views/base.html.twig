@@ -27,33 +27,7 @@
         {% block body %}
 
             {% block menu %}
-                <nav class="navbar navbar-static-top" role="navigation" style="padding: 50px 100px">
-                    <div class="navbar-header btn-group">
-                        {% block menupublico %}
-                            <a href="{{ path('_home') }}" class="btn btn-primary">Home</a>
-                            <a href="{{ path('_listaPubli') }}" class="btn btn-default">Publicaciones</a>
-                            <a href="{{ path('_listaDeUsuarios') }}" class="btn btn-default">Usuarios</a>
-                            <a href="#" class="btn btn-default">Contacto</a>
-                        {% endblock %}
-                    </div>
-                    {% block menuusuario %}
-                        <div class="dropdown navbar-right">
-                            {% if is_granted('ROLE_USER') %}
-                                <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                    <span class="glyphicon glyphicon-chevron-down"></span> Mi perfil
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Ver mi informacion</a></li>
-                                    <li><a href="{{ path('_modificar') }}">Modificar mi Perfil</a></li>
-                                    <li><a href="{{ path('fos_user_security_logout') }}">Cerrar Sesión</a></li>
-                                </ul>
-                            {% else %}
-                                <a href="{{ path('fos_user_security_login') }}" class="btn btn-success">Iniciar Sesión</a>
-                                <a href="{{ path('fos_user_registration_register') }}" class="btn btn-danger">Registrarme</a>
-                            {% endif %}
-                        </div>
-                    {% endblock %}
-                </nav>
+                {% include ':default:menu.html.twig' %}
             {% endblock %}
 
             {% block seccion %}

@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\LocaleType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,7 +25,7 @@ class PublicacionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('descripcion',TextType::class)
+            ->add('descripcion',TextareaType::class)
             ->add('fechaDePublicacion',DateType::class)
             ->add('costo',IntegerType::class)
             ->add('fechaDisponible', DateType::class)
@@ -35,8 +36,8 @@ class PublicacionType extends AbstractType
             ->add('calle',TextType::class)
             ->add('usuario',IntegerType::class)
             ->add('tipo', TextType::class)
-            ->add('Adjuntar Foto',SubmitType::class)
-            ->add('Agregar Publicacion',SubmitType::class)
+            ->add('adjuntarFoto', FileType::class)
+            ->add('agregarPublicacion',SubmitType::class)
         ;
     }
     

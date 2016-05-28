@@ -19,7 +19,7 @@ class PublicacionController extends Controller
 {
     /**
      * Lists all Publicacion entities.
-     * @Route("/publicaciones", name="_listaPubli")
+     * @Route("/home/publicaciones", name="_listaPubli")
      */
     public function indexAction()
     {
@@ -27,13 +27,13 @@ class PublicacionController extends Controller
 
         $publicaciones = $em->getRepository('AppBundle:Publicacion')->findAll();
 
-        return $this->render(':default:publicaciones.html.twig', array(
+        return $this->render(':default/publicacion:publicaciones.html.twig', array(
             'publicaciones' => $publicaciones,
         ));
     }
 
     /**
-     * @Route("/altaPublicacion", name="_altaPubli")
+     * @Route("/home/altaPublicacion", name="_altaPubli")
      */
     public function newAction(Request $request)
     {
@@ -47,10 +47,10 @@ class PublicacionController extends Controller
             $em->persist($publicacion);
             $em->flush();
 
-            return $this->redirectToRoute('yes_show', array('id' => $publicacion->getId()));
+            return $this->redirectToRoute('_hecho', array('id' => $publicacion->getId()));
         }
 
-        return $this->render(':default:altaPubli.html.twig', array(
+        return $this->render(':default/publicacion:altaPubli.html.twig', array(
             'publicacion' => $publicacion,
             'form' => $form->createView(),
         ));
