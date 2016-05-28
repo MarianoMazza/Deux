@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -29,6 +30,7 @@ class UsuarioType extends BaseType
             ->add('provincia', TextType::class)
             ->add('localidad', TextType::class)
             ->add('calle', TextType::class)
+            ->add('submit', SubmitType::class, ['label'=>'Aceptar'])
         ;
     }
 
