@@ -10,31 +10,21 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraints as Assert;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity
  * @ORM\Table(name="usuarios")
  */
-class Usuario implements UserInterface, \Serializable
+class Usuario extends BaseUser implements UserInterface, \Serializable
 {
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-    /**
-     * @ORM\Column(type="string", unique=true, length=10)
-     * @Assert\NotBlank()
-     */
-    private $username;
-    /**
-     * @ORM\Column(type="string", length=10)
-     * @Assert\NotBlank()
-     */
-    private $password;
+    protected $id;
     /**
      * @ORM\Column(type="string", length=30)
      */
@@ -44,21 +34,10 @@ class Usuario implements UserInterface, \Serializable
      */
     private $respuesta;
     /**
-     * @ORM\Column(type="integer")
-     * @Assert\Choice({1,2,3})
-     */
-    private $rol;
-    /**
      * @ORM\Column(type="date")
      * @Assert\Date()
      */
     private $fechaDeNacimiento;
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\GreaterThanOrEqual(18)
-     * @Assert\LessThan(100)
-     */
-    private $edad;
     /**
      * @ORM\Column(type="string")
      * @Assert\Country()
@@ -66,7 +45,6 @@ class Usuario implements UserInterface, \Serializable
     private $pais;
     /**
      * @ORM\Column(type="string")
-     * @Assert\Locale()
      */
     private $provincia;
     /**
@@ -78,7 +56,7 @@ class Usuario implements UserInterface, \Serializable
      */
     private $calle;
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CalificacionPublicacion", mappedBy="usuario")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Publicacion", mappedBy="usuario")
      */
     private $publicaciones;
     /**
@@ -101,66 +79,4 @@ class Usuario implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Pago", mappedBy="usuario")
      */
     private $pagos;
-    /**
-     * @ORM\Column(name="is_active", type="boolean")
-     */
-    private $isActive;
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->publicaciones = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->calificaciones = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->misCalificacionesAUsuarios = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->misCalificacionesAPublicaciones = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->misComentarios = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->pagos = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->isActive = true;
-    }
-
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    public function getSalt()
-    {
-        return null;
-    }
-
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-
-    public function getRoles()
-    {
-        return array('ROLE_USER');
-    }
-
-    public function eraseCredentials()
-    {
-    }
-
-    /** @see \Serializable::serialize() */
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->username,
-            $this->password,
-        ));
-    }
-
-    /** @see \Serializable::unserialize() */
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->username,
-            $this->password,
-            ) = unserialize($serialized);
-    }
 }

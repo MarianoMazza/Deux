@@ -16,6 +16,15 @@ use FOS\UserBundle\Model\User as BaseUser;
 /**
  * @ORM\Entity
  * @ORM\Table(name="usuarios")
+ *
+ * @ORM\AttributeOverrides({
+ *     @ORM\AttributeOverride(name="email",
+ *          column=@ORM\Column(name="email", type="string", length=50, unique=false, nullable=true)
+ *      ),
+ *     @ORM\AttributeOverride(name="emailCanonical",
+ *         column=@ORM\Column(name="emailCanonical", type="string", length=50, unique=false, nullable=true)
+ *     )
+ * })
  */
 class Usuario extends BaseUser implements UserInterface, \Serializable
 {
@@ -26,11 +35,11 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      */
     protected $id;
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string")
      */
     private $pregunta;
     /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string")
      */
     private $respuesta;
     /**
@@ -48,11 +57,11 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      */
     private $provincia;
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=30)
      */
     private $localidad;
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=30)
      */
     private $calle;
     /**
@@ -79,9 +88,7 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Pago", mappedBy="usuario")
      */
     private $pagos;
-    /**
-     * Constructor
-     */
+
     public function __construct()
     {
         parent::__construct();
@@ -91,87 +98,7 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
         $this->misCalificacionesAPublicaciones = new \Doctrine\Common\Collections\ArrayCollection();
         $this->misComentarios = new \Doctrine\Common\Collections\ArrayCollection();
         $this->pagos = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    public function getSalt()
-    {
-        return null;
-    }
-
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-
-    public function getRoles()
-    {
-        return array('ROLE_USER');
-    }
-
-    public function eraseCredentials()
-    {
-    }
-
-    /** @see \Serializable::serialize() */
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->username,
-            $this->password,
-        ));
-    }
-
-    /** @see \Serializable::unserialize() */
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->username,
-            $this->password,
-            ) = unserialize($serialized);
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set username
-     *
-     * @param string $username
-     * @return Usuario
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return Usuario
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
+        $this->addRole('ROLE_USER');
     }
 
     /**
@@ -241,29 +168,6 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     public function getFechaDeNacimiento()
     {
         return $this->fechaDeNacimiento;
-    }
-
-    /**
-     * Set edad
-     *
-     * @param integer $edad
-     * @return Usuario
-     */
-    public function setEdad($edad)
-    {
-        $this->edad = $edad;
-
-        return $this;
-    }
-
-    /**
-     * Get edad
-     *
-     * @return integer 
-     */
-    public function getEdad()
-    {
-        return $this->edad;
     }
 
     /**
@@ -359,35 +263,12 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     }
 
     /**
-     * Set isActive
-     *
-     * @param boolean $isActive
-     * @return Usuario
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-
-        return $this;
-    }
-
-    /**
-     * Get isActive
-     *
-     * @return boolean 
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
-    }
-
-    /**
      * Add publicaciones
      *
-     * @param \AppBundle\Entity\CalificacionPublicacion $publicaciones
+     * @param \AppBundle\Entity\Publicacion $publicaciones
      * @return Usuario
      */
-    public function addPublicacione(\AppBundle\Entity\CalificacionPublicacion $publicaciones)
+    public function addPublicacione(\AppBundle\Entity\Publicacion $publicaciones)
     {
         $this->publicaciones[] = $publicaciones;
 
@@ -397,9 +278,9 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     /**
      * Remove publicaciones
      *
-     * @param \AppBundle\Entity\CalificacionPublicacion $publicaciones
+     * @param \AppBundle\Entity\Publicacion $publicaciones
      */
-    public function removePublicacione(\AppBundle\Entity\CalificacionPublicacion $publicaciones)
+    public function removePublicacione(\AppBundle\Entity\Publicacion $publicaciones)
     {
         $this->publicaciones->removeElement($publicaciones);
     }
@@ -578,4 +459,5 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     {
         return $this->pagos;
     }
+
 }

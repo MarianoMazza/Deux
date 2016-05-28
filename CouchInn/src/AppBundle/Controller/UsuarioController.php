@@ -26,75 +26,12 @@ class UsuarioController extends Controller
 
         $usuarios = $em->getRepository('AppBundle:Usuario')->findAll();
 
+        dump($usuarios);die;
         return $this->render(':default:listaUsuarios.html.twig', array(
             'usuarios' => $usuarios,
         ));
     }
-
-    /**
-     * Creates a new Usuario entity.
-     * @Route("/registro", name="_registro")
-     */
-    public function newAction(Request $request)
-    {
-        $usuario = new Usuario();
-        $usuario->setRol('ROLE_ADMIN');
-        $form = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($usuario);
-            $em->flush();
-
-            return $this->redirectToRoute('_hecho', array('id' => $usuario->getId()));
-        }
-
-        return $this->render(':default:registro.html.twig', array(
-            'usuario' => $usuario,
-            'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a Usuario entity.
-     *
-     */
-    public function showAction(Usuario $usuario)
-    {
-        $deleteForm = $this->createDeleteForm($usuario);
-
-        return $this->render('usuario/show.html.twig', array(
-            'usuario' => $usuario,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
-     * Displays a form to edit an existing Usuario entity.
-     *
-     */
-    public function editAction(Request $request, Usuario $usuario)
-    {
-        $deleteForm = $this->createDeleteForm($usuario);
-        $editForm = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($usuario);
-            $em->flush();
-
-            return $this->redirectToRoute('user_edit', array('id' => $usuario->getId()));
-        }
-
-        return $this->render('usuario/edit.html.twig', array(
-            'usuario' => $usuario,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
+    
     /**
      * Deletes a Usuario entity.
      * @Route("/eliminar/{id}", name="_eliminarUsuario")
