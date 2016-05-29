@@ -34,11 +34,4 @@ class DefaultController extends Controller
     public function succesAction(){
         return $this->render(':default:hecho.html.twig');
     }
-
-    /**
-     * @Route("/confirmacion", name="_confirmacion")
-     */
-    public function confirmAction(){
-        return $this->render(':default:confirmacion.html.twig');
-    }
 }

@@ -2,7 +2,6 @@
 
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,10 +11,22 @@ use AppBundle\Form\UsuarioType;
 
 /**
  * Usuario controller.
- *
  */
 class UsuarioController extends Controller
 {
+    /**
+     * @Route("/recoveryPass", name="_recoveryPass")
+     */
+    public function recoverPassAction(Request $request)
+    {
+        $usuario = $this->getDoctrine()->getRepository('AppBundle:Usuario')->findOneBy(['username'=>'admin']);
+        $random = random_int(11111,99999);
+        $usuario->setPassword((string)$random);
+        return $this->render(':default/usuario:recoverPass.html.twig', [
+            'admin'=>$usuario
+        ]);
+    }
+
     /**
      * Lists all Usuario entities.
      * @Route("/admin/usuarios", name="_listaDeUsuarios")
