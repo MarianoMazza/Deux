@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block panelhead %}Lista de Usuarios registrados{% endblock %}
+
+{% block panelbody %}
+    <table class="table table-striped" style="color: #0f0f0f">
+        <thead>
+            <tr>
+                <th>Nombre de Usuario</th>
+                <th>Contraseña</th>
+                <th>Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario.username }}</td>
+                    <td>{{ usuario.password }}</td>
+                    <td><a href="{{ path('_eliminarUsuario', { 'id': usuario.id }) }}" class="btn btn-default glyphicon glyphicon-erase"></a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

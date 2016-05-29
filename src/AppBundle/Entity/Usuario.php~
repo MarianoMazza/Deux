@@ -1,0 +1,82 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: alephzero
+ * Date: 22/05/16
+ * Time: 20:50
+ */
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use FOS\UserBundle\Model\User as BaseUser;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="usuarios")
+ */
+class Usuario extends BaseUser implements UserInterface, \Serializable
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id()
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    /**
+     * @ORM\Column(type="string", length=30)
+     */
+    private $pregunta;
+    /**
+     * @ORM\Column(type="string", length=15)
+     */
+    private $respuesta;
+    /**
+     * @ORM\Column(type="date")
+     * @Assert\Date()
+     */
+    private $fechaDeNacimiento;
+    /**
+     * @ORM\Column(type="string")
+     * @Assert\Country()
+     */
+    private $pais;
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $provincia;
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $localidad;
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $calle;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Publicacion", mappedBy="usuario")
+     */
+    private $publicaciones;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CalificacionUsuario", mappedBy="paraUsuario")
+     */
+    private $calificaciones;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CalificacionUsuario", mappedBy="deUsuario")
+     */
+    private $misCalificacionesAUsuarios;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\CalificacionPublicacion", mappedBy="deUsuario")
+     */
+    private $misCalificacionesAPublicaciones;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comentario", mappedBy="deUsuario")
+     */
+    private $misComentarios;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Pago", mappedBy="usuario")
+     */
+    private $pagos;
+}
