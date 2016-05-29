@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block panelhead %}
+    Publicaciones<br>
+    <a href="{{ path('_altaPubli') }}" class="btn btn-primary">Agregar Publicacion</a>
+{% endblock %}
+
+{% block panelbody %}
+    <table class="table table-striped" style="color: #0f0f0f">
+        <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Descripcion</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for publicacion in publicaciones %}
+            <tr>
+                <td>{{ publicacion.usuario }}</td>
+                <td>{{ publicacion.descripcion }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
