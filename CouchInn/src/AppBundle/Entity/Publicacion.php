@@ -387,7 +387,11 @@ class Publicacion
      */
     public function getFotos()
     {
-        return $this->fotos;
+        $fotos = $this->getDoctrine()
+            ->getRepository('AppBundle:Foto')
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        return $fotos;
     }
 
     /**
@@ -420,7 +424,11 @@ class Publicacion
      */
     public function getCalificaciones()
     {
-        return $this->calificaciones;
+        $calificacion = $this->getDoctrine()
+            ->getRepository('AppBundle:CalificacionPublicacion')
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        return $calificacion;
     }
 
     /**
@@ -453,6 +461,10 @@ class Publicacion
      */
     public function getComentarios()
     {
-        return $this->comentarios;
+        $comentarios = $this->getDoctrine()
+            ->getRepository('AppBundle:Comentario')
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        return $comentarios;
     }
 }

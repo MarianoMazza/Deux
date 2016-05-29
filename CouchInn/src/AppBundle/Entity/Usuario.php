@@ -292,7 +292,13 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      */
     public function getPublicaciones()
     {
-        return $this->publicaciones;
+        $publicaciones = $this->getDoctrine()
+            ->getRepository('AppBundle:Publicacion')
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        return $publicaciones;
+        //   $products = $repository->findAll();
+        //return $this->$publicaciones;
     }
 
     /**
@@ -358,7 +364,11 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      */
     public function getMisCalificacionesAUsuarios()
     {
-        return $this->misCalificacionesAUsuarios;
+        $misCalificacionesAUsuarios = $this->getDoctrine()
+            ->getRepository('AppBundle:CalificacionUsuario')
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        return $misCalificacionesAUsuarios;
     }
 
     /**
@@ -391,7 +401,11 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      */
     public function getMisCalificacionesAPublicaciones()
     {
-        return $this->misCalificacionesAPublicaciones;
+        $calificacionPublicacion = $this->getDoctrine()
+            ->getRepository('AppBundle:CalificacionPublicacion')
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        return $calificacionPublicacion;
     }
 
     /**
@@ -424,7 +438,11 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      */
     public function getMisComentarios()
     {
-        return $this->misComentarios;
+        $comentarios = $this->getDoctrine()
+            ->getRepository('AppBundle:Comentario')
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        return $comentarios;
     }
 
     /**
@@ -457,7 +475,11 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      */
     public function getPagos()
     {
-        return $this->pagos;
+        $pagos = $this->getDoctrine()
+            ->getRepository('AppBundle:Pago')
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        return $pagos;
     }
 
 }
