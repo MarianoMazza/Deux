@@ -1,5 +1,45 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
-{% block fos_user_content %}
-{% include "FOSUserBundle:Profile:show_content.html.twig" %}
-{% endblock fos_user_content %}
+{% block panelhead %}Mi perfil <a href="{{ path('fos_user_profile_edit') }}" class="glyphicon glyphicon-edit"></a>{% endblock %}
+
+{% block panelbody %}
+    <h4>Información Personal</h4>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Nombre de Usuario</th>
+            <th>Pais</th>
+            <th>Provincia</th>
+            <th>Localidad</th>
+            <th>Calle</th>
+            <th>Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ user.pais }}</td>
+            <td>{{ user.provincia }}</td>
+            <td>{{ user.localidad }}</td>
+            <td>{{ user.calle }}</td>
+            <td>{{ user.email }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h4>Recuperación de contraseña</h4>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Pregunta</th>
+            <th>Respuesta</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ user.pregunta }}</td>
+            <td>{{ user.respuesta }}</td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

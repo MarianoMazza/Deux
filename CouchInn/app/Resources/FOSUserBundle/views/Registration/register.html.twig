@@ -3,5 +3,9 @@
 {% block panelhead %}Registro{% endblock %}
 
 {% block fos_user_content %}
-    {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+    {% if is_granted('ROLE_USER') == false %}
+        {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+    {% else %}
+        Usted ya ha iniciado sesión, si desea registrar otra cuenta, deberá cerrar sesión y volver a intentarlo.
+    {% endif %}
 {% endblock fos_user_content %}

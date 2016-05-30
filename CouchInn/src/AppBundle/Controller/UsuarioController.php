@@ -22,6 +22,11 @@ class UsuarioController extends Controller
         $usuario = $this->getDoctrine()->getRepository('AppBundle:Usuario')->findOneBy(['username'=>'admin']);
         $random = random_int(11111,99999);
         $usuario->setPassword((string)$random);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($usuario);
+        $em->flush();
+
         return $this->render(':default/usuario:recoverPass.html.twig', [
             'admin'=>$usuario
         ]);
@@ -62,7 +67,7 @@ class UsuarioController extends Controller
      */
     public function editAction(Request $request)
     {
-        $usuario = $this->getUser();
+        $usuario = $usuario = $this->getDoctrine()->getRepository('AppBundle:Usuario')->find($this->getUser()->getId());
         $deleteForm = $this->createDeleteForm($usuario);
         $editForm = $this->createForm('AppBundle\Form\UsuarioType', $usuario);
         $editForm->handleRequest($request);
@@ -75,6 +80,7 @@ class UsuarioController extends Controller
             return $this->redirectToRoute('_hecho', array('id' => $usuario->getId()));
         }
 
+        $editForm->remove('plainPassword');
         return $this->render(':default/usuario:modificarInformacion.html.twig', array(
             'usuario' => $usuario,
             'edit_form' => $editForm->createView(),
