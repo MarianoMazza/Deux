@@ -13,8 +13,8 @@
                     <span class="glyphicon glyphicon-chevron-down"></span> Mi perfil
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{ path('_miperfil') }}">Ver mi perfil</a></li>
-                    <li><a href="{{ path('_modificar') }}">Modificar mi Perfil</a></li>
+                    <li><a href="{{ path('fos_user_profile_show') }}">Ver mi perfil</a></li>
+                    <li><a href="{{ path('fos_user_change_password') }}">Cambiar mi contraseña</a></li>
                     <li><a href="{{ path('fos_user_security_logout') }}">Cerrar Sesión</a></li>
                 </ul>
             {% else %}

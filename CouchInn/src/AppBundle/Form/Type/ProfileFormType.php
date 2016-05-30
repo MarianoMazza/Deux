@@ -1,26 +1,34 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: alephzero
+ * Date: 30/05/16
+ * Time: 08:19
+ */
 
-namespace AppBundle\Form;
+namespace AppBundle\Form\Type;
 
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
+use FOS\UserBundle\Form\Type\ProfileFormType as BaseType;
 
-class UsuarioType extends BaseType
+class ProfileFormType extends BaseType
 {
     private $class;
 
     /**
+     * Builds the embedded form representing the user.
+     *
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    protected function buildUserForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('email')
             ->add('pregunta', TextType::class, ['label'=>'Pregunta secreta: '])
             ->add('respuesta', TextType::class, ['label'=>'Respuesta: '])
             ->add('fechaDeNacimiento', DateType::class)
@@ -28,7 +36,6 @@ class UsuarioType extends BaseType
             ->add('provincia', TextType::class)
             ->add('localidad', TextType::class)
             ->add('calle', TextType::class)
-            ->add('submit', SubmitType::class, ['label'=>'Aceptar'])
         ;
     }
 
@@ -47,14 +54,9 @@ class UsuarioType extends BaseType
         ));
     }
 
-    public function getParent()
-    {
-        return 'FOS\UserBundle\Form\Type\RegistrationFormType';
-    }
-
     public function getBlockPrefix()
     {
-        return 'app_user_registration';
+        return 'app_user_profile';
     }
 
     public function getName()

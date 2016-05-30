@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block panelbody %}
-    <div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div>
 
-    </div>
+        </div>
+    {% endif %}
 {% endblock %}

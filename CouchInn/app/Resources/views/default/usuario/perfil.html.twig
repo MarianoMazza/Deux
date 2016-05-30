@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block panelhead %}Mi perfil{% endblock %}
+{% block panelhead %}Mi perfil <a href="{{ path('fos_user_profile_edit') }}" class="glyphicon glyphicon-edit"></a>{% endblock %}
 
 {% block panelbody %}
     <h4>Información Personal</h4>

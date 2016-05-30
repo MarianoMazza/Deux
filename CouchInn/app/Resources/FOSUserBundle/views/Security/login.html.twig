@@ -28,6 +28,10 @@
                 <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
             </div>
 
+            <div>
+                <a href="{{ path('fos_user_resetting_request') }}" style="color: white">Recuperar mi contraseña</a>
+            </div>
+
             <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
         </form>
     {% else %}

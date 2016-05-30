@@ -102,6 +102,10 @@ class TipoHospedaje
      */
     public function getPublicaciones()
     {
-        return $this->publicaciones;
+        $publicacion = $this->getDoctrine()
+            ->getRepository('AppBundle:Publicacion')
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+        return $publicacion;
     }
 }

@@ -50,7 +50,7 @@ class PublicacionController extends Controller
             return $this->redirectToRoute('_hecho', array('id' => $publicacion->getId()));
         }
 
-        return $this->render(':default:altaPubli.html.twig', array(
+        return $this->render(':default/publicacion:altaPubli.html.twig', array(
             'publicacion' => $publicacion,
             'form' => $form->createView(),
         ));

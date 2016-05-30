@@ -13,3 +13,9 @@ services:
         arguments: [ "%%fos_user.model.user.class%%" ]
         tags:
             - { name: form.type, alias: app_user_registration }
+
+    app.form.profile:
+        class: AppBundle\Form\Type\ProfileFormType
+        arguments: [ "%%%fos_user.profile.form.type%%%" ]
+        tags:
+            - { name: form.type, alias: app_user_profile }
