@@ -126,4 +126,5 @@ class FotoController extends Controller
             ->getForm()
         ;
     }
+
 }

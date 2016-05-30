@@ -99,6 +99,21 @@ class Publicacion
      *
      * @return integer 
      */
+public function getAdjuntarFoto(){
+
+}
+public function adjuntarFoto(){
+
+}
+public function isAdjuntarFoto(){
+
+}
+public function hasAdjuntarFoto(){
+
+}
+public function __get($arg){
+
+}
     public function getId()
     {
         return $this->id;
