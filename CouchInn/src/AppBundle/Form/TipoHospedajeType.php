@@ -3,7 +3,11 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Tests\Fixtures\ChoiceSubType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TipoHospedajeType extends AbstractType
@@ -15,8 +19,8 @@ class TipoHospedajeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tipo')
-        ;
+            ->add('tipo', TextType::class)
+            ->add('Aceptar', 'submit' , array('label' => 'Guardar'));
     }
     
     /**

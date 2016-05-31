@@ -45,10 +45,11 @@ class TipoHospedajeController extends Controller
             $em->persist($tipoHospedaje);
             $em->flush();
 
-            return $this->redirectToRoute('yes_show', array('id' => $tipoHospedaje->getId()));
+            return $this->redirectToRoute('_hecho', array('id' => $tipoHospedaje->getId()));
+
         }
 
-        return $this->render('default/publicacion/tipoHospedaje.html.twig', array(
+        return $this->render('default/publicacion/altaTipoHospedaje.html.twig', array(
             'tipoHospedaje' => $tipoHospedaje,
             'form' => $form->createView(),
         ));
