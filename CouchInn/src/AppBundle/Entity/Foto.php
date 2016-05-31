@@ -11,13 +11,25 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="fotos")
+ * @ORM\HasLifecycleCallbacks
  */
+
+
 class Foto
 {
+    /**
+     * Image path
+     *
+     * @var string
+     *
+     * @ORM\Column(type="text", length=255, nullable=false)
+     */
+    private $path;
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id()
@@ -25,8 +37,16 @@ class Foto
      */
     private $id;
     /**
-     * @ORM\Column(type="string")
-     * @Assert\Image()
+     * Image foto
+     *
+     * @var File
+     *
+     * @Assert\File(
+     *     maxSize = "5M",
+     *     mimeTypes = {"image/jpeg", "image/gif", "image/png", "image/tiff"},
+     *     maxSizeMessage = "El tamaño máximo permitido es 5MB.",
+     *     mimeTypesMessage = "Solo se permiten determinados tipos de imágen."
+     * )
      */
     private $foto;
     /**
@@ -38,8 +58,20 @@ class Foto
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
     public function getId()
     {
         return $this->id;
@@ -51,7 +83,7 @@ class Foto
      * @param string $foto
      * @return FotoController
      */
-    public function setFoto($foto)
+    public function setFoto(UploadedFile $foto = null)
     {
         $this->foto = $foto;
 
@@ -61,7 +93,7 @@ class Foto
     /**
      * Get foto
      *
-     * @return string 
+     * @return string
      */
     public function getFoto()
     {
@@ -84,10 +116,27 @@ class Foto
     /**
      * Get publicacion
      *
-     * @return \AppBundle\Entity\Publicacion 
+     * @return \AppBundle\Entity\Publicacion
      */
     public function getPublicacion()
     {
         return $this->publicacion;
+    }
+    // La propiedad ruta almacena la ruta relativa al archivo y se persiste en la base de datos.
+    // El getAbsolutePath() es un método útil que devuelve la ruta absoluta al archivo,
+    // mientras que getWebPath() es un conveniente método que devuelve la ruta web, la cual se utiliza en una plantilla para enlazar el archivo cargado.
+    public function getAbsolutePath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadRootDir() . '/' . $this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path
+            ? null
+            : $this->getUploadDir() . '/' . $this->path;
+
     }
 }
