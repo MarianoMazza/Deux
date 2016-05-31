@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,14 +22,25 @@ class UsuarioType extends BaseType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('email', null, array('label' => 'Email:'))
+            ->add('username', null, array('label' => 'Nombre de usuario:'))
+            ->add('plainPassword', RepeatedType::class, array(
+                'type'=>'password',
+                'first_options' => array('label' => 'Contraseña: '),
+                'second_options' => array('label' => 'Repetir contraseña: '),
+                'invalid_message' => 'fos_user.password.mismatch',
+            ))
             ->add('pregunta', TextType::class, ['label'=>'Pregunta secreta: '])
             ->add('respuesta', TextType::class, ['label'=>'Respuesta: '])
-            ->add('fechaDeNacimiento', DateType::class)
-            ->add('pais', CountryType::class)
-            ->add('provincia', TextType::class)
-            ->add('localidad', TextType::class)
-            ->add('calle', TextType::class)
-            ->add('submit', SubmitType::class, ['label'=>'Aceptar'])
+            ->add('fechaDeNacimiento', DateType::class, [
+                'years'=>range(1940, 2016),
+                'label'=>'Fecha de nacimiento: ',
+            ])
+            ->add('pais', CountryType::class, ['label'=>'Pais: '])
+            ->add('provincia', TextType::class, ['label'=>'Provincia: '])
+            ->add('localidad', TextType::class, ['label'=>'Localidad: '])
+            ->add('calle', TextType::class, ['label'=>'Domicilio: '])
+            ->add('submit', SubmitType::class, ['label'=>'Registrarme: '])
         ;
     }
 
