@@ -2,10 +2,6 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-app_tipoH_alta:
-    resource: "@AppBundle/Controller/"
-    defaults: {_controller: AppBundle:TipoHospedaje:new}
-
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 fos_user_profile:

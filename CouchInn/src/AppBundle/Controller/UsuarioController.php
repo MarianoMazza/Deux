@@ -106,7 +106,7 @@ class UsuarioController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->remove($usuario);
                 $em->flush();
-                return $this->render(':default:hecho.html.twig');
+                return $this->redirectToRoute('_hecho');
             }
         } catch (Exception $e) {
             return $this->redirectToRoute('_error', [
