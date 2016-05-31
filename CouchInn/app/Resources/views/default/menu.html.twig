@@ -13,6 +13,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ path('fos_user_profile_show') }}">Ver mi perfil</a></li>
+                    <li><a href="{{ path('_pago') }}">Pagar Premium</a></li>
                     <li><a href="{{ path('fos_user_change_password') }}">Cambiar mi contraseña</a></li>
                     <li><a href="{{ path('fos_user_security_logout') }}">Cerrar Sesión</a></li>
                 </ul>
@@ -28,6 +29,8 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ path('_listaDeUsuarios') }}">Usuarios</a></li>
+                    <li><a href="{{ path('_tipoHospedaje') }}">Tipos de hospedaje</a></li>
+                    <li><a href="{{ path('_listaPubli') }}">Publicaciones</a></li>
                 </ul>
             {% endif %}
         </div>
