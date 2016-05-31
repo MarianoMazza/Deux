@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block panelhead %}Lista de Usuarios registrados{% endblock %}
+{% block panelhead %}
+    Lista de Usuarios<br>
+    (registrados: {{ cant }})
+{% endblock %}
 
 {% block panelbody %}
     <table class="table table-striped" style="color: #0f0f0f">

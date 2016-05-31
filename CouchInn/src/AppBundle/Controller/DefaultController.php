@@ -34,4 +34,14 @@ class DefaultController extends Controller
     public function succesAction(){
         return $this->render(':default:hecho.html.twig');
     }
+
+    /**
+     * @Route("/error/{err}", name="_error")
+     */
+    public function errorAction($err)
+    {
+        return $this->render(':default:error.html.twig', [
+            'error'=>$err
+        ]);
+    }
 }

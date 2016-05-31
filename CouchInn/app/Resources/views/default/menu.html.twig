@@ -3,7 +3,6 @@
         {% block menupublico %}
             <a href="{{ path('_index') }}" class="btn btn-primary">Pagina de inicio</a>
             <a href="{{ path('_listaPubli') }}" class="btn btn-default">Publicaciones</a>
-            <a href="#" class="btn btn-default">Contacto</a>
         {% endblock %}
     </div>
     {% block menuusuario %}
@@ -22,5 +21,16 @@
                 <a href="{{ path('fos_user_registration_register') }}" class="btn btn-danger">Registrarme</a>
             {% endif %}
         </div>
+        <div class="dropdown navbar-right">
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class="btn btn-success dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-chevron-down"></span>Backend
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ path('_listaDeUsuarios') }}">Usuarios</a></li>
+                </ul>
+            {% endif %}
+        </div>
+
     {% endblock %}
 </nav>

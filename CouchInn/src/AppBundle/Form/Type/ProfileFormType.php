@@ -28,14 +28,14 @@ class ProfileFormType extends BaseType
     protected function buildUserForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
+            ->add('email', null, ['label'=>'Email: '])
             ->add('pregunta', TextType::class, ['label'=>'Pregunta secreta: '])
             ->add('respuesta', TextType::class, ['label'=>'Respuesta: '])
-            ->add('fechaDeNacimiento', DateType::class)
-            ->add('pais', CountryType::class)
-            ->add('provincia', TextType::class)
-            ->add('localidad', TextType::class)
-            ->add('calle', TextType::class)
+            ->add('fechaDeNacimiento', DateType::class, ['label'=>'Fecha de Nacimiento: '])
+            ->add('pais', CountryType::class, ['label'=>'Pais: '])
+            ->add('provincia', TextType::class, ['label'=>'Provincia: '])
+            ->add('localidad', TextType::class, ['label'=>'Localidad: '])
+            ->add('calle', TextType::class, ['label'=>'Domicilio: '])
         ;
     }
 
