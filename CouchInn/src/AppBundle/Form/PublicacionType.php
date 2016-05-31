@@ -34,7 +34,6 @@ class PublicacionType extends AbstractType
             ->add('provincia',LocaleType::class)
             ->add('localidad',TextType::class)
             ->add('calle',TextType::class)
-            ->add('usuario',IntegerType::class)
             ->add('tipo', TextType::class)
             ->add('adjuntarFoto', FileType::class)
             ->add('agregarPublicacion',SubmitType::class)
