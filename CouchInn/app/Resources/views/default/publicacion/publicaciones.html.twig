@@ -11,6 +11,9 @@
         <tr>
             <th>Usuario</th>
             <th>Descripcion</th>
+            {% if is_granted('ROLE_ADMIN') %}
+                <th>Eliminar</th>
+            {% endif %}
         </tr>
         </thead>
         <tbody>
@@ -18,6 +21,9 @@
             <tr>
                 <td>{{ publicacion.usuario }}</td>
                 <td>{{ publicacion.descripcion }}</td>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td><a href="#" class="glyphicon glyphicon-erase"></a> </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>
