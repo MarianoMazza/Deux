@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Publicacion;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -26,11 +27,15 @@ class PublicacionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+<<<<<<< HEAD
+        
+=======
         $tipos = Publicacion::class->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->findAll();
         $opcionesTipo = [];
         foreach ( $tipos as $tipo){
         $opcionesTipo = [$opcionesTipo, 'id'=>$tipo->getId(), 'nombre'=>$tipo->getNombre()]
         }
+>>>>>>> dba773dd8ed22a56ee666aca208e57775d7c9831
         $builder
             ->add('descripcion',TextareaType::class)
             ->add('fechaDePublicacion',DateType::class)
@@ -41,7 +46,15 @@ class PublicacionType extends AbstractType
             ->add('provincia',LocaleType::class)
             ->add('localidad',TextType::class)
             ->add('calle',TextType::class)
+<<<<<<< HEAD
+            ->add('tipo','entity',
+                array('label' => 'TipoHospedaje: ',
+                    'class' => 'AppBundle:TipoHospedaje',
+                    'property' => 'tipo'))
+
+=======
             ->add('tipo', TextType::class) 
+>>>>>>> dba773dd8ed22a56ee666aca208e57775d7c9831
             ->add('adjuntarFoto', FileType::class)
             ->add('agregarPublicacion',SubmitType::class, $opcionesTipo)
         ;

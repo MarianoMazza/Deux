@@ -1,7 +1,10 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+<<<<<<< HEAD
+=======
 
+>>>>>>> dba773dd8ed22a56ee666aca208e57775d7c9831
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 fos_user_profile:
