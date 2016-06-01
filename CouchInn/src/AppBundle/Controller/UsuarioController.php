@@ -80,7 +80,7 @@ class UsuarioController extends Controller
 
     /**
      * Deletes a Usuario entity.
-     * @Route("/admin/eliminar/{id}", name="_eliminarUsuario")
+     * @Route("/admin/eliminarUsuario/{id}", name="_eliminarUsuario")
      */
     public function deleteAction(Request $request, $id)
     {

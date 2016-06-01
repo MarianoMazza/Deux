@@ -29,6 +29,7 @@ class PublicacionController extends Controller
 
         return $this->render(':default/publicacion:publicaciones.html.twig', array(
             'publicaciones' => $publicaciones,
+            'user' => $this->getUser(),
         ));
     }
 

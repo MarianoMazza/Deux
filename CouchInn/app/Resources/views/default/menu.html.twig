@@ -8,6 +8,7 @@
         {% endblock %}
     </div>
     {% block menuusuario %}
+
         <div class="dropdown navbar-right">
             {% if is_granted('ROLE_USER') %}
                 <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -24,15 +25,14 @@
                 <a href="{{ path('fos_user_registration_register') }}" class="btn btn-danger">Registrarme</a>
             {% endif %}
         </div>
-        <div class="dropdown navbar-right">
+        <div class="dropdown navbar-right" style="padding: 0px 10px">
             {% if is_granted('ROLE_ADMIN') %}
                 <a class="btn btn-success dropdown-toggle" data-toggle="dropdown">
                     <span class="glyphicon glyphicon-chevron-down"></span>Backend
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ path('_listaDeUsuarios') }}">Usuarios</a></li>
-                    <li><a href="{{ path('_tipoHospedaje') }}">Tipos de hospedaje</a></li>
-                    <li><a href="{{ path('_listaPubli') }}">Publicaciones</a></li>
+                    <li><a href="{{ path('_tipos') }}">Tipos de hospedaje</a></li>
                 </ul>
             {% endif %}
         </div>

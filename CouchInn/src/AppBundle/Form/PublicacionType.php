@@ -26,22 +26,21 @@ class PublicacionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $builder
             ->add('descripcion',TextareaType::class)
             ->add('fechaDePublicacion',DateType::class)
             ->add('costo',IntegerType::class)
-            ->add('fechaDisponible', DateType::class)
+            ->add('fechaDisponible',DateType::class)
             ->add('maxPersonas',IntegerType::class)
             ->add('pais',CountryType::class)
-            ->add('provincia',LocaleType::class)
+            ->add('provincia',TextType::class)
             ->add('localidad',TextType::class)
             ->add('calle',TextType::class)
             ->add('tipo','entity',
                 array('label' => 'TipoHospedaje: ',
                     'class' => 'AppBundle:TipoHospedaje',
                     'property' => 'tipo'))
-            ->add('adjuntarFoto', FileType::class)
+            ->add('adjuntarFoto',FileType::class)
             ->add('agregarPublicacion',SubmitType::class)
         ;
     }
