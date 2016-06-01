@@ -19,7 +19,9 @@ class PublicacionController extends Controller
 {
     /**
      * Lists all Publicacion entities.
-     * @Route("/home/publicaciones", name="_listaPubli")
+     * @Route("/home/publica[
+                $opcionesTipo
+            ]ciones", name="_listaPubli")
      */
     public function indexAction()
     {
