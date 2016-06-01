@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -24,6 +25,7 @@ class PublicacionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        
         $builder
             ->add('descripcion',TextareaType::class)
             ->add('fechaDePublicacion',DateType::class)
@@ -34,7 +36,11 @@ class PublicacionType extends AbstractType
             ->add('provincia',LocaleType::class)
             ->add('localidad',TextType::class)
             ->add('calle',TextType::class)
-            ->add('tipo', TextType::class)
+            ->add('tipo','entity',
+                array('label' => 'TipoHospedaje: ',
+                    'class' => 'AppBundle:TipoHospedaje',
+                    'property' => 'tipo'))
+
             ->add('adjuntarFoto', FileType::class)
             ->add('agregarPublicacion',SubmitType::class)
         ;

@@ -18,6 +18,8 @@ class TipoHospedajeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        
         $builder
             ->add('tipo', TextType::class)
             ->add('Aceptar', 'submit' , array('label' => 'Guardar'));
