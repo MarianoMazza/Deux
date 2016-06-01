@@ -1,4 +1,3 @@
-
 <?php
 
 namespace AppBundle\Form;
@@ -27,6 +26,10 @@ class PublicacionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+<<<<<<< HEAD
+=======
+
+>>>>>>> a946ffd96bc0946bdbc7777b6b2f824d2edad219
         $builder
             ->add('descripcion',TextareaType::class)
             ->add('fechaDePublicacion',DateType::class)
