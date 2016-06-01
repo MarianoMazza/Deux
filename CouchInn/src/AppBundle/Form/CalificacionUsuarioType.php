@@ -18,9 +18,13 @@ class CalificacionUsuarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('calificacion',TextType::class)
+            ->add('calificacion','choice', array('choices' => array
+            ('1'   => 'Positivo','2' => 'Negativo',),'multiple' => false,))
             ->add('deUsuario',TextType::class)
-            ->add('paraUsuario',TextType::class)
+            ->add('paraUsuario','entity',
+                array('label' => 'CaificacionUsuario: ',
+                    'class' => 'AppBundle:Usuario',
+                    'property' => 'username'))
             ->add('Calificar',SubmitType::class)
         ;
     }

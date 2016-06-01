@@ -2,12 +2,14 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppBundle;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Entity\TipoHospedaje;
 use AppBundle\Form\TipoHospedajeType;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * TipoHospedaje controller.
@@ -70,11 +72,26 @@ class TipoHospedajeController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing TipoHospedaje entity.
      *
+     * @Route("/admin/modificarHospedaje/{id}", name= "_modificarHospedaje"))
      */
+  /*  public function editAction($id){
+        $em = $this-> getDoctrine()->getManager();
+        $hospedaje = $em-> getRepository('AppBundle:TipoHospedaje')->find($id);
+
+        if($hospedaje){
+            throw $this->createNotFoundException('El tipo de Hospedaje no existe');
+        }
+        $form=$this->createEditForm($hospedaje);
+
+        return $this->render(':default/administrador:editHospedaje.html.twig',array('hopedaje'=>$hospedaje,'form'=>$form->createView()));
+    }
+*/
+
+
     public function editAction(Request $request, TipoHospedaje $tipoHospedaje)
     {
+        $tipoHospedaje = $usuario = $this->getDoctrine()->getRepository('TipoHospedaje')->find($this->getUser()->getId());
         $deleteForm = $this->createDeleteForm($tipoHospedaje);
         $editForm = $this->createForm('AppBundle\Form\TipoHospedajeType', $tipoHospedaje);
         $editForm->handleRequest($request);
@@ -87,7 +104,7 @@ class TipoHospedajeController extends Controller
             return $this->redirectToRoute('yes_edit', array('id' => $tipoHospedaje->getId()));
         }
 
-        return $this->render('tipohospedaje/edit.html.twig', array(
+        return $this->render(':default/administrador:editHospedaje.html.twig', array(
             'tipoHospedaje' => $tipoHospedaje,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -96,21 +113,31 @@ class TipoHospedajeController extends Controller
 
     /**
      * Deletes a TipoHospedaje entity.
-     *
+     * @Route("/admin/eliminar/{id}", name="_eliminarTipoHospedaje")
      */
     public function deleteAction(Request $request, TipoHospedaje $tipoHospedaje)
     {
-        $form = $this->createDeleteForm($tipoHospedaje);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($tipoHospedaje);
-            $em->flush();
+        try {
+            $tipoHospedaje = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->find('id');
+            if ($tipoHospedaje->getRoles() == $this->getUser()->getRoles()){
+                throw new Exception ('Usted no tiene privilegios suficientes para realizar esta acción.');
+            }
+            $form = $this->createDeleteForm($tipoHospedaje);
+            $form->handleRequest($request);
+            if (!empty($tipoHospedaje)) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($tipoHospedaje);
+                $em->flush();
+                return $this->redirectToRoute('_hecho');
+            }
+        } catch (Exception $e) {
+            return $this->redirectToRoute('_error', [
+                'err'=>$e->getMessage()
+            ]);
         }
-
-        return $this->redirectToRoute('yes_index');
     }
+
+
 
     /**
      * Creates a form to delete a TipoHospedaje entity.
