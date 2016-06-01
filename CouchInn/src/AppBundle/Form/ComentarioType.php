@@ -21,7 +21,6 @@ class ComentarioType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('fecha', DateType::class)
             ->add('comentario', StringType::TEXT)
             ->add('deUsuario', TextType::class)
             ->add('publicacion', TextType::class)

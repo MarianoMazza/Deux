@@ -32,7 +32,7 @@ class CalificacionUsuarioController extends Controller
 
     /**
      * Creates a new CalificacionUsuario entity.
-     * @Route("calificacionUsuario", name="_calificacionUsuario")
+     * @Route("/calificacionUsuario", name="_calificacionUsuario")
      */
     public function newAction(Request $request)
     {
