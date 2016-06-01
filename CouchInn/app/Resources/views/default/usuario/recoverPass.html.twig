@@ -3,5 +3,16 @@
 {% block panelhead %}Recuperar Contraseña{% endblock %}
 
 {% block panelbody %}
-    Su nueva contraseña es: {{ admin.password }}
+    <div>
+        <form action="{{ path('_recoveryPass') }}">
+            {% if invalid_email is defined %}
+                <p>El email es inválido.</p>
+            {% endif %}
+            <label for="email">Email: </label>
+            <input type="text" id="email" name="email" required="required" />
+        </form>
+    </div>
+    <div>
+        <input type="submit" value="Recuperar" />
+    </div>
 {% endblock %}

@@ -64,6 +64,10 @@ class Comentario
 
         return $this;
     }
+    public function __construct()
+    {
+        $this->fecha = new \DateTime('now');
+    }
 
     /**
      * Get fecha

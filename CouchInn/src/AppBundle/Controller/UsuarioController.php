@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -17,19 +18,8 @@ class UsuarioController extends Controller
     /**
      * @Route("/recoveryPass", name="_recoveryPass")
      */
-    public function recoverPassAction(Request $request)
-    {
-        $usuario = $this->getDoctrine()->getRepository('AppBundle:Usuario')->findOneBy(['username'=>'admin']);
-        $random = random_int(11111,99999);
-        $usuario->setPassword((string)$random);
-
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($usuario);
-        $em->flush();
-
-        return $this->render(':default/usuario:recoverPass.html.twig', [
-            'admin'=>$usuario
-        ]);
+    public function recoverPassAction(Request $request){
+        return $this->render(':default/usuario:recoverPass.html.twig');
     }
 
     /**
@@ -39,9 +29,9 @@ class UsuarioController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $usuarios = $em->getRepository('AppBundle:Usuario')->findAll();
         return $this->render(':default/administrador:listaUsuarios.html.twig', array(
+            'cant' => count($usuarios),
             'usuarios' => $usuarios,
         ));
     }
@@ -90,21 +80,28 @@ class UsuarioController extends Controller
 
     /**
      * Deletes a Usuario entity.
-     * @Route("/eliminar/{id}", name="_eliminarUsuario")
+     * @Route("/admin/eliminar/{id}", name="_eliminarUsuario")
      */
     public function deleteAction(Request $request, $id)
     {
-        $usuario = $this->getDoctrine()->getRepository('AppBundle:Usuario')->find($id);
-        $form = $this->createDeleteForm($usuario);
-        $form->handleRequest($request);
-        if (!empty($usuario)) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($usuario);
-            $em->flush();
-            return $this->render(':default:hecho.html.twig');
+        try {
+            $usuario = $this->getDoctrine()->getRepository('AppBundle:Usuario')->find($id);
+            if ($usuario->getRoles() == $this->getUser()->getRoles()){
+                throw new Exception ('Usted no tiene privilegios suficientes para realizar esta acción.');
+            }
+            $form = $this->createDeleteForm($usuario);
+            $form->handleRequest($request);
+            if (!empty($usuario)) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($usuario);
+                $em->flush();
+                return $this->redirectToRoute('_hecho');
+            }
+        } catch (Exception $e) {
+            return $this->redirectToRoute('_error', [
+                'err'=>$e->getMessage()
+            ]);
         }
-
-        return $this->redirectToRoute('_listaDeUsuarios');
     }
 
     /**

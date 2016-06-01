@@ -4,31 +4,31 @@
 
 {% block panelbody %}
     <h4>Información Personal</h4>
-    <table class="table table-bordered">
+    <table class="table table-responsive">
         <thead>
-        <tr>
-            <th>Nombre de Usuario</th>
-            <th>Pais</th>
-            <th>Provincia</th>
-            <th>Localidad</th>
-            <th>Calle</th>
-            <th>Email</th>
-        </tr>
+            <tr>
+                <th>Nombre de Usuario</th>
+                <th>Email</th>
+                <th>Pais</th>
+                <th>Provincia</th>
+                <th>Localidad</th>
+                <th>Calle</th>
+            </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>{{ user.username }}</td>
-            <td>{{ user.pais }}</td>
-            <td>{{ user.provincia }}</td>
-            <td>{{ user.localidad }}</td>
-            <td>{{ user.calle }}</td>
-            <td>{{ user.email }}</td>
-        </tr>
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.pais }}</td>
+                <td>{{ user.provincia }}</td>
+                <td>{{ user.localidad }}</td>
+                <td>{{ user.calle }}</td>
+            </tr>
         </tbody>
     </table>
 
     <h4>Recuperación de contraseña</h4>
-    <table class="table table-bordered">
+    <table class="table table-responsive">
         <thead>
         <tr>
             <th>Pregunta</th>
