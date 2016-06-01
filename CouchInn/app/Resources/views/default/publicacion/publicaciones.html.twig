@@ -12,7 +12,7 @@
             <th>Usuario</th>
             <th>Descripcion</th>
             {% if is_granted('ROLE_ADMIN') %}
-                <th>Eliminar</th>
+                <th>Modificar/Eliminar</th>
             {% endif %}
         </tr>
         </thead>
@@ -21,9 +21,14 @@
             <tr>
                 <td>{{ publicacion.usuario }}</td>
                 <td>{{ publicacion.descripcion }}</td>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <td><a href="#" class="glyphicon glyphicon-erase"></a> </td>
-                {% endif %}
+                <td>
+                    {% if publicacion.id == user.id %}
+                        <a href="#" class="glyphicon glyphicon-edit"></a>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="#" class="glyphicon glyphicon-erase"></a>
+                    {% endif %}
+                </td>
             </tr>
         {% endfor %}
         </tbody>

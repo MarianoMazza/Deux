@@ -17,7 +17,7 @@ class TipoHospedajeController extends Controller
 {
     /**
      * Lists all TipoHospedaje entities.
-     *
+     * @Route("/admin/tiposDeHospedaje", name="_tipos")
      */
     public function indexAction()
     {
@@ -25,8 +25,8 @@ class TipoHospedajeController extends Controller
 
         $tipoHospedajes = $em->getRepository('AppBundle:TipoHospedaje')->findAll();
 
-        return $this->render('tipohospedaje/index.html.twig', array(
-            'tipoHospedajes' => $tipoHospedajes,
+        return $this->render(':default/tipoHospedaje:tiposHospedaje.html.twig', array(
+            'tipos' => $tipoHospedajes,
         ));
     }
 
@@ -49,32 +49,19 @@ class TipoHospedajeController extends Controller
 
         }
 
-        return $this->render('default/publicacion/altaTipoHospedaje.html.twig', array(
+        return $this->render(':default/publicacion:altaTipoHospedaje.html.twig', array(
             'tipoHospedaje' => $tipoHospedaje,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a TipoHospedaje entity.
-     *
-     */
-    public function showAction(TipoHospedaje $tipoHospedaje)
-    {
-        $deleteForm = $this->createDeleteForm($tipoHospedaje);
-
-        return $this->render('tipohospedaje/show.html.twig', array(
-            'tipoHospedaje' => $tipoHospedaje,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
      * Displays a form to edit an existing TipoHospedaje entity.
-     *
+     * @Route("/admin/modificarTipo/{id}", name="_modificartipo")
      */
-    public function editAction(Request $request, TipoHospedaje $tipoHospedaje)
+    public function editAction(Request $request, $id)
     {
+        $tipoHospedaje = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->find($id);
         $deleteForm = $this->createDeleteForm($tipoHospedaje);
         $editForm = $this->createForm('AppBundle\Form\TipoHospedajeType', $tipoHospedaje);
         $editForm->handleRequest($request);
@@ -84,10 +71,10 @@ class TipoHospedajeController extends Controller
             $em->persist($tipoHospedaje);
             $em->flush();
 
-            return $this->redirectToRoute('yes_edit', array('id' => $tipoHospedaje->getId()));
+            return $this->redirectToRoute('_hecho', array('id' => $tipoHospedaje->getId()));
         }
 
-        return $this->render('tipohospedaje/edit.html.twig', array(
+        return $this->render(':default/tipoHospedaje:modificarTipoHospedaje.html.twig', array(
             'tipoHospedaje' => $tipoHospedaje,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -96,20 +83,21 @@ class TipoHospedajeController extends Controller
 
     /**
      * Deletes a TipoHospedaje entity.
-     *
+     *  @Route("/admin/eliminarTipo/{id}", name="_eliminarTipo")
      */
-    public function deleteAction(Request $request, TipoHospedaje $tipoHospedaje)
+    public function deleteAction(Request $request, $id)
     {
+        $tipoHospedaje = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->find($id);
         $form = $this->createDeleteForm($tipoHospedaje);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if (!empty($tipoHospedaje)) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($tipoHospedaje);
             $em->flush();
         }
 
-        return $this->redirectToRoute('yes_index');
+        return $this->redirectToRoute('_hecho');
     }
 
     /**
@@ -122,7 +110,7 @@ class TipoHospedajeController extends Controller
     private function createDeleteForm(TipoHospedaje $tipoHospedaje)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('yes_delete', array('id' => $tipoHospedaje->getId())))
+            ->setAction($this->generateUrl('_eliminarTipo', array('id' => $tipoHospedaje->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

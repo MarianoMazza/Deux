@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block panelhead %}
+    Lista de tipos de hospedaje<br>
+    <a href="{{ path('_tipoHospedaje') }}" class="btn btn-primary">Agregar tipo</a>
+{% endblock %}
+
+{% block panelbody %}
+    <table class="table table-striped" style="color: #0f0f0f">
+        <thead>
+        <tr>
+            <th>Tipo</th>
+            <th>Modificar/Eliminar</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for tipo in tipos %}
+            <tr>
+                <td>{{ tipo.tipo }}</td>
+                <td>
+                    <a href="{{ path('_eliminarTipo', {'id':tipo.id}) }} " class="btn btn-default glyphicon glyphicon-erase"></a>
+                    <a href="{{ path('_modificartipo', {'id':tipo.id}) }} " class="btn btn-default glyphicon glyphicon-edit"></a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
