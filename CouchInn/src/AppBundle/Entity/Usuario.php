@@ -482,4 +482,17 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
         return $pagos;
     }
 
+    /**
+     * Tells if the the given user is this user.
+     *
+     * Useful when not hydrating all fields.
+     *
+     * @param null|\FOS\UserBundle\Model\UserInterface $user
+     *
+     * @return boolean
+     */
+    public function isUser(\FOS\UserBundle\Model\UserInterface $user = null)
+    {
+        // TODO: Implement isUser() method.
+    }
 }

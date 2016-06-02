@@ -93,48 +93,19 @@ class TipoHospedajeController extends Controller
     public function editAction(Request $request, TipoHospedaje $tipoHospedaje)
     {
         $tipoHospedaje = $usuario = $this->getDoctrine()->getRepository('TipoHospedaje')->find($this->getUser()->getId());
-=======
-     * Displays a form to edit an existing TipoHospedaje entity.
+        }
+    /*
      * @Route("/admin/modificarTipo/{id}", name="_modificartipo")
      */
-    public function editAction(Request $request, $id)
-    {
-        $tipoHospedaje = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->find($id);
->>>>>>> 357d5ac794eef31754e5d70da2333972d2b02561
-        $deleteForm = $this->createDeleteForm($tipoHospedaje);
-        $editForm = $this->createForm('AppBundle\Form\TipoHospedajeType', $tipoHospedaje);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($tipoHospedaje);
-            $em->flush();
-
-            return $this->redirectToRoute('_hecho', array('id' => $tipoHospedaje->getId()));
-        }
-
-<<<<<<< HEAD
-        return $this->render(':default/administrador:editHospedaje.html.twig', array(
-=======
-        return $this->render(':default/tipoHospedaje:modificarTipoHospedaje.html.twig', array(
->>>>>>> 357d5ac794eef31754e5d70da2333972d2b02561
-            'tipoHospedaje' => $tipoHospedaje,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
     /**
      * Deletes a TipoHospedaje entity.
 <<<<<<< HEAD
      * @Route("/admin/eliminar/{id}", name="_eliminarTipoHospedaje")
-=======
      *  @Route("/admin/eliminarTipo/{id}", name="_eliminarTipo")
 >>>>>>> 357d5ac794eef31754e5d70da2333972d2b02561
      */
     public function deleteAction(Request $request, $id)
     {
-<<<<<<< HEAD
         try {
             $tipoHospedaje = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->find('id');
             if ($tipoHospedaje->getRoles() == $this->getUser()->getRoles()){
@@ -153,7 +124,6 @@ class TipoHospedajeController extends Controller
                 'err'=>$e->getMessage()
             ]);
         }
-=======
         $tipoHospedaje = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->find($id);
         $form = $this->createDeleteForm($tipoHospedaje);
         $form->handleRequest($request);
@@ -165,7 +135,6 @@ class TipoHospedajeController extends Controller
         }
 
         return $this->redirectToRoute('_hecho');
->>>>>>> 357d5ac794eef31754e5d70da2333972d2b02561
     }
 
 

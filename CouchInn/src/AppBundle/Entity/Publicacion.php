@@ -94,26 +94,12 @@ class Publicacion
         $this->comentarios = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+    
     /**
      * Get id
      *
      * @return integer 
      */
-public function getAdjuntarFoto(){
-
-}
-public function adjuntarFoto(){
-
-}
-public function isAdjuntarFoto(){
-
-}
-public function hasAdjuntarFoto(){
-
-}
-public function __get($arg){
-
-}
     public function getId()
     {
         return $this->id;
@@ -352,10 +338,10 @@ public function __get($arg){
     /**
      * Set tipo
      *
-     * @param \AppBundle\Entity\Publicacion $tipo
+     * @param \AppBundle\Entity\TipoHospedaje $tipo
      * @return PublicacionController
      */
-    public function setTipo(\AppBundle\Entity\Publicacion $tipo = null)
+    public function setTipo(\AppBundle\Entity\TipoHospedaje $tipo = null)
     {
         $this->tipo = $tipo;
 

@@ -40,7 +40,7 @@ class PublicacionType extends AbstractType
                 array('label' => 'TipoHospedaje: ',
                     'class' => 'AppBundle:TipoHospedaje',
                     'property' => 'tipo'))
-            ->add('adjuntarFoto',FileType::class)
+            ->add('fotos',FileType::class)
             ->add('agregarPublicacion',SubmitType::class)
         ;
     }
