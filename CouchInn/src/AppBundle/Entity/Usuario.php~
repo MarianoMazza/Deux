@@ -26,11 +26,11 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      */
     protected $id;
     /**
-     * @ORM\Column(type="string", length=30)
+     * @ORM\Column(type="string")
      */
     private $pregunta;
     /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string")
      */
     private $respuesta;
     /**
@@ -48,11 +48,11 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      */
     private $provincia;
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=30)
      */
     private $localidad;
     /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=30)
      */
     private $calle;
     /**
@@ -79,4 +79,176 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Pago", mappedBy="usuario")
      */
     private $pagos;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->addRole('ROLE_USER');
+    }
+
+    /**
+     * Set pregunta
+     *
+     * @param string $pregunta
+     * @return Usuario
+     */
+    public function setPregunta($pregunta)
+    {
+        $this->pregunta = $pregunta;
+
+        return $this;
+    }
+
+    /**
+     * Get pregunta
+     *
+     * @return string 
+     */
+    public function getPregunta()
+    {
+        return $this->pregunta;
+    }
+
+    /**
+     * Set respuesta
+     *
+     * @param string $respuesta
+     * @return Usuario
+     */
+    public function setRespuesta($respuesta)
+    {
+        $this->respuesta = $respuesta;
+
+        return $this;
+    }
+
+    /**
+     * Get respuesta
+     *
+     * @return string 
+     */
+    public function getRespuesta()
+    {
+        return $this->respuesta;
+    }
+
+    /**
+     * Set fechaDeNacimiento
+     *
+     * @param \DateTime $fechaDeNacimiento
+     * @return Usuario
+     */
+    public function setFechaDeNacimiento($fechaDeNacimiento)
+    {
+        $this->fechaDeNacimiento = $fechaDeNacimiento;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaDeNacimiento
+     *
+     * @return \DateTime 
+     */
+    public function getFechaDeNacimiento()
+    {
+        return $this->fechaDeNacimiento;
+    }
+
+    /**
+     * Set pais
+     *
+     * @param string $pais
+     * @return Usuario
+     */
+    public function setPais($pais)
+    {
+        $this->pais = $pais;
+
+        return $this;
+    }
+
+    /**
+     * Get pais
+     *
+     * @return string 
+     */
+    public function getPais()
+    {
+        return $this->pais;
+    }
+
+    /**
+     * Set provincia
+     *
+     * @param string $provincia
+     * @return Usuario
+     */
+    public function setProvincia($provincia)
+    {
+        $this->provincia = $provincia;
+
+        return $this;
+    }
+
+    /**
+     * Get provincia
+     *
+     * @return string 
+     */
+    public function getProvincia()
+    {
+        return $this->provincia;
+    }
+
+    /**
+     * Set localidad
+     *
+     * @param string $localidad
+     * @return Usuario
+     */
+    public function setLocalidad($localidad)
+    {
+        $this->localidad = $localidad;
+
+        return $this;
+    }
+
+    /**
+     * Get localidad
+     *
+     * @return string 
+     */
+    public function getLocalidad()
+    {
+        return $this->localidad;
+    }
+
+    /**
+     * Set calle
+     *
+     * @param string $calle
+     * @return Usuario
+     */
+    public function setCalle($calle)
+    {
+        $this->calle = $calle;
+
+        return $this;
+    }
+
+    /**
+     * Get calle
+     *
+     * @return string 
+     */
+    public function getCalle()
+    {
+        return $this->calle;
+    }
+
+    public function isUser(\FOS\UserBundle\Model\UserInterface $user = null)
+    {
+        // TODO: Implement isUser() method.
+    }
 }

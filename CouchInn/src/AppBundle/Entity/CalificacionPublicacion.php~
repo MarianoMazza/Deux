@@ -14,9 +14,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="calificacionesUsuario")
+ * @ORM\Table(name="calificacionPublicacion")
  */
-class CalificacionUsuario
+class CalificacionPublicacion
 {
     /**
      * @ORM\Column(type="integer")
@@ -30,15 +30,15 @@ class CalificacionUsuario
      */
     private $calificacion;
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario", inversedBy="misCalificacionesAUsuarios")
-     * @ORM\JoinColumn(name="deUsuario_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario", inversedBy="misCalificacionesAPublicaciones")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      */
     private $deUsuario;
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario", inversedBy="calificaciones")
-     * @ORM\JoinColumn(name="paraUsuario_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Publicacion", inversedBy="calificaciones")
+     * @ORM\JoinColumn(name="publicacion_id", referencedColumnName="id")
      */
-    private $paraUsuario;
+    private $publicacion;
 
     /**
      * Get id
@@ -54,13 +54,10 @@ class CalificacionUsuario
      * Set calificacion
      *
      * @param integer $calificacion
-     * @return CalificacionUsuario
      */
     public function setCalificacion($calificacion)
     {
         $this->calificacion = $calificacion;
-
-        return $this;
     }
 
     /**
@@ -77,13 +74,10 @@ class CalificacionUsuario
      * Set deUsuario
      *
      * @param \AppBundle\Entity\Usuario $deUsuario
-     * @return CalificacionUsuario
      */
     public function setDeUsuario(\AppBundle\Entity\Usuario $deUsuario = null)
     {
         $this->deUsuario = $deUsuario;
-
-        return $this;
     }
 
     /**
@@ -97,25 +91,22 @@ class CalificacionUsuario
     }
 
     /**
-     * Set paraUsuario
+     * Set publicacion
      *
-     * @param \AppBundle\Entity\Usuario $paraUsuario
-     * @return CalificacionUsuario
+     * @param \AppBundle\Entity\Publicacion $publicacion
      */
-    public function setParaUsuario(\AppBundle\Entity\Usuario $paraUsuario = null)
+    public function setPublicacion(\AppBundle\Entity\Publicacion $publicacion = null)
     {
-        $this->paraUsuario = $paraUsuario;
-
-        return $this;
+        $this->publicacion = $publicacion;
     }
 
     /**
-     * Get paraUsuario
+     * Get publicacion
      *
-     * @return \AppBundle\Entity\Usuario 
+     * @return \AppBundle\Entity\Publicacion 
      */
-    public function getParaUsuario()
+    public function getPublicacion()
     {
-        return $this->paraUsuario;
+        return $this->publicacion;
     }
 }

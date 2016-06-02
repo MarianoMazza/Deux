@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\AppBundle;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -58,7 +59,6 @@ class TipoHospedajeController extends Controller
     }
 
     /**
-    <<<<<<< HEAD
      * Finds and displays a TipoHospedaje entity.
      *
      */
@@ -82,7 +82,7 @@ class TipoHospedajeController extends Controller
         $editForm = $this->createForm('AppBundle\Form\TipoHospedajeType', $tipoHospedaje);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if (!empty($tipoHospedaje)) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($tipoHospedaje);
             $em->flush();
@@ -100,14 +100,28 @@ class TipoHospedajeController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $tipoHospedaje = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->find($id);
-        $form = $this->createDeleteForm($tipoHospedaje);
-        $form->handleRequest($request);
+        try{
+            $tipoHospedaje = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->find($id);
+            $publicaciones = $this->getDoctrine()
+                ->getRepository('AppBundle:Publicacion')
+                ->findOneBy([
+                    'tipo'=>$tipoHospedaje->getId()
+                ]);
+            if (!empty($publicaciones)){
+                throw new Exception ('No puede eliminar este tipo de hospedaje ya que 1 o más publicaciones se encuentran relacionados con el mismo.');
+            }
+            $form = $this->createDeleteForm($tipoHospedaje);
+            $form->handleRequest($request);
 
-        if (!empty($tipoHospedaje)) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($tipoHospedaje);
-            $em->flush();
+            if (!empty($tipoHospedaje)) {
+                $em = $this->getDoctrine()->getManager();
+                $em->remove($tipoHospedaje);
+                $em->flush();
+            }
+        }catch (Exception $e) {
+            return $this->redirectToRoute('_error', [
+                'err' => $e->getMessage()
+            ]);
         }
 
         return $this->redirectToRoute('_hecho');

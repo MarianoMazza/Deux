@@ -260,4 +260,202 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     {
         // TODO: Implement isUser() method.
     }
+
+    /**
+     * Add publicaciones
+     *
+     * @param \AppBundle\Entity\Publicacion $publicaciones
+     * @return Usuario
+     */
+    public function addPublicacione(\AppBundle\Entity\Publicacion $publicaciones)
+    {
+        $this->publicaciones[] = $publicaciones;
+
+        return $this;
+    }
+
+    /**
+     * Remove publicaciones
+     *
+     * @param \AppBundle\Entity\Publicacion $publicaciones
+     */
+    public function removePublicacione(\AppBundle\Entity\Publicacion $publicaciones)
+    {
+        $this->publicaciones->removeElement($publicaciones);
+    }
+
+    /**
+     * Get publicaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPublicaciones()
+    {
+        return $this->publicaciones;
+    }
+
+    /**
+     * Add calificaciones
+     *
+     * @param \AppBundle\Entity\CalificacionUsuario $calificaciones
+     * @return Usuario
+     */
+    public function addCalificacione(\AppBundle\Entity\CalificacionUsuario $calificaciones)
+    {
+        $this->calificaciones[] = $calificaciones;
+
+        return $this;
+    }
+
+    /**
+     * Remove calificaciones
+     *
+     * @param \AppBundle\Entity\CalificacionUsuario $calificaciones
+     */
+    public function removeCalificacione(\AppBundle\Entity\CalificacionUsuario $calificaciones)
+    {
+        $this->calificaciones->removeElement($calificaciones);
+    }
+
+    /**
+     * Get calificaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCalificaciones()
+    {
+        return $this->calificaciones;
+    }
+
+    /**
+     * Add misCalificacionesAUsuarios
+     *
+     * @param \AppBundle\Entity\CalificacionUsuario $misCalificacionesAUsuarios
+     * @return Usuario
+     */
+    public function addMisCalificacionesAUsuario(\AppBundle\Entity\CalificacionUsuario $misCalificacionesAUsuarios)
+    {
+        $this->misCalificacionesAUsuarios[] = $misCalificacionesAUsuarios;
+
+        return $this;
+    }
+
+    /**
+     * Remove misCalificacionesAUsuarios
+     *
+     * @param \AppBundle\Entity\CalificacionUsuario $misCalificacionesAUsuarios
+     */
+    public function removeMisCalificacionesAUsuario(\AppBundle\Entity\CalificacionUsuario $misCalificacionesAUsuarios)
+    {
+        $this->misCalificacionesAUsuarios->removeElement($misCalificacionesAUsuarios);
+    }
+
+    /**
+     * Get misCalificacionesAUsuarios
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMisCalificacionesAUsuarios()
+    {
+        return $this->misCalificacionesAUsuarios;
+    }
+
+    /**
+     * Add misCalificacionesAPublicaciones
+     *
+     * @param \AppBundle\Entity\CalificacionPublicacion $misCalificacionesAPublicaciones
+     * @return Usuario
+     */
+    public function addMisCalificacionesAPublicacione(\AppBundle\Entity\CalificacionPublicacion $misCalificacionesAPublicaciones)
+    {
+        $this->misCalificacionesAPublicaciones[] = $misCalificacionesAPublicaciones;
+
+        return $this;
+    }
+
+    /**
+     * Remove misCalificacionesAPublicaciones
+     *
+     * @param \AppBundle\Entity\CalificacionPublicacion $misCalificacionesAPublicaciones
+     */
+    public function removeMisCalificacionesAPublicacione(\AppBundle\Entity\CalificacionPublicacion $misCalificacionesAPublicaciones)
+    {
+        $this->misCalificacionesAPublicaciones->removeElement($misCalificacionesAPublicaciones);
+    }
+
+    /**
+     * Get misCalificacionesAPublicaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMisCalificacionesAPublicaciones()
+    {
+        return $this->misCalificacionesAPublicaciones;
+    }
+
+    /**
+     * Add misComentarios
+     *
+     * @param \AppBundle\Entity\Comentario $misComentarios
+     * @return Usuario
+     */
+    public function addMisComentario(\AppBundle\Entity\Comentario $misComentarios)
+    {
+        $this->misComentarios[] = $misComentarios;
+
+        return $this;
+    }
+
+    /**
+     * Remove misComentarios
+     *
+     * @param \AppBundle\Entity\Comentario $misComentarios
+     */
+    public function removeMisComentario(\AppBundle\Entity\Comentario $misComentarios)
+    {
+        $this->misComentarios->removeElement($misComentarios);
+    }
+
+    /**
+     * Get misComentarios
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMisComentarios()
+    {
+        return $this->misComentarios;
+    }
+
+    /**
+     * Add pagos
+     *
+     * @param \AppBundle\Entity\Pago $pagos
+     * @return Usuario
+     */
+    public function addPago(\AppBundle\Entity\Pago $pagos)
+    {
+        $this->pagos[] = $pagos;
+
+        return $this;
+    }
+
+    /**
+     * Remove pagos
+     *
+     * @param \AppBundle\Entity\Pago $pagos
+     */
+    public function removePago(\AppBundle\Entity\Pago $pagos)
+    {
+        $this->pagos->removeElement($pagos);
+    }
+
+    /**
+     * Get pagos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPagos()
+    {
+        return $this->pagos;
+    }
 }
