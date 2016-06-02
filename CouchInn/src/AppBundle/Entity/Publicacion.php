@@ -393,8 +393,7 @@ class Publicacion extends Controller
     {
         $fotos = $this->getDoctrine()
             ->getRepository('AppBundle:Foto')
-            ->getQuery()
-            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            ->findAll();
         return $fotos;
     }
 
@@ -430,8 +429,7 @@ class Publicacion extends Controller
     {
         $calificacion = $this->getDoctrine()
             ->getRepository('AppBundle:CalificacionPublicacion')
-            ->getQuery()
-            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            ->findAll();
         return $calificacion;
     }
 
@@ -467,8 +465,7 @@ class Publicacion extends Controller
     {
         $comentarios = $this->getDoctrine()
             ->getRepository('AppBundle:Comentario')
-            ->getQuery()
-            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            ->findAll();
         return $comentarios;
     }
 }

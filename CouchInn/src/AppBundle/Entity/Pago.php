@@ -36,13 +36,6 @@ class Pago
      * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
      */
     private $usuario;
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->usuario = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -58,13 +51,10 @@ class Pago
      * Set monto
      *
      * @param integer $monto
-     * @return PagoController
      */
     public function setMonto($monto)
     {
         $this->monto = $monto;
-
-        return $this;
     }
 
     /**
@@ -81,13 +71,10 @@ class Pago
      * Set vencimiento
      *
      * @param \DateTime $vencimiento
-     * @return PagoController
      */
     public function setVencimiento($vencimiento)
     {
         $this->vencimiento = $vencimiento;
-
-        return $this;
     }
 
     /**
@@ -98,29 +85,6 @@ class Pago
     public function getVencimiento()
     {
         return $this->vencimiento;
-    }
-
-    /**
-     * Add usuario
-     *
-     * @param \AppBundle\Entity\Usuario $usuario
-     * @return PagoController
-     */
-    public function addUsuario(\AppBundle\Entity\Usuario $usuario)
-    {
-        $this->usuario[] = $usuario;
-
-        return $this;
-    }
-
-    /**
-     * Remove usuario
-     *
-     * @param \AppBundle\Entity\Usuario $usuario
-     */
-    public function removeUsuario(\AppBundle\Entity\Usuario $usuario)
-    {
-        $this->usuario->removeElement($usuario);
     }
 
     /**
@@ -136,13 +100,10 @@ class Pago
     /**
      * Set usuario
      *
-     * @param \AppBundle\Entity\UsuarioController $usuario
-     * @return PagoController
+     * @param integer
      */
-    public function setUsuario(\AppBundle\Entity\UsuarioController $usuario = null)
+    public function setUsuario($usuario)
     {
         $this->usuario = $usuario;
-
-        return $this;
     }
 }

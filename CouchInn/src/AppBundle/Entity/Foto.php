@@ -10,6 +10,7 @@ namespace AppBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -80,14 +81,11 @@ class Foto
     /**
      * Set foto
      *
-     * @param string $foto
-     * @return FotoController
+     * @param $foto
      */
     public function setFoto(UploadedFile $foto = null)
     {
         $this->foto = $foto;
-
-        return $this;
     }
 
     /**
@@ -104,24 +102,22 @@ class Foto
      * Set publicacion
      *
      * @param \AppBundle\Entity\Publicacion $publicacion
-     * @return FotoController
      */
-    public function setPublicacion(\AppBundle\Entity\Publicacion $publicacion = null)
+    public function setPublicacion($publicacion)
     {
         $this->publicacion = $publicacion;
-
-        return $this;
     }
 
     /**
      * Get publicacion
      *
-     * @return \AppBundle\Entity\Publicacion
+     * @return integer
      */
     public function getPublicacion()
     {
         return $this->publicacion;
     }
+
     // La propiedad ruta almacena la ruta relativa al archivo y se persiste en la base de datos.
     // El getAbsolutePath() es un método útil que devuelve la ruta absoluta al archivo,
     // mientras que getWebPath() es un conveniente método que devuelve la ruta web, la cual se utiliza en una plantilla para enlazar el archivo cargado.

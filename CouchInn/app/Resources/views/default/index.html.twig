@@ -10,7 +10,7 @@
         {% if is_granted('ROLE_USER') == false %}
             <a href="{{ path('fos_user_security_login') }}" class="btn btn-success">Iniciar Sesión</a>
         {% endif %}
-        <a href="{{ path('_home') }}" class="btn btn-default">Home</a>
+        <a href="{{ path('_listaPubli') }}" class="btn btn-default">Home</a>
         {% if is_granted('ROLE_USER') == false %}
             <a href="{{ path('fos_user_registration_register') }}" class="btn btn-danger">Registrarme</a>
         {% endif %}

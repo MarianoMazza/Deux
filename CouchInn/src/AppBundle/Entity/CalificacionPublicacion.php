@@ -54,13 +54,10 @@ class CalificacionPublicacion
      * Set calificacion
      *
      * @param integer $calificacion
-     * @return CalificacionPublicacionController
      */
     public function setCalificacion($calificacion)
     {
         $this->calificacion = $calificacion;
-
-        return $this;
     }
 
     /**
@@ -77,13 +74,10 @@ class CalificacionPublicacion
      * Set deUsuario
      *
      * @param \AppBundle\Entity\Usuario $deUsuario
-     * @return CalificacionPublicacionController
      */
     public function setDeUsuario(\AppBundle\Entity\Usuario $deUsuario = null)
     {
         $this->deUsuario = $deUsuario;
-
-        return $this;
     }
 
     /**
@@ -100,13 +94,10 @@ class CalificacionPublicacion
      * Set publicacion
      *
      * @param \AppBundle\Entity\Publicacion $publicacion
-     * @return CalificacionPublicacionController
      */
     public function setPublicacion(\AppBundle\Entity\Publicacion $publicacion = null)
     {
         $this->publicacion = $publicacion;
-
-        return $this;
     }
 
     /**

@@ -54,7 +54,7 @@ class CalificacionUsuario
      * Set calificacion
      *
      * @param integer $calificacion
-     * @return CalificacionUsuarioController
+     * @return CalificacionUsuario
      */
     public function setCalificacion($calificacion)
     {
@@ -77,7 +77,7 @@ class CalificacionUsuario
      * Set deUsuario
      *
      * @param \AppBundle\Entity\Usuario $deUsuario
-     * @return CalificacionUsuarioController
+     * @return CalificacionUsuario
      */
     public function setDeUsuario(\AppBundle\Entity\Usuario $deUsuario = null)
     {
@@ -100,7 +100,7 @@ class CalificacionUsuario
      * Set paraUsuario
      *
      * @param \AppBundle\Entity\Usuario $paraUsuario
-     * @return CalificacionUsuarioController
+     * @return CalificacionUsuario
      */
     public function setParaUsuario(\AppBundle\Entity\Usuario $paraUsuario = null)
     {

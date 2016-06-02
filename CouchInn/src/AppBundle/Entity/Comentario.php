@@ -56,13 +56,10 @@ class Comentario
      * Set fecha
      *
      * @param \DateTime $fecha
-     * @return ComentarioController
      */
     public function setFecha($fecha)
     {
         $this->fecha = $fecha;
-
-        return $this;
     }
     public function __construct()
     {
@@ -83,13 +80,10 @@ class Comentario
      * Set comentario
      *
      * @param string $comentario
-     * @return ComentarioController
      */
     public function setComentario($comentario)
     {
         $this->comentario = $comentario;
-
-        return $this;
     }
 
     /**
@@ -106,13 +100,10 @@ class Comentario
      * Set deUsuario
      *
      * @param \AppBundle\Entity\Usuario $deUsuario
-     * @return ComentarioController
      */
     public function setDeUsuario(\AppBundle\Entity\Usuario $deUsuario = null)
     {
         $this->deUsuario = $deUsuario;
-
-        return $this;
     }
 
     /**
@@ -129,13 +120,10 @@ class Comentario
      * Set publicacion
      *
      * @param \AppBundle\Entity\Publicacion $publicacion
-     * @return ComentarioController
      */
     public function setPublicacion(\AppBundle\Entity\Publicacion $publicacion = null)
     {
         $this->publicacion = $publicacion;
-
-        return $this;
     }
 
     /**

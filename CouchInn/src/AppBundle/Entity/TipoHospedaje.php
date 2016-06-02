@@ -10,12 +10,13 @@ namespace AppBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="tiposHospedaje")
  */
-class TipoHospedaje
+class TipoHospedaje extends Controller
 {
     /**
      * @ORM\Column(type="integer")
@@ -51,15 +52,12 @@ class TipoHospedaje
 
     /**
      * Set tipo
-     *
+     * 
      * @param string $tipo
-     * @return TipoHospedajeController
      */
     public function setTipo($tipo)
     {
         $this->tipo = $tipo;
-
-        return $this;
     }
 
     /**
@@ -73,29 +71,6 @@ class TipoHospedaje
     }
 
     /**
-     * Add publicaciones
-     *
-     * @param \AppBundle\Entity\Publicacion $publicaciones
-     * @return TipoHospedajeController
-     */
-    public function addPublicacione(\AppBundle\Entity\Publicacion $publicaciones)
-    {
-        $this->publicaciones[] = $publicaciones;
-
-        return $this;
-    }
-
-    /**
-     * Remove publicaciones
-     *
-     * @param \AppBundle\Entity\Publicacion $publicaciones
-     */
-    public function removePublicacione(\AppBundle\Entity\Publicacion $publicaciones)
-    {
-        $this->publicaciones->removeElement($publicaciones);
-    }
-
-    /**
      * Get publicaciones
      *
      * @return \Doctrine\Common\Collections\Collection 
@@ -104,8 +79,7 @@ class TipoHospedaje
     {
         $publicacion = $this->getDoctrine()
             ->getRepository('AppBundle:Publicacion')
-            ->getQuery()
-            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            ->findAll();
         return $publicacion;
     }
 }
