@@ -9,14 +9,16 @@
 namespace AppBundle\Entity;
 
 
+use AppBundle\Controller\PublicacionController;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="publicaciones")
  */
-class Publicacion
+class Publicacion extends Controller
 {
     /**
      * @ORM\Column(type="integer")
@@ -347,6 +349,7 @@ class Publicacion
 
         return $this;
     }
+
 
     /**
      * Get tipo

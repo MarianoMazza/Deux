@@ -51,14 +51,14 @@ class TipoHospedajeController extends Controller
 
         }
 
-        return $this->render(':default/publicacion:altaTipoHospedaje.html.twig', array(
+        return $this->render(':default/tipoHospedaje:altaTipoHospedaje.html.twig', array(
             'tipoHospedaje' => $tipoHospedaje,
             'form' => $form->createView(),
         ));
     }
 
     /**
-<<<<<<< HEAD
+    <<<<<<< HEAD
      * Finds and displays a TipoHospedaje entity.
      *
      */
@@ -73,57 +73,33 @@ class TipoHospedajeController extends Controller
     }
 
     /**
-     *
-     * @Route("/admin/modificarHospedaje/{id}", name= "_modificarHospedaje"))
-     */
-  /*  public function editAction($id){
-        $em = $this-> getDoctrine()->getManager();
-        $hospedaje = $em-> getRepository('AppBundle:TipoHospedaje')->find($id);
-
-        if($hospedaje){
-            throw $this->createNotFoundException('El tipo de Hospedaje no existe');
-        }
-        $form=$this->createEditForm($hospedaje);
-
-        return $this->render(':default/administrador:editHospedaje.html.twig',array('hopedaje'=>$hospedaje,'form'=>$form->createView()));
-    }
-*/
-
-
-    public function editAction(Request $request, TipoHospedaje $tipoHospedaje)
-    {
-        $tipoHospedaje = $usuario = $this->getDoctrine()->getRepository('TipoHospedaje')->find($this->getUser()->getId());
-        }
-    /*
      * @Route("/admin/modificarTipo/{id}", name="_modificartipo")
      */
+    public function editAction(Request $request, $id)
+    {
+        $tipoHospedaje = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->find($id);
+        $deleteForm = $this->createDeleteForm($tipoHospedaje);
+        $editForm = $this->createForm('AppBundle\Form\TipoHospedajeType', $tipoHospedaje);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($tipoHospedaje);
+            $em->flush();
+            return $this->redirectToRoute('_hecho', array('id' => $tipoHospedaje->getId()));
+        }
+        return $this->render(':default/tipoHospedaje:modificarTipoHospedaje.html.twig', array(
+            'tipoHospedaje' => $tipoHospedaje,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
     /**
-     * Deletes a TipoHospedaje entity.
-<<<<<<< HEAD
-     * @Route("/admin/eliminar/{id}", name="_eliminarTipoHospedaje")
      *  @Route("/admin/eliminarTipo/{id}", name="_eliminarTipo")
->>>>>>> 357d5ac794eef31754e5d70da2333972d2b02561
      */
     public function deleteAction(Request $request, $id)
     {
-        try {
-            $tipoHospedaje = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->find('id');
-            if ($tipoHospedaje->getRoles() == $this->getUser()->getRoles()){
-                throw new Exception ('Usted no tiene privilegios suficientes para realizar esta acción.');
-            }
-            $form = $this->createDeleteForm($tipoHospedaje);
-            $form->handleRequest($request);
-            if (!empty($tipoHospedaje)) {
-                $em = $this->getDoctrine()->getManager();
-                $em->remove($tipoHospedaje);
-                $em->flush();
-                return $this->redirectToRoute('_hecho');
-            }
-        } catch (Exception $e) {
-            return $this->redirectToRoute('_error', [
-                'err'=>$e->getMessage()
-            ]);
-        }
         $tipoHospedaje = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->find($id);
         $form = $this->createDeleteForm($tipoHospedaje);
         $form->handleRequest($request);
@@ -137,15 +113,6 @@ class TipoHospedajeController extends Controller
         return $this->redirectToRoute('_hecho');
     }
 
-
-
-    /**
-     * Creates a form to delete a TipoHospedaje entity.
-     *
-     * @param TipoHospedaje $tipoHospedaje The TipoHospedaje entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
     private function createDeleteForm(TipoHospedaje $tipoHospedaje)
     {
         return $this->createFormBuilder()
