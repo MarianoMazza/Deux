@@ -17,7 +17,7 @@
             {% for usuario in usuarios %}
                 <tr>
                     <td>{{ usuario.username }}</td>
-                    <td><a href="{{ path('_eliminarUsuario', { 'id': usuario.id }) }}" class="btn btn-default glyphicon glyphicon-erase"></a></td>
+                    <td><a href="{{ path('_eliminarUsuario', { 'id': usuario.id }) }}" class="glyphicon glyphicon-erase"></a></td>
                 </tr>
             {% endfor %}
         </tbody>

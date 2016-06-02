@@ -37,6 +37,7 @@ class Foto
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
     /**
      * Image foto
      *
@@ -50,6 +51,7 @@ class Foto
      * )
      */
     private $foto;
+
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Publicacion", inversedBy="fotos")
      * @ORM\JoinColumn(name="publicacion_id", referencedColumnName="id")

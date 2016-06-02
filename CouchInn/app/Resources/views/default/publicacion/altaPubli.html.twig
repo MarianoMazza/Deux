@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block panelhead %}Publicar<br>
-    <a href="{{ path('_tipoHospedaje') }}" class="btn btn-primary">Agregar tipo de hospedaje</a>
-{% endblock %}
+{% block panelhead %}Publicar{% endblock %}
+
 {% block panelbody %}
     {{ form_start(form) }}
     {{ form_row(form) }}

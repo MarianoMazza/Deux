@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block panelhead %}Publicacion{% endblock %}
+
+{% block panelbody %}
+    <img src="data:image/jpg;base64,{{ imageData|base64 }}" alt="" />
+{% endblock %}

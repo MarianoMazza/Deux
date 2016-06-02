@@ -39,7 +39,7 @@ class PublicacionController extends Controller
     public function newAction(Request $request)
     {
         $publicacion = new Publicacion();
-
+        $publicacion->setUsuario($this->getUser());
         $form = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
         $form->handleRequest($request);
 
@@ -59,13 +59,16 @@ class PublicacionController extends Controller
 
     /**
      * Finds and displays a Publicacion entity.
-     *
+     * @Route("/home/publicaciones/{id}", name="_mostrarPublicacion")
      */
-    public function showAction(Publicacion $publicacion)
+    public function showAction($id)
     {
+        $publicacion = $this->getDoctrine()
+            ->getRepository('AppBundle:Publicacion')
+            ->find($id);
         $deleteForm = $this->createDeleteForm($publicacion);
 
-        return $this->render('publicacion/show.html.twig', array(
+        return $this->render(':default/publicacion:mostrarPublicacion.html.twig', array(
             'publicacion' => $publicacion,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -98,20 +101,23 @@ class PublicacionController extends Controller
 
     /**
      * Deletes a Publicacion entity.
-     *
+     * @Route("/home/publicacion/eliminar/{id}", name="_eliminarPublicacion")
      */
-    public function deleteAction(Request $request, Publicacion $publicacion)
+    public function deleteAction(Request $request, $id)
     {
+        $publicacion = $this->getDoctrine()
+            ->getRepository('AppBundle:Publicacion')
+            ->find($id);
         $form = $this->createDeleteForm($publicacion);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if (!empty($publicacion)) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($publicacion);
             $em->flush();
         }
 
-        return $this->redirectToRoute('yes_index');
+        return $this->redirectToRoute('_hecho');
     }
 
     /**
@@ -124,7 +130,7 @@ class PublicacionController extends Controller
     private function createDeleteForm(Publicacion $publicacion)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('yes_delete', array('id' => $publicacion->getId())))
+            ->setAction($this->generateUrl('_eliminarPublicacion', array('id' => $publicacion->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

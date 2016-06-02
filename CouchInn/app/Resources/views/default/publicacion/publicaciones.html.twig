@@ -2,7 +2,9 @@
 
 {% block panelhead %}
     Publicaciones<br>
-    <a href="{{ path('_altaPubli') }}" class="btn btn-primary">Agregar Publicacion</a>
+    {% if is_granted('ROLE_USER') %}
+        <a href="{{ path('_altaPubli') }}" class="btn btn-primary">Agregar Publicacion</a>
+    {% endif %}
 {% endblock %}
 
 {% block panelbody %}
@@ -20,7 +22,8 @@
         {% for publicacion in publicaciones %}
             <tr>
                 <td>{{ publicacion.usuario }}</td>
-                <td>{{ publicacion.descripcion }}</td>
+                <td><a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
+                {% if is_granted('ROLE_USER') %}
                 <td>
                     {% if publicacion.id == user.id %}
                         <a href="#" class="glyphicon glyphicon-edit"></a>
@@ -29,6 +32,7 @@
                         <a href="#" class="glyphicon glyphicon-erase"></a>
                     {% endif %}
                 </td>
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

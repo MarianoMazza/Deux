@@ -77,17 +77,32 @@ class TipoHospedajeController extends Controller
      */
     public function editAction(Request $request, $id)
     {
-        $tipoHospedaje = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->find($id);
-        $deleteForm = $this->createDeleteForm($tipoHospedaje);
-        $editForm = $this->createForm('AppBundle\Form\TipoHospedajeType', $tipoHospedaje);
-        $editForm->handleRequest($request);
+        try{
+            $tipoHospedaje = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->find($id);
+            $publicaciones = $this->getDoctrine()
+                ->getRepository('AppBundle:Publicacion')
+                ->findOneBy([
+                    'tipo'=>$tipoHospedaje->getId()
+                ]);
+            if (!empty($publicaciones)){
+                throw new Exception ('No puede modificar este tipo de hospedaje ya que 1 o más publicaciones se encuentran relacionados al mismo.');
+            }
 
-        if (!empty($tipoHospedaje)) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($tipoHospedaje);
-            $em->flush();
-            return $this->redirectToRoute('_hecho', array('id' => $tipoHospedaje->getId()));
-        }
+            $deleteForm = $this->createDeleteForm($tipoHospedaje);
+            $editForm = $this->createForm('AppBundle\Form\TipoHospedajeType', $tipoHospedaje);
+            $editForm->handleRequest($request);
+
+            if (!empty($tipoHospedaje)) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($tipoHospedaje);
+                $em->flush();
+                return $this->redirectToRoute('_hecho', array('id' => $tipoHospedaje->getId()));
+            }
+        }catch (Exception $e) {
+        return $this->redirectToRoute('_error', [
+            'err' => $e->getMessage()
+        ]);
+    }
         return $this->render(':default/tipoHospedaje:modificarTipoHospedaje.html.twig', array(
             'tipoHospedaje' => $tipoHospedaje,
             'edit_form' => $editForm->createView(),
@@ -108,8 +123,9 @@ class TipoHospedajeController extends Controller
                     'tipo'=>$tipoHospedaje->getId()
                 ]);
             if (!empty($publicaciones)){
-                throw new Exception ('No puede eliminar este tipo de hospedaje ya que 1 o más publicaciones se encuentran relacionados con el mismo.');
+                throw new Exception ('No puede eliminar este tipo de hospedaje ya que 1 o más publicaciones se encuentran relacionados al mismo.');
             }
+
             $form = $this->createDeleteForm($tipoHospedaje);
             $form->handleRequest($request);
 

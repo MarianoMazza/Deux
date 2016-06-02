@@ -11,14 +11,15 @@ namespace AppBundle\Entity;
 
 use AppBundle\Controller\PublicacionController;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="publicaciones")
  */
-class Publicacion extends Controller
+class Publicacion
 {
     /**
      * @ORM\Column(type="integer")
@@ -26,6 +27,17 @@ class Publicacion extends Controller
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    /**
+     *
+     * @ORM\Column(type="blob")
+     * @Assert\File(
+     *     maxSize = "5M",
+     *     mimeTypes = {"image/jpeg", "image/gif", "image/png", "image/tiff", "image/jpg"},
+     *     maxSizeMessage = "El tamaño máximo permitido es 5MB.",
+     *     mimeTypesMessage = "Solo se permiten determinados tipos de imágen."
+     * )
+     */
+    private $foto;
     /**
      * @ORM\Column(type="text", length=500)
      */
@@ -52,8 +64,7 @@ class Publicacion extends Controller
      */
     private $pais;
     /**
-     * @ORM\Column(type="string")
-     * @Assert\Locale()
+     * @ORM\Column(type="string", length=50)
      */
     private $provincia;
     /**
@@ -385,19 +396,6 @@ class Publicacion extends Controller
     }
 
     /**
-     * Get fotos
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getFotos()
-    {
-        $fotos = $this->getDoctrine()
-            ->getRepository('AppBundle:Foto')
-            ->findAll();
-        return $fotos;
-    }
-
-    /**
      * Add calificaciones
      *
      * @param \AppBundle\Entity\CalificacionPublicacion $calificaciones
@@ -418,19 +416,6 @@ class Publicacion extends Controller
     public function removeCalificacione(\AppBundle\Entity\CalificacionPublicacion $calificaciones)
     {
         $this->calificaciones->removeElement($calificaciones);
-    }
-
-    /**
-     * Get calificaciones
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getCalificaciones()
-    {
-        $calificacion = $this->getDoctrine()
-            ->getRepository('AppBundle:CalificacionPublicacion')
-            ->findAll();
-        return $calificacion;
     }
 
     /**
@@ -457,15 +442,43 @@ class Publicacion extends Controller
     }
 
     /**
+     * Get calificaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+
+    public function getCalificaciones()
+    {
+        return $this->calificaciones;
+    }
+
+    /**
      * Get comentarios
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
     public function getComentarios()
     {
-        $comentarios = $this->getDoctrine()
-            ->getRepository('AppBundle:Comentario')
-            ->findAll();
-        return $comentarios;
+        return $this->comentarios;
+    }
+
+    /**
+     * Set foto
+     *
+     * @param $foto
+     */
+    public function setFoto(UploadedFile $foto = null)
+    {
+        $this->foto = $foto;
+    }
+
+    /**
+     * Get foto
+     *
+     * @return string
+     */
+    public function getFoto()
+    {
+        return $this->foto;
     }
 }

@@ -10,13 +10,12 @@ namespace AppBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="tiposHospedaje")
  */
-class TipoHospedaje extends Controller
+class TipoHospedaje
 {
     /**
      * @ORM\Column(type="integer")

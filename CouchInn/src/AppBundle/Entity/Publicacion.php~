@@ -11,14 +11,13 @@ namespace AppBundle\Entity;
 
 use AppBundle\Controller\PublicacionController;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
  * @ORM\Table(name="publicaciones")
  */
-class Publicacion extends Controller
+class Publicacion
 {
     /**
      * @ORM\Column(type="integer")
@@ -385,19 +384,6 @@ class Publicacion extends Controller
     }
 
     /**
-     * Get fotos
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getFotos()
-    {
-        $fotos = $this->getDoctrine()
-            ->getRepository('AppBundle:Foto')
-            ->findAll();
-        return $fotos;
-    }
-
-    /**
      * Add calificaciones
      *
      * @param \AppBundle\Entity\CalificacionPublicacion $calificaciones
@@ -421,19 +407,6 @@ class Publicacion extends Controller
     }
 
     /**
-     * Get calificaciones
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getCalificaciones()
-    {
-        $calificacion = $this->getDoctrine()
-            ->getRepository('AppBundle:CalificacionPublicacion')
-            ->findAll();
-        return $calificacion;
-    }
-
-    /**
      * Add comentarios
      *
      * @param \AppBundle\Entity\Comentario $comentarios
@@ -454,18 +427,5 @@ class Publicacion extends Controller
     public function removeComentario(\AppBundle\Entity\Comentario $comentarios)
     {
         $this->comentarios->removeElement($comentarios);
-    }
-
-    /**
-     * Get comentarios
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getComentarios()
-    {
-        $comentarios = $this->getDoctrine()
-            ->getRepository('AppBundle:Comentario')
-            ->findAll();
-        return $comentarios;
     }
 }

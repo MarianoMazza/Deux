@@ -4,19 +4,16 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Publicacion;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\LocaleType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Date;
-use Symfony\Component\Validator\Constraints\Image;
 
 class PublicacionType extends AbstractType
 {
@@ -31,7 +28,7 @@ class PublicacionType extends AbstractType
             ->add('fechaDePublicacion',DateType::class)
             ->add('costo',IntegerType::class)
             ->add('fechaDisponible',DateType::class)
-            ->add('maxPersonas',IntegerType::class)
+            ->add('maxPersonas',NumberType::class)
             ->add('pais',CountryType::class)
             ->add('provincia',TextType::class)
             ->add('localidad',TextType::class)
@@ -40,7 +37,7 @@ class PublicacionType extends AbstractType
                 array('label' => 'TipoHospedaje: ',
                     'class' => 'AppBundle:TipoHospedaje',
                     'property' => 'tipo'))
-            ->add('fotos',FileType::class)
+            ->add('foto', FileType::class)
             ->add('agregarPublicacion',SubmitType::class)
         ;
     }
