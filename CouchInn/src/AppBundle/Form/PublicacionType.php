@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -24,20 +25,19 @@ class PublicacionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('descripcion',TextareaType::class)
-            ->add('fechaDePublicacion',DateType::class)
-            ->add('costo',IntegerType::class)
+            ->add('foto', FileType::class)
             ->add('fechaDisponible',DateType::class)
-            ->add('maxPersonas',NumberType::class)
-            ->add('pais',CountryType::class)
-            ->add('provincia',TextType::class)
-            ->add('localidad',TextType::class)
-            ->add('calle',TextType::class)
             ->add('tipo','entity',
                 array('label' => 'TipoHospedaje: ',
                     'class' => 'AppBundle:TipoHospedaje',
                     'property' => 'tipo'))
-            ->add('foto', FileType::class)
+            ->add('maxPersonas',NumberType::class)
+            ->add('costo',IntegerType::class)
+            ->add('pais',CountryType::class)
+            ->add('provincia',TextType::class)
+            ->add('localidad',TextType::class)
+            ->add('calle',TextType::class)
+            ->add('descripcion',TextareaType::class)
             ->add('agregarPublicacion',SubmitType::class)
         ;
     }

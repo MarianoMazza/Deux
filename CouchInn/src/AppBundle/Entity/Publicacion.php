@@ -105,6 +105,7 @@ class Publicacion
         $this->fotos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->calificaciones = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comentarios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setFechaDePublicacion(new \DateTime('now'));
     }
 
     

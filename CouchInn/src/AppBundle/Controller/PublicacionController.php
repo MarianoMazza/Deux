@@ -40,6 +40,7 @@ class PublicacionController extends Controller
     {
         $publicacion = new Publicacion();
         $publicacion->setUsuario($this->getUser());
+
         $form = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
         $form->handleRequest($request);
 
