@@ -17,7 +17,7 @@ class ComentarioController extends Controller
 {
     /**
      * Lists all Comentario entities.
-     *
+     * @Route("/comentario", name="_listaComent")
      */
     public function indexAction()
     {
@@ -25,19 +25,20 @@ class ComentarioController extends Controller
 
         $comentarios = $em->getRepository('AppBundle:Comentario')->findAll();
 
-        return $this->render('comentario/index.html.twig', array(
+        return $this->render(':default/publicacion:comentarios.html.twig', array(
             'comentarios' => $comentarios,
         ));
     }
 
     /**
      * Creates a new Comentario entity.
-     * @Route("/comentario", name="_comentario")
+     * @Route("/comentario/{to}", name="_comentario")
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request,$to)
     {
         $comentario = new Comentario();
         $comentario->setDeUsuario($this->getUser());
+        $comentario->setPublicacion($to);
         $form = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
         $form->handleRequest($request);
 
@@ -46,7 +47,7 @@ class ComentarioController extends Controller
             $em->persist($comentario);
             $em->flush();
 
-            return $this->redirectToRoute('comentario_show', array('id' => $comentario->getId()));
+            return $this->redirectToRoute('_hecho', array('id' => $comentario->getId()));
         }
 
         return $this->render(':default/comentarios:comentario.html.twig', array(
