@@ -11,6 +11,8 @@ namespace AppBundle\Entity;
 
 use AppBundle\Controller\PublicacionController;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -26,6 +28,17 @@ class Publicacion
      */
     private $id;
     /**
+     *
+     * @ORM\Column(type="blob")
+     * @Assert\File(
+     *     maxSize = "5M",
+     *     mimeTypes = {"image/jpeg", "image/gif", "image/png", "image/tiff", "image/jpg"},
+     *     maxSizeMessage = "El tamaño máximo permitido es 5MB.",
+     *     mimeTypesMessage = "Solo se permiten determinados tipos de imágen."
+     * )
+     */
+    private $foto;
+    /**
      * @ORM\Column(type="text", length=500)
      */
     private $descripcion;
@@ -40,7 +53,11 @@ class Publicacion
     /**
      * @ORM\Column(type="date")
      */
-    private $fechaDisponible;
+    private $fechaDisponibleInicio;
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $fechaDisponibleFin;
     /**
      * @ORM\Column(type="integer")
      */
@@ -51,8 +68,7 @@ class Publicacion
      */
     private $pais;
     /**
-     * @ORM\Column(type="string")
-     * @Assert\Locale()
+     * @ORM\Column(type="string", length=50)
      */
     private $provincia;
     /**
@@ -93,6 +109,7 @@ class Publicacion
         $this->fotos = new \Doctrine\Common\Collections\ArrayCollection();
         $this->calificaciones = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comentarios = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setFechaDePublicacion(new \DateTime('now'));
     }
 
     
@@ -427,5 +444,46 @@ class Publicacion
     public function removeComentario(\AppBundle\Entity\Comentario $comentarios)
     {
         $this->comentarios->removeElement($comentarios);
+    }
+
+    /**
+     * Get calificaciones
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+
+    public function getCalificaciones()
+    {
+        return $this->calificaciones;
+    }
+
+    /**
+     * Get comentarios
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComentarios()
+    {
+        return $this->comentarios;
+    }
+
+    /**
+     * Set foto
+     *
+     * @param $foto
+     */
+    public function setFoto(UploadedFile $foto = null)
+    {
+        $this->foto = $foto;
+    }
+
+    /**
+     * Get foto
+     *
+     * @return string
+     */
+    public function getFoto()
+    {
+        return $this->foto;
     }
 }

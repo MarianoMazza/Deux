@@ -53,7 +53,11 @@ class Publicacion
     /**
      * @ORM\Column(type="date")
      */
-    private $fechaDisponible;
+    private $fechaDisponibleInicio;
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $fechaDisponibleFin;
     /**
      * @ORM\Column(type="integer")
      */
@@ -481,5 +485,61 @@ class Publicacion
     public function getFoto()
     {
         return $this->foto;
+    }
+
+    /**
+     * Set fechaDisponibleInicio
+     *
+     * @param \DateTime $fechaDisponibleInicio
+     * @return Publicacion
+     */
+    public function setFechaDisponibleInicio($fechaDisponibleInicio)
+    {
+        $this->fechaDisponibleInicio = $fechaDisponibleInicio;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaDisponibleInicio
+     *
+     * @return \DateTime 
+     */
+    public function getFechaDisponibleInicio()
+    {
+        return $this->fechaDisponibleInicio;
+    }
+
+    /**
+     * Set fechaDisponibleFin
+     *
+     * @param \DateTime $fechaDisponibleFin
+     * @return Publicacion
+     */
+    public function setFechaDisponibleFin($fechaDisponibleFin)
+    {
+        $this->fechaDisponibleFin = $fechaDisponibleFin;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaDisponibleFin
+     *
+     * @return \DateTime 
+     */
+    public function getFechaDisponibleFin()
+    {
+        return $this->fechaDisponibleFin;
+    }
+
+    /**
+     * Get fotos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFotos()
+    {
+        return $this->fotos;
     }
 }

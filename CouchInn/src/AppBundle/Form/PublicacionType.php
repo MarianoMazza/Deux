@@ -26,7 +26,14 @@ class PublicacionType extends AbstractType
     {
         $builder
             ->add('foto', FileType::class)
-            ->add('fechaDisponible',DateType::class)
+            ->add('fechaDisponibleInicio',DateType::class,[
+                'years'=>range(date('Y'), date('Y')+3),
+                'data'=>new \DateTime('now'),
+            ])
+            ->add('fechaDisponibleFin',DateType::class,[
+                'years'=>range(date('Y'), date('Y')+3),
+                'data'=>new \DateTime('tomorrow'),
+            ])
             ->add('tipo','entity',
                 array('label' => 'TipoHospedaje: ',
                     'class' => 'AppBundle:TipoHospedaje',

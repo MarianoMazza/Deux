@@ -38,23 +38,27 @@ class PublicacionController extends Controller
      */
     public function newAction(Request $request)
     {
+        $error = null;
         $publicacion = new Publicacion();
         $publicacion->setUsuario($this->getUser());
 
         $form = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
-        $form->handleRequest($request);
+        $form->handleRequest($request );
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if (!empty($publicacion) and new \DateTime('today') <= $publicacion->getFechaDisponibleInicio() and $publicacion->getFechaDisponibleInicio() < $publicacion->getFechaDisponibleFin()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($publicacion);
             $em->flush();
 
             return $this->redirectToRoute('_hecho', array('id' => $publicacion->getId()));
+        }elseif ($form->isSubmitted()){
+            $error = 'Las fechas que usted ha ingresado son incorrectas.';
         }
 
         return $this->render(':default/publicacion:altaPubli.html.twig', array(
             'publicacion' => $publicacion,
             'form' => $form->createView(),
+            'error' => $error,
         ));
     }
 

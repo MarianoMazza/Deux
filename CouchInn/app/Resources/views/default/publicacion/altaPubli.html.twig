@@ -3,6 +3,11 @@
 {% block panelhead %}Publicar{% endblock %}
 
 {% block panelbody %}
+
+    {% if error is not empty %}
+        {{ error }}
+    {% endif %}
+
     {{ form_start(form) }}
     {{ form_row(form) }}
     {{ form_end(form) }}
