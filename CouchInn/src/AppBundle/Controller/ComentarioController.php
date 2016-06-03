@@ -37,6 +37,7 @@ class ComentarioController extends Controller
     public function newAction(Request $request)
     {
         $comentario = new Comentario();
+        $comentario->setDeUsuario($this->getUser());
         $form = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
         $form->handleRequest($request);
 

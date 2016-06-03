@@ -22,7 +22,6 @@ class ComentarioType extends AbstractType
     {
         $builder
             ->add('comentario', StringType::TEXT)
-            ->add('deUsuario', TextType::class)
             ->add('publicacion', TextType::class)
             ->add ('Comentar', SubmitType::class)
         ;
