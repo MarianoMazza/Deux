@@ -19,7 +19,6 @@ class CalificacionPublicacionType extends AbstractType
         $builder
             ->add('calificacion','choice', array('choices' => array
             ('1'   => 'Positivo','2' => 'Negativo',),'multiple' => false,))
-            ->add('deUsuario',TextType::class)
             ->add('publicacion',TextType::class)
             ->add('Calificar',SubmitType::class)
         ;

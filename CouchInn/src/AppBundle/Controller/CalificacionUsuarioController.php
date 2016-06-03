@@ -37,6 +37,7 @@ class CalificacionUsuarioController extends Controller
     public function newAction(Request $request)
     {
         $calificacionUsuario = new CalificacionUsuario();
+        $calificacionUsuario->setDeUsuario($this->getUser());
         $form = $this->createForm('AppBundle\Form\CalificacionUsuarioType', $calificacionUsuario);
         $form->handleRequest($request);
 
