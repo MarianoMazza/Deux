@@ -1,7 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block panelhead %}Publicacion{% endblock %}
+{% block panelhead %}
+    Publicacion
+    <a href="#" class="glyphicon glyphicon-thumbs-up" style="color: green"></a>
+    <a href="#" class="glyphicon glyphicon-thumbs-down" style="color: red"></a>
+{% endblock %}
 
 {% block panelbody %}
-    <img src="data:image/jpg;base64,{{ imageData|base64 }}" alt="" />
+    <div class="col-md-8">
+        <div>
+            <label>Fotos:</label>
+
+        </div>
+        <br><br>
+        <div>
+            <label>Fecha Disponible:</label><br>
+            Desde: {{ publicacion.fechaDisponibleInicio|date('Y-m-d') }}<br>
+            Hasta: {{ publicacion.fechaDisponibleFin|date('Y-m-d') }}
+        </div>
+        <br><br>
+        <div>
+            <label>Descripcion:</label><br>
+            {{ publicacion.descripcion }}
+        </div>
+        <br><br>
+        <div>
+            <label>¿Dónde queda?</label><br>
+            Pais:
+            {{ publicacion.pais }}<br>
+            Provincia:
+            {{ publicacion.localidad }}<br>
+            Dirección:
+            {{ publicacion.calle }}<br>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div>
+            <label>Publicado por:</label>
+            {{ publicacion.usuario.username }}
+            <a href="#" class="glyphicon glyphicon-thumbs-up" style="color: green"></a>
+            <a href="#" class="glyphicon glyphicon-thumbs-down" style="color: red"></a><br>
+        </div>
+        <div>
+            <label>El día:</label>
+            {{ publicacion.fechaDePublicacion|date('Y-m-d') }}
+        </div>
+    </div>
+
 {% endblock %}

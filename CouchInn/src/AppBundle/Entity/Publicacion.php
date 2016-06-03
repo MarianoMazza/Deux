@@ -193,29 +193,6 @@ class Publicacion
     }
 
     /**
-     * Set fechaDisponible
-     *
-     * @param \DateTime $fechaDisponible
-     * @return PublicacionController
-     */
-    public function setFechaDisponible($fechaDisponible)
-    {
-        $this->fechaDisponible = $fechaDisponible;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaDisponible
-     *
-     * @return \DateTime 
-     */
-    public function getFechaDisponible()
-    {
-        return $this->fechaDisponible;
-    }
-
-    /**
      * Set maxPersonas
      *
      * @param integer $maxPersonas
