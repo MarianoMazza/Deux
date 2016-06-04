@@ -44,4 +44,11 @@ class DefaultController extends Controller
             'error'=>$err
         ]);
     }
+
+    /**
+     * @Route("/ayuda", name="_ayuda")
+     */
+    public function ayudaAction(){
+        return $this->render(':default:ayuda.html.twig');
+    }
 }

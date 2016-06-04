@@ -119,9 +119,9 @@ class Comentario
     /**
      * Set publicacion
      *
-     * @param \AppBundle\Entity\Publicacion $publicacion
+     * @param string
      */
-    public function setPublicacion(\AppBundle\Entity\Publicacion $publicacion = null)
+    public function setPublicacion($publicacion)
     {
         $this->publicacion = $publicacion;
     }
@@ -129,7 +129,7 @@ class Comentario
     /**
      * Get publicacion
      *
-     * @return \AppBundle\Entity\Publicacion 
+     * @return string
      */
     public function getPublicacion()
     {

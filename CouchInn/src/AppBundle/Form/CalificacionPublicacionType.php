@@ -16,7 +16,15 @@ class CalificacionPublicacionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+<<<<<<< HEAD
         $builderz
+=======
+        $builder
+            ->add('calificacion','choice', array('choices' => array
+            ('1'   => 'Positivo','2' => 'Negativo',),'multiple' => false,))
+            ->add('publicacion',TextType::class)
+            ->add('Calificar',SubmitType::class)
+>>>>>>> 660838add9bebbbc12fe2333862e47206a306217
         ;
     }
     
