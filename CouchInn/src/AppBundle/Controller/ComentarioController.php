@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Publicacion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,13 +33,14 @@ class ComentarioController extends Controller
 
     /**
      * Creates a new Comentario entity.
-     * @Route("/comentario/{to}", name="_comentario")
+     * @Route("/comentario/{id}", name="_comentario")
      */
-    public function newAction(Request $request,$to)
+    public function newAction(Request $request,Publicacion $id)
     {
+        dump($id);
         $comentario = new Comentario();
         $comentario->setDeUsuario($this->getUser());
-        $comentario->setPublicacion($to);
+        $comentario->setPublicacion($id);
         $form = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
         $form->handleRequest($request);
 

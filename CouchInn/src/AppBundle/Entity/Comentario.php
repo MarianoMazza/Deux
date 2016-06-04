@@ -119,7 +119,7 @@ class Comentario
     /**
      * Set publicacion
      *
-     * @param integer
+     * @param string
      */
     public function setPublicacion($publicacion)
     {
@@ -129,7 +129,7 @@ class Comentario
     /**
      * Get publicacion
      *
-     * @return integer
+     * @return string
      */
     public function getPublicacion()
     {

@@ -33,11 +33,31 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="TipoHospedajeController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/TipoHospedajeController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="465">
+              <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TipoHospedaje.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/TipoHospedaje.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="74">
+              <caret line="22" column="43" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="PublicacionController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/PublicacionController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="31" column="39" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
+            <state relative-caret-position="-895">
+              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
               <folding>
                 <element signature="e#2423#2474#0#PHP" expanded="true" />
               </folding>
@@ -45,21 +65,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UsuarioController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/UsuarioController.php">
+      <file leaf-file-name="ComentarioController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ComentarioController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1140">
-              <caret line="82" column="56" selection-start-line="82" selection-start-column="56" selection-end-line="82" selection-end-column="56" />
-              <folding />
+            <state relative-caret-position="839">
+              <caret line="58" column="5" selection-start-line="37" selection-start-column="3" selection-end-line="58" selection-end-column="5" />
+              <folding>
+                <element signature="e#40#73#0#PHP" expanded="true" />
+                <element signature="e#696#740#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TipoHospedajeController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/TipoHospedajeController.php">
+      <file leaf-file-name="Comentario.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Comentario.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+            <state relative-caret-position="516">
+              <caret line="121" column="20" selection-start-line="121" selection-start-column="14" selection-end-line="121" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -69,41 +92,17 @@
         <entry file="file://$PROJECT_DIR$/app/Resources/views/default/publicacion/mostrarPublicacion.html.twig">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="754">
-              <caret line="51" column="59" selection-start-line="51" selection-start-column="59" selection-end-line="51" selection-end-column="59" />
+              <caret line="51" column="98" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="98" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Publicacion.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Publicacion.php">
+      <file leaf-file-name="CalificacionPublicacionController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CalificacionPublicacionController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="30" column="6" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
-              <folding>
-                <element signature="e#121#168#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ComentarioController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ComentarioController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="35" column="7" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="7" />
-              <folding>
-                <element signature="e#662#706#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Comentario.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Comentario.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-215">
-              <caret line="78" column="7" selection-start-line="78" selection-start-column="7" selection-end-line="78" selection-end-column="7" />
+            <state relative-caret-position="170">
+              <caret line="39" column="47" selection-start-line="39" selection-start-column="47" selection-end-line="39" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -113,7 +112,17 @@
         <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/ComentarioType.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="289">
-              <caret line="23" column="49" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
+              <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="modificarTipoHospedaje.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Resources/views/default/tipoHospedaje/modificarTipoHospedaje.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -139,14 +148,14 @@
         <option value="$PROJECT_DIR$/src/AppBundle/Form/CalificacionPublicacionType.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Form/CalificacionUsuarioType.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/CalificacionUsuarioController.php" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Form/ComentarioType.php" />
         <option value="$PROJECT_DIR$/src/AppBundle/Controller/TipoHospedajeController.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/default/publicacion/comentarios.html.twig.html" />
         <option value="$PROJECT_DIR$/app/Resources/views/default/publicacion/comentarios.html.twig" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Controller/ComentarioController.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/base.html.twig" />
-        <option value="$PROJECT_DIR$/src/AppBundle/Entity/Comentario.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Form/ComentarioType.php" />
         <option value="$PROJECT_DIR$/app/Resources/views/default/publicacion/mostrarPublicacion.html.twig" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Controller/ComentarioController.php" />
+        <option value="$PROJECT_DIR$/src/AppBundle/Entity/Comentario.php" />
       </list>
     </option>
   </component>
@@ -658,12 +667,12 @@
       <workItem from="1464912839440" duration="592000" />
       <workItem from="1464913447316" duration="4037000" />
       <workItem from="1464966991449" duration="15957000" />
-      <workItem from="1464984270974" duration="5373000" />
+      <workItem from="1464984270974" duration="10758000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25959000" />
+    <option name="totallyTimeSpent" value="31344000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -704,16 +713,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ComentarioController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="39" column="52" selection-start-line="39" selection-start-column="52" selection-end-line="39" selection-end-column="52" />
-          <folding>
-            <element signature="e#662#706#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/ComentarioType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -741,6 +740,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
           <caret line="39" column="47" selection-start-line="39" selection-start-column="47" selection-end-line="39" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -808,13 +808,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/default/menu.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="84" selection-start-line="5" selection-start-column="61" selection-end-line="5" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/CalificacionPublicacion.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1207">
@@ -858,16 +851,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/default/tipoHospedaje/modificarTipoHospedaje.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#12#26#0#Twig" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -922,33 +905,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CalificacionPublicacionController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-148">
-          <caret line="39" column="47" selection-start-line="39" selection-start-column="47" selection-end-line="39" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/TipoHospedaje.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="22" column="43" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/FotoType.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/default/index.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1025,36 +985,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/ComentarioType.php">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Usuario.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="23" column="49" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Resources/views/default/tipoHospedaje/tiposHospedaje.html.twig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/PublicacionController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="31" column="39" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
-          <folding>
-            <element signature="e#2423#2474#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/UsuarioController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="82" column="56" selection-start-line="82" selection-start-column="56" selection-end-line="82" selection-end-column="56" />
+        <state relative-caret-position="5942">
+          <caret line="408" column="7" selection-start-line="408" selection-start-column="7" selection-end-line="408" selection-end-column="7" />
           <folding />
         </state>
       </provider>
@@ -1069,28 +1003,96 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Usuario.php">
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/UsuarioController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5942">
-          <caret line="408" column="7" selection-start-line="408" selection-start-column="7" selection-end-line="408" selection-end-column="7" />
+        <state relative-caret-position="1140">
+          <caret line="82" column="56" selection-start-line="82" selection-start-column="56" selection-end-line="82" selection-end-column="56" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ComentarioController.php">
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/default/menu.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="35" column="7" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="7" />
+        <state relative-caret-position="85">
+          <caret line="5" column="84" selection-start-line="5" selection-start-column="61" selection-end-line="5" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/default/index.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#662#706#0#PHP" expanded="true" />
+            <element signature="e#12#26#0#Twig" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/default/hecho.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#12#26#0#Twig" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/TipoHospedaje.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="74">
+          <caret line="22" column="43" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/default/tipoHospedaje/modificarTipoHospedaje.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/TipoHospedajeController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
+        <state relative-caret-position="465">
           <caret line="73" column="0" selection-start-line="73" selection-start-column="0" selection-end-line="73" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Form/ComentarioType.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="23" column="1" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/PublicacionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-895">
+          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+          <folding>
+            <element signature="e#2423#2474#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Resources/views/default/tipoHospedaje/tiposHospedaje.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/CalificacionPublicacionController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="39" column="47" selection-start-line="39" selection-start-column="47" selection-end-line="39" selection-end-column="47" />
           <folding />
         </state>
       </provider>
@@ -1098,16 +1100,27 @@
     <entry file="file://$PROJECT_DIR$/app/Resources/views/default/publicacion/mostrarPublicacion.html.twig">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="754">
-          <caret line="51" column="59" selection-start-line="51" selection-start-column="59" selection-end-line="51" selection-end-column="59" />
+          <caret line="51" column="98" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="98" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/AppBundle/Entity/Comentario.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-215">
-          <caret line="78" column="7" selection-start-line="78" selection-start-column="7" selection-end-line="78" selection-end-column="7" />
+        <state relative-caret-position="516">
+          <caret line="121" column="20" selection-start-line="121" selection-start-column="14" selection-end-line="121" selection-end-column="20" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AppBundle/Controller/ComentarioController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="839">
+          <caret line="58" column="5" selection-start-line="37" selection-start-column="3" selection-end-line="58" selection-end-column="5" />
+          <folding>
+            <element signature="e#40#73#0#PHP" expanded="true" />
+            <element signature="e#696#740#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
