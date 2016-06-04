@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Publicacion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -32,28 +33,50 @@ class CalificacionPublicacionController extends Controller
 
     /**
      * Creates a new CalificacionPublicacion entity.
-     * @Route("/calificacionPublicacion", name="_calificacionPublicacion")
+     * @Route("/home/calificacionPublicacion/{id}/{cal}", name="_calificarPublicacion")
      */
-    public function newAction(Request $request)
+    public function newAction($id, $cal)
     {
         $calificacionPublicacion = new CalificacionPublicacion();
-        $form = $this->createForm('AppBundle\Form\CalificacionPublicacionType', $calificacionPublicacion);
-        $form->handleRequest($request);
+        $publicacion = $this->getDoctrine()->getRepository('AppBundle:Publicacion')->find($id);
+        $calificacionPublicacion->setCalificacion($cal);
+        $calificacionPublicacion->setDeUsuario($this->getUser());
+        $calificacionPublicacion->setPublicacion($publicacion);
+        $calificaciones = $this->getDoctrine()
+            ->getRepository('AppBundle:CalificacionPublicacion')
+            ->findOneBy([
+                'deUsuario'=>$this->getUser()->getId(),
+            ]);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if (empty($calificaciones)){
             $em = $this->getDoctrine()->getManager();
             $em->persist($calificacionPublicacion);
             $em->flush();
-
-            return $this->redirectToRoute('calificacionpublicacion_show', array('id' => $calificacionPublicacion->getId()));
         }
 
-        return $this->render(':default/publicacion:calificacionPublicacion.html.twig', array(
-            'calificacionPublicacion' => $calificacionPublicacion,
-            'form' => $form->createView(),
-        ));
+        return $this->redirectToRoute('_mostrarPublicacion', [
+            'id'=>$publicacion->getId(),
+        ]);
     }
+/*
+    /**
+     * Creates a new CalificacionPublicacion entity.
+     * @Route("/home/calificacionPublicacion/{publicacion}/{cal}", name="_calificarPublicacion")
+     *
+    public function newAction(Publicacion $publicacion, $cal)
+    {
+        $calificacionPublicacion = new CalificacionPublicacion();
+        $calificacionPublicacion->setCalificacion($cal);
+        $calificacionPublicacion->setDeUsuario($this->getUser());
+        $calificacionPublicacion->setPublicacion($publicacion);
 
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($calificacionPublicacion);
+        $em->flush();
+
+        return $this->redirectToRoute('_listaPubli');
+    }
+*/
     /**
      * Finds and displays a CalificacionPublicacion entity.
      *

@@ -2,8 +2,8 @@
 
 {% block panelhead %}
     Publicacion
-    <a href="#" class="glyphicon glyphicon-thumbs-up" style="color: green"></a>
-    <a href="#" class="glyphicon glyphicon-thumbs-down" style="color: red"></a>
+    <a href="{{ path('_calificarPublicacion', {'id': publicacion.id, 'cal':1}) }}" class="glyphicon glyphicon-thumbs-up" style="color: green"></a>
+    <a href="{{ path('_calificarPublicacion', {'id': publicacion.id, 'cal':2}) }}" class="glyphicon glyphicon-thumbs-down" style="color: red"></a>
 {% endblock %}
 
 {% block panelbody %}

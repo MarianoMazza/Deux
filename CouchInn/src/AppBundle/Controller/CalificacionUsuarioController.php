@@ -32,11 +32,13 @@ class CalificacionUsuarioController extends Controller
 
     /**
      * Creates a new CalificacionUsuario entity.
-     * @Route("/calificacionUsuario", name="_calificacionUsuario")
+     * @Route("/home/calificacion/{du_id}/{pu_id}", name="_calificacionUsuario")
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $deUsuarioId, $paraUsuarioId)
     {
         $calificacionUsuario = new CalificacionUsuario();
+        $calificacionUsuario->setDeUsuario($deUsuarioId);
+        $calificacionUsuario->setParaUsuario($paraUsuarioId);
         $form = $this->createForm('AppBundle\Form\CalificacionUsuarioType', $calificacionUsuario);
         $form->handleRequest($request);
 
