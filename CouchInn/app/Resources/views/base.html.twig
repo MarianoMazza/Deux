@@ -17,12 +17,19 @@
 
     {% block estilos %}
     {% endblock %}
-
-    <title>{% block titulo %}CouchInn{% endblock %}</title>
 </head>
 <body>
     <div class="cover">
         <div class="cover-image" style="background-image: url('images/Paris.jpg')">
+            <title>{% block titulo %}CouchInn{% endblock %}</title>
+            <style>
+                img {
+                    padding: 2px;
+                    max-width: 10%;
+                    height: 10%;
+                }
+            </style>
+            <img src="{{ asset('images/CouchInn logo.png') }}" class="img">
         </div>
         {% block body %}
 
@@ -33,6 +40,7 @@
             {% block seccion %}
             <div class="col-md-12 text-center" style="padding: 100px">
                 <div class="container">
+
                 {% block seccioncentro %}
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -57,7 +65,7 @@
                 <div class="row">
                     <div class="col-sm-6 text-center">
                         <div class="col-sm-8">
-                            <img src="{{ asset('images/CouchInn logo.png') }}" class="img-responsive">
+
                             {% block footerInfoA %}
                                 <p>hello!</p>
                             {% endblock %}
