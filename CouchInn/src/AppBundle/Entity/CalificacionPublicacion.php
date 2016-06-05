@@ -36,7 +36,7 @@ class CalificacionPublicacion
     private $deUsuario;
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Publicacion", inversedBy="calificaciones")
-     * @ORM\JoinColumn(name="publicacion_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="publicacion_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $publicacion;
 

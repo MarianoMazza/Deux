@@ -6,9 +6,10 @@
 {% endblock %}
 
 {% block panelbody %}
-    <table class="table table-striped" style="color: #0f0f0f">
+    <table class="table well" style="color: black">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Nombre de Usuario</th>
                 <th></th>
             </tr>
@@ -16,6 +17,7 @@
         <tbody>
             {% for usuario in usuarios %}
                 <tr>
+                    <td>{{ usuario.id }}</td>
                     <td>{{ usuario.username }}</td>
                     <td><a href="{{ path('_eliminarUsuario', { 'id': usuario.id }) }}" class="glyphicon glyphicon-erase"></a></td>
                 </tr>

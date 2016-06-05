@@ -2,15 +2,19 @@
 
 {% block panelhead %}
     Publicacion
-    <a href="{{ path('_calificarPublicacion', {'id': publicacion.id, 'cal':1}) }}" class="glyphicon glyphicon-thumbs-up" style="color: green"></a>
-    <a href="{{ path('_calificarPublicacion', {'id': publicacion.id, 'cal':2}) }}" class="glyphicon glyphicon-thumbs-down" style="color: red"></a>
+    <a href="{{ path('_calificarPublicacion', {'id': publicacion.id, 'cal':1}) }}" class="glyphicon glyphicon-thumbs-up" style="color: green">
+    </a>
+    {{ calificacionesBuenas }}
+    <a href="{{ path('_calificarPublicacion', {'id': publicacion.id, 'cal':2}) }}" class="glyphicon glyphicon-thumbs-down" style="color: red">
+    </a>
+    {{ calificacionesMalas }}
 {% endblock %}
 
 {% block panelbody %}
     <div class="col-md-8">
         <div>
-            <label>Fotos:</label>
-
+            <label>Tipo de hospedaje</label><br>
+            {{ publicacion.tipo.tipo }}
         </div>
         <br><br>
         <div>
@@ -39,17 +43,53 @@
         <div>
             <label>Publicado por:</label>
             {{ publicacion.usuario.username }}
-            <a href="#" class="glyphicon glyphicon-thumbs-up" style="color: green"></a>
-            <a href="#" class="glyphicon glyphicon-thumbs-down" style="color: red"></a><br>
+            <a href="{{ path('_calificacionUsuario', {'paraUsuario': publicacion.usuario.id, 'cal': 1, 'publicacionid': publicacion.id}) }}" class="glyphicon glyphicon-thumbs-up" style="color: green"></a>
+            {{ calificacionDelUsuarioBuenas }}
+            <a href="{{ path('_calificacionUsuario', {'paraUsuario': publicacion.usuario.id, 'cal': 2, 'publicacionid': publicacion.id}) }}" class="glyphicon glyphicon-thumbs-down" style="color: red"></a>
+            {{ calificacionesDelUsuarioMalas }}
         </div>
+        <br>
         <div>
             <label>El día:</label>
             {{ publicacion.fechaDePublicacion|date('Y-m-d') }}
         </div>
+        <div>
+            <img class="img-responsive" src="{{ asset('uploads/fotos/' ~ publicacion.path) }}">
+        </div>
+    </div>
+    <div class="panel-heading col-md-12" style="padding: 20px 0px">
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a><label style="color: white">Comentarios</label></a></li>
+        </ul>
+
+        <div id="comentarios"><br>
+            <a href="{{path('_comentario', {'paraUsuarioId':publicacion.usuario.id, 'id': publicacion.id})}}" class="btn btn-default active">Comentar</a>
+            <br><br>
+            <table class="table panel-body col-md-12">
+                <tbody>
+                {% for comentario in comentarios %}
+                    <tr>
+                        <td>
+                            <div style="padding: 20px 0px">
+                                Usuario: {{ comentario.deUsuario.username }}<br>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                Fecha: {{ comentario.fecha|date('Y-m-d') }}
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                Comentario: {{ comentario.comentario }}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="panel-heading col-md-12" style="padding: 50px 0px">
-        <a href="{{path('_comentario',{'id': publicacion})}}" class="btn btn-default">Comentar</a>
-        Comentarios
-    </div>
 {% endblock %}

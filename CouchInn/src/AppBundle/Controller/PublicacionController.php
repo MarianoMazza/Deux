@@ -2,14 +2,13 @@
 
 namespace AppBundle\Controller;
 
-use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping as ORM;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Entity\Publicacion;
 use AppBundle\Form\PublicacionType;
-use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * Publicacion controller.
@@ -43,14 +42,25 @@ class PublicacionController extends Controller
         $publicacion->setUsuario($this->getUser());
 
         $form = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
-        $form->handleRequest($request );
+        $form->handleRequest($request);
 
         if (!empty($publicacion) and new \DateTime('today') <= $publicacion->getFechaDisponibleInicio() and $publicacion->getFechaDisponibleInicio() < $publicacion->getFechaDisponibleFin()) {
+            $foto = $form['foto']->getData();
+            $dir = 'uploads/fotos';
+
+            $extension = $foto->guessExtension();
+            if (!$extension) {
+                $extension = 'bin';
+            }
+            $name = md5(uniqid()).'.'.$extension;
+            $foto->move($dir, $name);
+            $publicacion->setPath($name);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($publicacion);
             $em->flush();
 
-            return $this->redirectToRoute('_hecho', array('id' => $publicacion->getId()));
+            return $this->redirectToRoute('_listaPubli', array('id' => $publicacion->getId()));
         }elseif ($form->isSubmitted()){
             $error = 'Las fechas que usted ha ingresado son incorrectas.';
         }
@@ -71,33 +81,72 @@ class PublicacionController extends Controller
         $publicacion = $this->getDoctrine()
             ->getRepository('AppBundle:Publicacion')
             ->find($id);
+        $calificacionesBuenas = $this->getDoctrine()
+            ->getRepository('AppBundle:CalificacionPublicacion')
+            ->findBy([
+                'calificacion'=>1,
+            ]);
+        $calificacionesMalas = $this->getDoctrine()
+            ->getRepository('AppBundle:CalificacionPublicacion')
+            ->findBy([
+                'calificacion'=>2,
+            ]);
+        $calificacionDelusuarioBuenas = $this->getDoctrine()
+            ->getRepository('AppBundle:CalificacionUsuario')
+            ->findBy([
+                'calificacion'=>1,
+            ]);
+        $calificacionesDelUsuarioMalas = $this->getDoctrine()
+            ->getRepository('AppBundle:CalificacionUsuario')
+            ->findBy([
+                'calificacion'=>2,
+            ]);
         $deleteForm = $this->createDeleteForm($publicacion);
 
         return $this->render(':default/publicacion:mostrarPublicacion.html.twig', array(
+            'calificacionesBuenas'=>count($calificacionesBuenas),
+            'calificacionesMalas'=>count($calificacionesMalas),
+            'calificacionDelUsuarioBuenas'=>count($calificacionDelusuarioBuenas),
+            'calificacionesDelUsuarioMalas'=>count($calificacionesDelUsuarioMalas),
             'publicacion' => $publicacion,
+            'comentarios' => $publicacion->getComentarios(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
      * Displays a form to edit an existing Publicacion entity.
-     *
+     * @Route("/home/publicacion/{id}/modificar", name="_modificarPublicacion")
      */
-    public function editAction(Request $request, Publicacion $publicacion)
+    public function editAction(Request $request, $id)
     {
+        $publicacion = $this->getDoctrine()
+            ->getRepository('AppBundle:Publicacion')
+            ->find($id);
         $deleteForm = $this->createDeleteForm($publicacion);
         $editForm = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $foto = $editForm['foto']->getData();
+            $dir = 'uploads/fotos';
+
+            $extension = $foto->guessExtension();
+            if (!$extension) {
+                $extension = 'bin';
+            }
+            $name = md5(uniqid()).'.'.$extension;
+            $foto->move($dir, $name);
+            $publicacion->setPath($name);
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($publicacion);
             $em->flush();
 
-            return $this->redirectToRoute('yes_edit', array('id' => $publicacion->getId()));
+            return $this->redirectToRoute('_mostrarPublicacion', array('id' => $publicacion->getId()));
         }
 
-        return $this->render('publicacion/edit.html.twig', array(
+        return $this->render(':default/publicacion:modificarPublicacion.html.twig', array(
             'publicacion' => $publicacion,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -113,16 +162,17 @@ class PublicacionController extends Controller
         $publicacion = $this->getDoctrine()
             ->getRepository('AppBundle:Publicacion')
             ->find($id);
+
         $form = $this->createDeleteForm($publicacion);
         $form->handleRequest($request);
 
-        if (!empty($publicacion)) {
+        if (!empty($publicacion) and !empty($publicacion->getComentarios())) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($publicacion);
             $em->flush();
         }
 
-        return $this->redirectToRoute('_hecho');
+        return $this->redirectToRoute('_listaPubli');
     }
 
     /**

@@ -1,14 +1,59 @@
+{#
+<nav class="navbar navbar-inverse" style="margin-top: 50px;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="{{ path('_home') }}">CouchInn</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="{{ path('_home') }}">HOME</a></li>
+            <li><a href="{{ path('_listaPubli') }}">Publicaciones</a></li>
+            <li><a href="{{ path('_ayuda') }}">Ayuda</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {% if is_granted('ROLE_ADMIN') %}
+                <li>
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                        Backend
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('_listaDeUsuarios') }}">Usuarios</a></li>
+                        <li><a href="{{ path('_tipos') }}">Tipos de hospedaje</a></li>
+                    </ul>
+                </li>
+            {% endif %}
+            {% if is_granted('ROLE_USER') %}
+                <li>
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-chevron-down"></span>
+                        Mi perfil
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('fos_user_profile_show') }}">Ver mi perfil</a></li>
+                        <li><a href="{{ path('_pago') }}">Pagar Premium</a></li>
+                        <li><a href="{{ path('fos_user_change_password') }}">Cambiar mi contraseña</a></li>
+                        <li><a href="{{ path('fos_user_security_logout') }}">Cerrar Sesión</a></li>
+                    </ul>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{ path('fos_user_security_login') }}">Iniciar Sesión</a>
+                </li>
+                <li class="nav navbar-nav navbar-right">
+                    <a href="{{ path('fos_user_registration_register') }}">Registrarme</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+#}
+
 <nav class="navbar navbar-static-top" role="navigation" style="padding: 50px 150px">
-    <div class="navbar-header btn-group">
+    <div class="navbar-nav btn-group">
         {% block menupublico %}
-            <a href="{{ path('_index') }}" class="btn btn-primary">Pagina de inicio</a>
+            <a href="{{ path('_home') }}" class="btn btn-default active">HOME</a>
             <a href="{{ path('_listaPubli') }}" class="btn btn-default">Publicaciones</a>
-<<<<<<< HEAD
-=======
-            <a href="{{ path('_calificacionPublicacion') }}" class="btn btn-default">Calificar Publicacion</a>
-            <a href="{{ path('_calificacionUsuario') }}" class="btn btn-default">Calificar Usuario</a>
             <a href="{{ path('_ayuda') }}" class="btn btn-default">Ayuda</a>
->>>>>>> 660838add9bebbbc12fe2333862e47206a306217
         {% endblock %}
     </div>
     {% block menuusuario %}
@@ -40,6 +85,5 @@
                 </ul>
             {% endif %}
         </div>
-
     {% endblock %}
 </nav>

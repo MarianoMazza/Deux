@@ -18,7 +18,7 @@ class ComentarioController extends Controller
 {
     /**
      * Lists all Comentario entities.
-     * @Route("/comentario", name="_listaComent")
+     * @Route("/home/publicacion/comentario", name="_listaComent")
      */
     public function indexAction()
     {
@@ -33,14 +33,17 @@ class ComentarioController extends Controller
 
     /**
      * Creates a new Comentario entity.
-     * @Route("/comentario/{id}", name="_comentario")
+     * @Route("/home/publicacion/comentario/{id}", name="_comentario")
      */
-    public function newAction(Request $request,Publicacion $id)
+    public function newAction(Request $request, $id)
     {
-        dump($id);
+        $publicacion = $this->getDoctrine()
+            ->getRepository('AppBundle:Publicacion')
+            ->find($id);
         $comentario = new Comentario();
         $comentario->setDeUsuario($this->getUser());
-        $comentario->setPublicacion($id);
+        $comentario->setPublicacion($publicacion);
+        $comentario->setFecha(new \DateTime('now'));
         $form = $this->createForm('AppBundle\Form\ComentarioType', $comentario);
         $form->handleRequest($request);
 
@@ -49,7 +52,7 @@ class ComentarioController extends Controller
             $em->persist($comentario);
             $em->flush();
 
-            return $this->redirectToRoute('_hecho', array('id' => $comentario->getId()));
+            return $this->redirectToRoute('_mostrarPublicacion', array('id' => $publicacion->getId()));
         }
 
         return $this->render(':default/comentarios:comentario.html.twig', array(

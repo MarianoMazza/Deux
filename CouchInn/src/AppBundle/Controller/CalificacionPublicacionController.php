@@ -33,7 +33,7 @@ class CalificacionPublicacionController extends Controller
 
     /**
      * Creates a new CalificacionPublicacion entity.
-     * @Route("/home/calificacionPublicacion/{id}/{cal}", name="_calificarPublicacion")
+     * @Route("/home/publicaciones/calificacionPublicacion/{id}/{cal}", name="_calificarPublicacion")
      */
     public function newAction($id, $cal)
     {
@@ -55,28 +55,10 @@ class CalificacionPublicacionController extends Controller
         }
 
         return $this->redirectToRoute('_mostrarPublicacion', [
-            'id'=>$publicacion->getId(),
+            'id'=>$id,
         ]);
     }
-/*
-    /**
-     * Creates a new CalificacionPublicacion entity.
-     * @Route("/home/calificacionPublicacion/{publicacion}/{cal}", name="_calificarPublicacion")
-     *
-    public function newAction(Publicacion $publicacion, $cal)
-    {
-        $calificacionPublicacion = new CalificacionPublicacion();
-        $calificacionPublicacion->setCalificacion($cal);
-        $calificacionPublicacion->setDeUsuario($this->getUser());
-        $calificacionPublicacion->setPublicacion($publicacion);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($calificacionPublicacion);
-        $em->flush();
-
-        return $this->redirectToRoute('_listaPubli');
-    }
-*/
     /**
      * Finds and displays a CalificacionPublicacion entity.
      *

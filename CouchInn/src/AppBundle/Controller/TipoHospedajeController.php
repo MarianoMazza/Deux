@@ -48,7 +48,7 @@ class TipoHospedajeController extends Controller
             $em->persist($tipoHospedaje);
             $em->flush();
 
-            return $this->redirectToRoute('_hecho', array('id' => $tipoHospedaje->getId()));
+            return $this->redirectToRoute('_tipos', array('id' => $tipoHospedaje->getId()));
 
         }
 
@@ -77,32 +77,19 @@ class TipoHospedajeController extends Controller
      */
     public function editAction(Request $request, $id)
     {
-        try{
-            $tipoHospedaje = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->find($id);
-            $publicaciones = $this->getDoctrine()
-                ->getRepository('AppBundle:Publicacion')
-                ->findOneBy([
-                    'tipo'=>$tipoHospedaje->getId()
-                ]);
-            if (!empty($publicaciones)){
-                throw new Exception ('No puede modificar este tipo de hospedaje ya que 1 o más publicaciones se encuentran relacionados al mismo.');
-            }
+        $tipoHospedaje = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->find($id);
 
-            $deleteForm = $this->createDeleteForm($tipoHospedaje);
-            $editForm = $this->createForm('AppBundle\Form\TipoHospedajeType', $tipoHospedaje);
-            $editForm->handleRequest($request);
+        $deleteForm = $this->createDeleteForm($tipoHospedaje);
+        $editForm = $this->createForm('AppBundle\Form\TipoHospedajeType', $tipoHospedaje);
+        $editForm->handleRequest($request);
 
-            if (!empty($tipoHospedaje)) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($tipoHospedaje);
-                $em->flush();
-                return $this->redirectToRoute('_hecho', array('id' => $tipoHospedaje->getId()));
-            }
-        }catch (Exception $e) {
-        return $this->redirectToRoute('_error', [
-            'err' => $e->getMessage()
-        ]);
-    }
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($tipoHospedaje);
+            $em->flush();
+            return $this->redirectToRoute('_tipos', array('id' => $tipoHospedaje->getId()));
+        }
+
         return $this->render(':default/tipoHospedaje:modificarTipoHospedaje.html.twig', array(
             'tipoHospedaje' => $tipoHospedaje,
             'edit_form' => $editForm->createView(),

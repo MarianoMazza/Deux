@@ -36,7 +36,7 @@ class CalificacionUsuario
     private $deUsuario;
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario", inversedBy="calificaciones")
-     * @ORM\JoinColumn(name="paraUsuario_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="paraUsuario_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $paraUsuario;
 

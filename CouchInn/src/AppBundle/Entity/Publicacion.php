@@ -28,16 +28,14 @@ class Publicacion
      */
     private $id;
     /**
-     *
-     * @ORM\Column(type="blob")
-     * @Assert\File(
-     *     maxSize = "5M",
-     *     mimeTypes = {"image/jpeg", "image/gif", "image/png", "image/tiff", "image/jpg"},
-     *     maxSizeMessage = "El tamaño máximo permitido es 5MB.",
-     *     mimeTypesMessage = "Solo se permiten determinados tipos de imágen."
-     * )
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     private $foto;
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $path;
     /**
      * @ORM\Column(type="text", length=500)
      */
@@ -518,5 +516,28 @@ class Publicacion
     public function getFotos()
     {
         return $this->fotos;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return Publicacion
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 }

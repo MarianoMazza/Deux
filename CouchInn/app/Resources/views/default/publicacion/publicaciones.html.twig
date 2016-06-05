@@ -1,4 +1,14 @@
 {% extends '::base.html.twig' %}
+{#
+{% block estilos %}
+    <style>
+        .carousel-inner > .item > img,
+        .carousel-inner > .item > a > img {
+            width: 200px;
+            margin: auto;
+        }
+    </style>
+{% endblock %}
 
 {% block panelhead %}
     Publicaciones<br>
@@ -8,33 +18,69 @@
 {% endblock %}
 
 {% block panelbody %}
-    <table class="table table-striped" style="color: #0f0f0f">
-        <thead>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            {% for publicacion in publicaciones %}
+            <div class="item active">
+                <img class="img-responsive" src="{{ asset('uploads/fotos/' ~ publicacion.path) }}">
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+#}
+
+{% block panelhead %}
+    Publicaciones<br>
+    {% if is_granted('ROLE_USER') %}
+        <a href="{{ path('_altaPubli') }}" class="btn btn-primary">Agregar Publicacion</a>
+    {% endif %}
+{% endblock %}
+
+{% block panelbody %}
+<table class="table table-striped" style="color: #0f0f0f">
+    <thead>
+    <tr>
+        <th>Usuario</th>
+        <th>Descripcion</th>
+        {% if is_granted('ROLE_USER') %}
+            <th></th>
+        {% endif %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for publicacion in publicaciones %}
         <tr>
-            <th>Usuario</th>
-            <th>Descripcion</th>
+            <td>{{ publicacion.usuario }}</td>
+            <td><a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
             {% if is_granted('ROLE_USER') %}
-                <th></th>
+            <td>
+                {% if publicacion.usuario.id == user.id %}
+                    <a href="{{ path('_modificarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-edit"></a>
+                {% endif %}
+                {% if publicacion.usuario.id == user.id or is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('_eliminarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-erase"></a>
+                {% endif %}
+            </td>
             {% endif %}
         </tr>
-        </thead>
-        <tbody>
-        {% for publicacion in publicaciones %}
-            <tr>
-                <td>{{ publicacion.usuario }}</td>
-                <td><a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
-                {% if is_granted('ROLE_USER') %}
-                <td>
-                    {% if publicacion.usuario.id == user.id %}
-                        <a href="#" class="glyphicon glyphicon-edit"></a>
-                    {% endif %}
-                    {% if publicacion.usuario.id == user.id or is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('_eliminarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-erase"></a>
-                    {% endif %}
-                </td>
-                {% endif %}
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

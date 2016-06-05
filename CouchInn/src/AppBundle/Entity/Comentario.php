@@ -38,7 +38,7 @@ class Comentario
     private $deUsuario;
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Publicacion", inversedBy="comentarios")
-     * @ORM\JoinColumn(name="publicacion_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="publicacion_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $publicacion;
 

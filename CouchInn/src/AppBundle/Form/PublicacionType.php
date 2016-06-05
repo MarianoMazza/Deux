@@ -25,7 +25,10 @@ class PublicacionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('foto', FileType::class)
+            ->add('foto', FileType::class, [
+                'data_class'=>null
+            ])
+            ->add('path', HiddenType::class)
             ->add('fechaDisponibleInicio',DateType::class,[
                 'years'=>range(date('Y'), date('Y')+3),
                 'data'=>new \DateTime('now'),

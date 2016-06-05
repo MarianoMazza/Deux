@@ -28,16 +28,14 @@ class Publicacion
      */
     private $id;
     /**
-     *
-     * @ORM\Column(type="blob")
-     * @Assert\File(
-     *     maxSize = "5M",
-     *     mimeTypes = {"image/jpeg", "image/gif", "image/png", "image/tiff", "image/jpg"},
-     *     maxSizeMessage = "El tamaño máximo permitido es 5MB.",
-     *     mimeTypesMessage = "Solo se permiten determinados tipos de imágen."
-     * )
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank()
      */
     private $foto;
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $path;
     /**
      * @ORM\Column(type="text", length=500)
      */
@@ -190,29 +188,6 @@ class Publicacion
     public function getCosto()
     {
         return $this->costo;
-    }
-
-    /**
-     * Set fechaDisponible
-     *
-     * @param \DateTime $fechaDisponible
-     * @return PublicacionController
-     */
-    public function setFechaDisponible($fechaDisponible)
-    {
-        $this->fechaDisponible = $fechaDisponible;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaDisponible
-     *
-     * @return \DateTime 
-     */
-    public function getFechaDisponible()
-    {
-        return $this->fechaDisponible;
     }
 
     /**
@@ -485,5 +460,61 @@ class Publicacion
     public function getFoto()
     {
         return $this->foto;
+    }
+
+    /**
+     * Set fechaDisponibleInicio
+     *
+     * @param \DateTime $fechaDisponibleInicio
+     * @return Publicacion
+     */
+    public function setFechaDisponibleInicio($fechaDisponibleInicio)
+    {
+        $this->fechaDisponibleInicio = $fechaDisponibleInicio;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaDisponibleInicio
+     *
+     * @return \DateTime 
+     */
+    public function getFechaDisponibleInicio()
+    {
+        return $this->fechaDisponibleInicio;
+    }
+
+    /**
+     * Set fechaDisponibleFin
+     *
+     * @param \DateTime $fechaDisponibleFin
+     * @return Publicacion
+     */
+    public function setFechaDisponibleFin($fechaDisponibleFin)
+    {
+        $this->fechaDisponibleFin = $fechaDisponibleFin;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaDisponibleFin
+     *
+     * @return \DateTime 
+     */
+    public function getFechaDisponibleFin()
+    {
+        return $this->fechaDisponibleFin;
+    }
+
+    /**
+     * Get fotos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFotos()
+    {
+        return $this->fotos;
     }
 }

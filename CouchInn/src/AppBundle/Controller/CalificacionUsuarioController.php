@@ -32,28 +32,32 @@ class CalificacionUsuarioController extends Controller
 
     /**
      * Creates a new CalificacionUsuario entity.
-     * @Route("/home/calificacion/{du_id}/{pu_id}", name="_calificacionUsuario")
+     * @Route("/home/calificacion/{paraUsuario}/{cal}/{publicacionid}", name="_calificacionUsuario")
      */
-    public function newAction(Request $request, $deUsuarioId, $paraUsuarioId)
+    public function newAction($paraUsuario, $cal ,$publicacionid)
     {
         $calificacionUsuario = new CalificacionUsuario();
-        $calificacionUsuario->setDeUsuario($deUsuarioId);
-        $calificacionUsuario->setParaUsuario($paraUsuarioId);
-        $form = $this->createForm('AppBundle\Form\CalificacionUsuarioType', $calificacionUsuario);
-        $form->handleRequest($request);
+        $usuario = $this->getDoctrine()
+            ->getRepository('AppBundle:Usuario')
+            ->find($paraUsuario);
+        $calificacionUsuario->setDeUsuario($this->getUser());
+        $calificacionUsuario->setParaUsuario($usuario);
+        $calificacionUsuario->setCalificacion($cal);
+        $calificaciones = $this->getDoctrine()
+            ->getRepository('AppBundle:CalificacionPublicacion')
+            ->findOneBy([
+                'deUsuario'=>$this->getUser()->getId(),
+            ]);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if (empty($calificaciones)) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($calificacionUsuario);
             $em->flush();
-
-            return $this->redirectToRoute('calificacionUsuario_show', array('id' => $calificacionUsuario->getId()));
         }
 
-        return $this->render(':default/usuario:calificacionUsuario.html.twig', array(
-            'calificacionUsuario' => $calificacionUsuario,
-            'form' => $form->createView(),
-        ));
+        return $this->redirectToRoute('_mostrarPublicacion', [
+            'id'=>$publicacionid,
+        ]);
     }
 
     /**
