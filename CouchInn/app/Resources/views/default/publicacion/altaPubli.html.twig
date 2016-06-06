@@ -8,9 +8,67 @@
         {{ error }}
     {% endif %}
 
-    {{ form_start(form) }}
-    {{ form_row(form) }}
-    {{ form_end(form) }}
-    <a href='{{ path('_listaPubli') }}' class="btn bg-danger">Cancelar</a>
+
+
+    <div class="formulario">
+        {{ form_start(form, {'attr' : {'role' : 'form'}}) }}
+        <div class="main container">
+            <div class="col-md-4">
+                <div class="form-group">
+                    {{ form_label(form.foto) }}
+                    {{ form_widget(form.foto) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.fechaDisponibleInicio) }}
+                    {{ form_widget(form.fechaDisponibleInicio) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.fechaDisponibleFin) }}
+                    {{ form_widget(form.fechaDisponibleFin) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.tipo) }}
+                    {{ form_widget(form.tipo) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.maxPersonas) }}
+                    {{ form_widget(form.maxPersonas, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese la cantidad de personas'}} )}}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.costo) }}
+                    {{ form_widget(form.costo, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese el costo'} }) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.pais) }}
+                    {{ form_widget(form.pais, { 'attr' : {'class' : 'form-control'} }) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.provincia) }}
+                    {{ form_widget(form.provincia, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese una Provincia'} }) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.localidad) }}
+                    {{ form_widget(form.localidad, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese una Localidad'} }) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.calle) }}
+                    {{ form_widget(form.calle, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese una Dirección'} }) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.descripcion) }}
+                    {{ form_widget(form.descripcion, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese una Descripción'} }) }}
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}
+
+
+
+
+
+
