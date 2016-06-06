@@ -4,9 +4,25 @@
 
 {% block panelbody %}
     <div class="formulario">
+<<<<<<< HEAD
+
+        {{ form_start(form, {'attr' : {'role' : 'form'}}) }}
+        <div class="main container">
+            <div class="col-md-5">
+                <div class="form-group">
+                    {{ form_label(form.tipo) }}
+                    {{ form_widget(form.tipo, { 'attr' : {'class' : 'form-control','placeholder' : 'Tipo de hospedaje'} })}}
+                 </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+
+=======
         {{ form_start(form) }}
         {{ form_row(form) }}
         {{ form_end(form) }}
         <a href='{{ path('_listaPubli') }}' class="btn bg-danger">Cancelar</a>
+>>>>>>> 0fb9cc709bbd8f977f98fcf79d78ad6a7ee8d775
     </div>
 {% endblock %}
