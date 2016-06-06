@@ -18,8 +18,10 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
-body {
-  margin: 0;
+body{
+  background-image:url("/images/Europe.jpg");
+  background-origin: content-box;
+  background-size:100%;
 }
 article,
 aside,
