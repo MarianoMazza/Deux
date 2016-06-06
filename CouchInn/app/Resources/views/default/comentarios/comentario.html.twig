@@ -3,10 +3,24 @@
 {% block panelhead %}Comentario{% endblock %}
 
 {% block panelbody %}
-    <div class="formulario" style="text-align: left; color: white">
-        {{ form_start(form) }}
-        {{ form_row(form) }}
-        {{ form_end(form) }}
-        <a href='{{ path('_listaPubli') }}' class="btn bg-danger">Cancelar</a>
+    <div class="formulario">
+
+
+        {{ form_start(form, {'attr' : {'role' : 'form'}}) }}
+        <div class="main container">
+            <div class="col-md-5">
+                <div class="form-group">
+                    {{ form_label(form.comentario) }}
+                    {{ form_widget(form.comentario, { 'attr' : {'class' : 'form-control','placeholder' : 'Comentar'} })}}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.Comentar) }}
+                    {{ form_widget(form.Comentar, { 'attr' : {'class' : 'btn label-default'} }) }}
+                    <a href='{{ path('_listaPubli') }}' class="btn active">Cancelar</a>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
     </div>
 {% endblock %}
+

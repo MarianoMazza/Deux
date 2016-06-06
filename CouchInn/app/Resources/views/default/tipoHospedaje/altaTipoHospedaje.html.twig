@@ -4,7 +4,7 @@
 
 {% block panelbody %}
     <div class="formulario">
-<<<<<<< HEAD
+
 
         {{ form_start(form, {'attr' : {'role' : 'form'}}) }}
         <div class="main container">
@@ -13,16 +13,13 @@
                     {{ form_label(form.tipo) }}
                     {{ form_widget(form.tipo, { 'attr' : {'class' : 'form-control','placeholder' : 'Tipo de hospedaje'} })}}
                  </div>
+                <div class="form-group">
+                    {{ form_label(form.Aceptar) }}
+                    {{ form_widget(form.Aceptar, { 'attr' : {'class' : 'btn label-default'} }) }}
+                    <a href='{{ path('_tipos') }}' class="btn active">Cancelar</a>
+                </div>
                 {{ form_end(form) }}
             </div>
         </div>
-
-
-=======
-        {{ form_start(form) }}
-        {{ form_row(form) }}
-        {{ form_end(form) }}
-        <a href='{{ path('_listaPubli') }}' class="btn bg-danger">Cancelar</a>
->>>>>>> 0fb9cc709bbd8f977f98fcf79d78ad6a7ee8d775
     </div>
 {% endblock %}

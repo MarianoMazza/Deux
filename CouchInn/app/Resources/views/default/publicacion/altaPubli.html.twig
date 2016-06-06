@@ -58,8 +58,14 @@
                     {{ form_label(form.descripcion) }}
                     {{ form_widget(form.descripcion, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese una Descripción'} }) }}
                 </div>
+                <div class="form-group">
+                    {{ form_label(form.agregarPublicacion) }}
+                    {{ form_widget(form.agregarPublicacion, { 'attr' : {'class' : 'btn label-default'} }) }}
+                    <a href='{{ path('_listaPubli') }}' class="btn active">Cancelar</a>
+                </div>
 
                 {{ form_end(form) }}
+
             </div>
         </div>
     </div>

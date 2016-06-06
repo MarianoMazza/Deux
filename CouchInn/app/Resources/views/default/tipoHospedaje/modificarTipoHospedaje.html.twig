@@ -7,9 +7,25 @@
 {% block panelbody %}
 
     <div id="editInfo">
-        {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        {{ form_end(edit_form) }}
+        <div class="formulario">
+
+
+            {{ form_start(edit_form, {'attr' : {'role' : 'form'}}) }}
+            <div class="main container">
+                <div class="col-md-5">
+                    <div class="form-group">
+                        {{ form_label(edit_form.tipo) }}
+                        {{ form_widget(edit_form.tipo, { 'attr' : {'class' : 'form-control','placeholder' : 'Tipo de hospedaje'} })}}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(edit_form.Aceptar) }}
+                        {{ form_widget(edit_form.Aceptar, { 'attr' : {'class' : 'btn label-default'} }) }}
+                        <a href='{{ path('_tipos') }}' class="btn active">Cancelar</a>
+                    </div>
+                    {{ form_end(edit_form) }}
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock %}

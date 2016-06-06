@@ -3,8 +3,66 @@
 {% block panelhead %}Modificar mi publicacion{% endblock %}
 
 {% block panelbody %}
-    {{ form_start(edit_form) }}
-    {{ form_widget(edit_form) }}
-    {{ form_end(edit_form) }}
-    <a href='{{ path('_listaPubli') }}' class="btn bg-danger">Cancelar</a>
+    <div class="formulario">
+        {{ form_start(edit_form, {'attr' : {'role' : 'form'}}) }}
+        <div class="main container">
+            <div class="col-md-4">
+                <div class="form-group">
+                    {{ form_label(edit_form.foto) }}
+                    {{ form_widget(edit_form.foto) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(edit_form.fechaDisponibleInicio) }}
+                    {{ form_widget(edit_form.fechaDisponibleInicio) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(edit_form.fechaDisponibleFin) }}
+                    {{ form_widget(edit_form.fechaDisponibleFin) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(edit_form.tipo) }}
+                    {{ form_widget(edit_form.tipo) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(edit_form.maxPersonas) }}
+                    {{ form_widget(edit_form.maxPersonas, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese la cantidad de personas'}} )}}
+                </div>
+                <div class="form-group">
+                    {{ form_label(edit_form.costo) }}
+                    {{ form_widget(edit_form.costo, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese el costo'} }) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(edit_form.pais) }}
+                    {{ form_widget(edit_form.pais, { 'attr' : {'class' : 'form-control'} }) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(edit_form.provincia) }}
+                    {{ form_widget(edit_form.provincia, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese una Provincia'} }) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(edit_form.localidad) }}
+                    {{ form_widget(edit_form.localidad, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese una Localidad'} }) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(edit_form.calle) }}
+                    {{ form_widget(edit_form.calle, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese una Dirección'} }) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(edit_form.descripcion) }}
+                    {{ form_widget(edit_form.descripcion, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese una Descripción'} }) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(edit_form.agregarPublicacion) }}
+                    {{ form_widget(edit_form.agregarPublicacion, { 'attr' : {'class' : 'btn label-default'} }) }}
+                    <a href='{{ path('_listaPubli') }}' class="btn active">Cancelar</a>
+                </div>
+
+                {{ form_end(edit_form) }}
+
+            </div>
+
+        </div>
+    </div>
+
 {% endblock %}
+

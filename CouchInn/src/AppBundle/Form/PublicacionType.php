@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use AppBundle\Entity\Publicacion;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -48,8 +49,8 @@ class PublicacionType extends AbstractType
             ->add('localidad',TextType::class)
             ->add('calle',TextType::class)
             ->add('descripcion',TextareaType::class)
-            ->add('agregarPublicacion',SubmitType::class)
-        ;
+            ->add('agregarPublicacion',SubmitType::class);
+            
     }
     
     /**

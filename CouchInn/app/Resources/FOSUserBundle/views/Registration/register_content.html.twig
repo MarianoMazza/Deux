@@ -54,6 +54,11 @@
                     {{ form_label(form.calle) }}
                     {{ form_widget(form.calle, { 'attr' :  {'class' : 'form-control','placeholder' : 'Ingrese una Dirección'} })}}
                 </div>
+                <div class="form-group">
+                    {{ form_label(form.submit) }}
+                    {{ form_widget(form.submit, { 'attr' : {'class' : 'btn label-default'} }) }}
+                    <a href='{{ path('_listaPubli') }}' class="btn active">Cancelar</a>
+                </div>
 
                 {{ form_end(form) }}
             </div>
@@ -61,7 +66,5 @@
     </div>
 {% endblock %}
 
-{{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
-    {{ form_widget(form) }}
-{{ form_end(form) }}
+
 

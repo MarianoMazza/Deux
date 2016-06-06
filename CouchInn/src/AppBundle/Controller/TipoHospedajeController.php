@@ -35,7 +35,7 @@ class TipoHospedajeController extends Controller
 
     /**
      * Creates a new TipoHospedaje entity.
-     * @Route("/tipoHospedaje", name="_tipoHospedaje")
+     * @Route("/admin/tipoHospedaje", name="_tipoHospedaje")
      */
     public function newAction(Request $request)
     {

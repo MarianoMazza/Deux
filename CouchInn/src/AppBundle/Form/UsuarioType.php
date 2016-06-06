@@ -40,7 +40,7 @@ class UsuarioType extends BaseType
             ->add('provincia', TextType::class, ['label'=>'Provincia: '])
             ->add('localidad', TextType::class, ['label'=>'Localidad: '])
             ->add('calle', TextType::class, ['label'=>'Domicilio: '])
-            ->add('submit', SubmitType::class, ['label'=>'Registrarme: '])
+            ->add('submit', SubmitType::class, ['label'=>'Registrarme '])
         ;
     }
 
