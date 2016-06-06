@@ -21,7 +21,9 @@ html {
 body{
   background-image:url("/images/Europe.jpg");
   background-origin: content-box;
-  background-size:100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100%;
 }
 article,
 aside,
