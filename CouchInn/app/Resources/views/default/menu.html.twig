@@ -51,15 +51,15 @@
 <nav class="navbar navbar-static-top" role="navigation" style="padding: 50px 150px">
     <div class="navbar-nav btn-group">
         {% block menupublico %}
-            <a href="{{ path('_listaPubli') }}" class="btn btn-default active">Home</a>
-            <a href="{{ path('_ayuda') }}" class="btn btn-default">Ayuda</a>
+            <a href="{{ path('_listaPubli') }}" class="btn btn-success">Home</a>
+            <a href="{{ path('_ayuda') }}" class="btn btn-success">Ayuda</a>
         {% endblock %}
     </div>
     {% block menuusuario %}
 
         <div class="dropdown navbar-right">
             {% if is_granted('ROLE_USER') %}
-                <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                <a class="btn btn-primary dropdown-toggle btn-success" data-toggle="dropdown">
                     <span class="glyphicon glyphicon-chevron-down"></span> Mi perfil
                 </a>
                 <ul class="dropdown-menu">
