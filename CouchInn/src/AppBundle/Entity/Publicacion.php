@@ -62,7 +62,9 @@ class Publicacion
     private $maxPersonas;
     /**
      * @ORM\Column(type="string")
-     * @Assert\Country()
+     * @Assert\Country(
+     *     message="El país ingresado es inválido"
+     * )
      */
     private $pais;
     /**
@@ -79,7 +81,7 @@ class Publicacion
     private $calle;
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario", inversedBy="publicaciones")
-     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $usuario;
     /**

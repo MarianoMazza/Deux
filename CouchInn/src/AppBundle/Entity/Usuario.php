@@ -44,12 +44,16 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     private $respuesta;
     /**
      * @ORM\Column(type="date")
-     * @Assert\Date()
+     * @Assert\Date(
+     *     message="La fecha ingresada es inválida"
+     * )
      */
     private $fechaDeNacimiento;
     /**
      * @ORM\Column(type="string")
-     * @Assert\Country()
+     * @Assert\Country(
+     *     message="El país ingresado es inválido"
+     * )
      */
     private $pais;
     /**
