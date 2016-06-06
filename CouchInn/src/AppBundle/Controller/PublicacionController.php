@@ -43,7 +43,7 @@ class PublicacionController extends Controller
 
         $form = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
         $form->handleRequest($request);
-
+  
         if (!empty($publicacion) and new \DateTime('today') <= $publicacion->getFechaDisponibleInicio() and $publicacion->getFechaDisponibleInicio() < $publicacion->getFechaDisponibleFin()) {
             $foto = $form['foto']->getData();
             $dir = 'uploads/fotos';

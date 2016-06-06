@@ -22,13 +22,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/home", name="_home")
-     */
-    public function homepageAction(){
-        return $this->render(':default:homepage.html.twig');
-    }
-
-    /**
      * @Route("/hecho", name="_hecho")
      */
     public function succesAction(){
