@@ -3,17 +3,26 @@
 {% block panelhead %}Recuperar Contraseña{% endblock %}
 
 {% block panelbody %}
-    <div>
-        <form action="{{ path('_recoveryPass') }}">
-            {% if invalid_email is defined %}
-                <p>El email es inválido.</p>
-            {% endif %}
-            <label for="email">Email: </label>
-            <input type="text" id="email" name="email" required="required" />
-        </form>
+<div class="formulario">
+    <div class="main container">
+        <div class="col-md-5">
+            <div>
+                <form action="{{ path('_recoveryPass') }}">
+                    {% if invalid_email is defined %}
+                        <p>El email es inválido.</p>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="email">Email: </label>
+                        <input type="text" id="email" name="email" required="required"  class="form-control" placeholder="Ingrese un correo electrónico" }  />
+                    </div>
+                </form>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn label-default">Recuperar Contraseña</button>
+                <a href='{{ path('_listaPubli') }}' class="btn active">Cancelar</a>
+            </div>
+        </div>
     </div>
-    <div>
-        <input type="submit" value="Recuperar" />
-        <a href='{{ path('_listaPubli') }}' class="btn bg-danger">Cancelar</a>
-    </div>
+</div>
+
 {% endblock %}
