@@ -57,6 +57,7 @@
 <table class="table table-striped" style="color: #0f0f0f">
     <thead>
     <tr>
+        <th>Imagen</th>
         <th>Usuario</th>
         <th>Descripcion</th>
         {% if is_granted('ROLE_USER') %}
@@ -67,6 +68,11 @@
     <tbody>
     {% for publicacion in publicaciones %}
         <tr>
+            <td>
+                <div class="col-lg-3">
+                    <img class="img-responsive" src="{{ asset('uploads/fotos/' ~ publicacion.path) }}">
+                </div>
+            </td>
             <td>{{ publicacion.usuario }}</td>
             <td><a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
             {% if is_granted('ROLE_USER') %}
