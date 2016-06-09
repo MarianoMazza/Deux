@@ -53,6 +53,7 @@
         {% block menupublico %}
             <a href="{{ path('_listaPubli') }}" class="btn btn-success">Home</a>
             <a href="{{ path('_ayuda') }}" class="btn btn-success">Ayuda</a>
+
         {% endblock %}
     </div>
     {% block menuusuario %}
@@ -68,11 +69,27 @@
                     <li><a href="{{ path('fos_user_change_password') }}">Cambiar mi contraseña</a></li>
                     <li><a href="{{ path('fos_user_security_logout') }}">Cerrar Sesión</a></li>
                 </ul>
+
+
             {% else %}
                 <a href="{{ path('fos_user_security_login') }}" class="btn btn-success">Iniciar Sesión</a>
                 <a href="{{ path('fos_user_registration_register') }}" class="btn btn-danger">Registrarme</a>
             {% endif %}
         </div>
+
+        <div class="dropdown navbar-right" style="padding: 0px 20px">
+            {% if is_granted('ROLE_USER') %}
+            <a class="btn btn-primary dropdown-toggle btn-success" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-chevron-down"></span> Mi Operaciones
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ path('_misPublicaciones') }}">mis publicaciones</a></li>
+                <li><a href="{{ path('_hecho') }}">mis reservas</a></li>
+
+            </ul>
+            {% endif %}
+        </div>
+
         <div class="dropdown navbar-right" style="padding: 0px 10px">
             {% if is_granted('ROLE_ADMIN') %}
                 <a class="btn btn-success dropdown-toggle" data-toggle="dropdown">

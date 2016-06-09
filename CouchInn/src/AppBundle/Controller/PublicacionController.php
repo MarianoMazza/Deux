@@ -32,6 +32,25 @@ class PublicacionController extends Controller
         ));
     }
 
+
+    /**
+     * Lists all Publicacion entities.
+     * @Route("/home/misPublicaciones", name="_misPublicaciones")
+     */
+    public function myAction()
+    {
+
+
+
+        $publicaciones = $this->getUser()->getPublicaciones();
+
+        return $this->render(':default/publicacion:publicaciones.html.twig', array(
+            'publicaciones' => $publicaciones,
+            'user' => $this->getUser(),
+        ));
+    }
+
+
     /**
      * @Route("/home/altaPublicacion", name="_altaPubli")
      */
