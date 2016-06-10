@@ -6783,3 +6783,9 @@ body {
   text-align: left;
 }
 /* PINGENDO COMMENT DO NOT REMOVE */
+.footer {
+  position: static;
+  bottom: 0;
+  width: 100%;
+  background-color: #28a4c9;
+}

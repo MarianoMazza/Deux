@@ -56,26 +56,27 @@
         {% endblock %}
 
     {% endblock %}
-</body>
-{% block footer %}
-<footer class="section section-primary">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6 text-center">
-                <div class="col-sm-8">
-                    <img href="{{ path('_listaPubli') }}" class="img-responsive" src="{{ asset('images/logo.png') }}">
-                    {% block footerInfoA %}
-                        <p>Todos los derechos reservados por CouchInn inc.</p>
-                    {% endblock %}
+
+        <footer class="container-fluid"">
+            {% block footer %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 text-center">
+                        <div class="col-sm-8">
+                            <img src="{{ asset('images/logo.png') }}" class="img-responsive">
+                            {% block footerInfoA %}
+                                <p>hello!</p>
+                            {% endblock %}
+                        </div>
+                    </div>
+                    <div class="col-sm-6 text-center">
+                        {% block footerInfoB %}
+                            <p>The website for travelers...</p>
+                        {% endblock %}
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-6 text-center">
-                {% block footerInfoB %}
-                    <p>The website for travelers...</p>
-                {% endblock %}
-            </div>
-        </div>
-    </div>
-</footer>
-{% endblock %}
+            {% endblock %}
+        </footer>
+</body>
 </html>
