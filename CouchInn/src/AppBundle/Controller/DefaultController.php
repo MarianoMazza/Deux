@@ -37,7 +37,13 @@ class DefaultController extends Controller
             'error'=>$err
         ]);
     }
-
+    /**
+     * @Route("/errorDeTipo", name="_errorTipo")
+     */
+    public function errorTipoAction()
+    {
+        return $this->render(':default:errorTipo.html.twig');
+    }
     /**
      * @Route("/ayuda", name="_ayuda")
      */
