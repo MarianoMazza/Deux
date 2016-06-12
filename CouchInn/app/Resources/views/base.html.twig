@@ -16,19 +16,20 @@
     {% endblock %}
 
     {% block estilos %}
-        <link href="{{ asset('css/base.css') }}" rel="stylesheet"/>
     {% endblock %}
 </head>
 <body>
-    <div class="wide row">
-        <div class="col-xs-5 line"><hr></div>
-        <div class="col-md-2 logo">
-            <img href="{{ path('_listaPubli') }}" class="img-responsive" src="{{ asset('images/logo.png') }}">
+<div class="cover">
+    <div class="cover-image" style="background-image: url('images/Europe.jpg'); background-origin: content-box">
+        <div class="wide row">
+            <div class="col-xs-5 line"><hr></div>
+            <div class="col-md-2 logo">
+                <img href="{{ path('_listaPubli') }}" class="img-responsive" src="{{ asset('images/logo.png') }}">
+            </div>
+            <div class="col-xs-5 line"><hr></div>
         </div>
-        <div class="col-xs-5 line"><hr></div>
-    </div>
 
-    <title>{% block titulo %}CouchInn{% endblock %}</title>
+        <title>{% block titulo %}CouchInn{% endblock %}</title>
     </div>
     {% block body %}
 
@@ -37,47 +38,47 @@
         {% endblock %}
 
         {% block seccion %}
-        <div class="col-md-12 text-center">
-            <div class="container">
+            <div class="col-md-12 text-center" style="margin: 200px 0px">
+                <div class="container">
 
-            {% block seccioncentro %}
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 style="text-align: left">{% block panelhead %}{% endblock %}</h4>
-                    </div>
+                    {% block seccioncentro %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 style="text-align: left">{% block panelhead %}{% endblock %}</h4>
+                            </div>
 
-                    <div class="panel-body" style="text-align: left">
-                        {% block panelbody %}
-                        {% endblock %}
-                    </div>
+                            <div class="panel-body" style="text-align: left">
+                                {% block panelbody %}
+                                {% endblock %}
+                            </div>
+                        </div>
+                    {% endblock %}
                 </div>
-            {% endblock %}
             </div>
-        </div>
         {% endblock %}
 
     {% endblock %}
-
-        <footer class="container-fluid"">
-            {% block footer %}
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-6 text-center">
-                        <div class="col-sm-8">
-                            <img src="{{ asset('images/logo.png') }}" class="img-responsive">
-                            {% block footerInfoA %}
-                                <p>hello!</p>
-                            {% endblock %}
-                        </div>
-                    </div>
-                    <div class="col-sm-6 text-center">
-                        {% block footerInfoB %}
-                            <p>The website for travelers...</p>
+</div>
+{% block footer %}
+    <footer class="section section-primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 text-center">
+                    <div class="col-sm-8">
+                        <img href="{{ path('_listaPubli') }}" class="img-responsive" src="{{ asset('images/logo.png') }}">
+                        {% block footerInfoA %}
+                            <p>Todos los derechos reservados por CouchInn inc.</p>
                         {% endblock %}
                     </div>
                 </div>
+                <div class="col-sm-6 text-center">
+                    {% block footerInfoB %}
+                        <p>The website for travelers...</p>
+                    {% endblock %}
+                </div>
             </div>
-            {% endblock %}
-        </footer>
+        </div>
+    </footer>
+{% endblock %}
 </body>
 </html>

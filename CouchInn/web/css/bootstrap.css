@@ -125,6 +125,7 @@ select,
 .mark-pers {
   background-color: gainsboro;
   padding: .2em;
+  margin: .4em;
 }
 textarea {
   color: inherit;
