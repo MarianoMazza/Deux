@@ -1,5 +1,4 @@
 {% extends '::base.html.twig' %}
-{#
 {% block estilos %}
     <style>
         .carousel-inner > .item > img,
@@ -44,8 +43,9 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-#}
+{% endblock %}
 
+{#
 {% block panelhead %}
     Publicaciones<br xmlns="http://www.w3.org/1999/html">
     {% if is_granted('ROLE_USER') %}
@@ -98,3 +98,4 @@
     </tbody>
 {#</table>#}
 {% endblock %}
+#}

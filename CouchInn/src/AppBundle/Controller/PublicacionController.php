@@ -40,8 +40,6 @@ class PublicacionController extends Controller
     public function myAction()
     {
 
-
-
         $publicaciones = $this->getUser()->getPublicaciones();
 
         return $this->render(':default/publicacion:misPublicaciones.html.twig', array(
