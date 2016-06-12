@@ -15,8 +15,6 @@
                     {{ form_label(form.username) }}
                     {{ form_widget(form.username, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese un nombre de usuario'} })}}
                 </div>
-
-
                 <div class="form-group">
                     {{ form_label(form.plainPassword.first) }}
                     {{ form_widget(form.plainPassword.first, { 'attr' : {'class' : 'form-control'} })}}
@@ -24,15 +22,6 @@
                 <div class="form-group">
                     {{ form_label(form.plainPassword.second) }}
                     {{ form_widget(form.plainPassword.second, { 'attr' : {'class' : 'form-control'} })}}
-                </div>
-
-                <div class="form-group">
-                    {{ form_label(form.pregunta) }}
-                    {{ form_widget(form.pregunta, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese una pregunta'} })}}
-                </div>
-                <div class="form-group">
-                    {{ form_label(form.respuesta) }}
-                    {{ form_widget(form.respuesta, { 'attr' :  {'class' : 'form-control','placeholder' : 'Ingrese la respuesta a la pregunta anterior'} })}}
                 </div>
                 <div class="form-group">
                     {{ form_label(form.fechaDeNacimiento) }}
@@ -59,8 +48,9 @@
                     {{ form_widget(form.submit, { 'attr' : {'class' : 'btn label-default'} }) }}
                     <a href='{{ path('_listaPubli') }}' class="btn active">Cancelar</a>
                 </div>
-
-                {{ form_end(form) }}
+                <div>
+                    <input type="">
+                </div>
             </div>
         </div>
     </div>

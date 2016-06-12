@@ -1,4 +1,6 @@
 {% extends '::base.html.twig' %}
+
+{#
 {% block estilos %}
     <style>
         .carousel-inner > .item > img,
@@ -44,8 +46,8 @@
         </a>
     </div>
 {% endblock %}
+#}
 
-{#
 {% block panelhead %}
     Publicaciones<br>
     {% if is_granted('ROLE_USER') %}
@@ -90,4 +92,3 @@
     </tbody>
 </table>
 {% endblock %}
-#}

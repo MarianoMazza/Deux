@@ -35,14 +35,6 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      */
     protected $id;
     /**
-     * @ORM\Column(type="string")
-     */
-    private $pregunta;
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $respuesta;
-    /**
      * @ORM\Column(type="date")
      * @Assert\Date(
      *     message="La fecha ingresada es inválida"
@@ -98,53 +90,7 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
         parent::__construct();
         $this->addRole('ROLE_USER');
     }
-
-    /**
-     * Set pregunta
-     *
-     * @param string $pregunta
-     * @return Usuario
-     */
-    public function setPregunta($pregunta)
-    {
-        $this->pregunta = $pregunta;
-
-        return $this;
-    }
-
-    /**
-     * Get pregunta
-     *
-     * @return string 
-     */
-    public function getPregunta()
-    {
-        return $this->pregunta;
-    }
-
-    /**
-     * Set respuesta
-     *
-     * @param string $respuesta
-     * @return Usuario
-     */
-    public function setRespuesta($respuesta)
-    {
-        $this->respuesta = $respuesta;
-
-        return $this;
-    }
-
-    /**
-     * Get respuesta
-     *
-     * @return string 
-     */
-    public function getRespuesta()
-    {
-        return $this->respuesta;
-    }
-
+    
     /**
      * Set fechaDeNacimiento
      *
