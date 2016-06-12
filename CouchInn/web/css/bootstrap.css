@@ -122,6 +122,11 @@ button,
 input,
 optgroup,
 select,
+.mark-pers {
+  background-color: gainsboro;
+  padding: .2em;
+  margin: .4em;
+}
 textarea {
   color: inherit;
   font: inherit;
@@ -1092,7 +1097,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333333;
-  background-color: #ffffff;
+  background-color: #28a4c9;
 }
 input,
 button,

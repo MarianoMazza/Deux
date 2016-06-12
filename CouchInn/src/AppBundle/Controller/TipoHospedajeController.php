@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use AppBundle\Entity\TipoHospedaje;
 use AppBundle\Form\TipoHospedajeType;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -39,18 +39,19 @@ class TipoHospedajeController extends Controller
      */
     public function newAction(Request $request)
     {
+        try {
         $tipoHospedaje = new TipoHospedaje();
         $form = $this->createForm('AppBundle\Form\TipoHospedajeType', $tipoHospedaje);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($tipoHospedaje);
             $em->flush();
-
             return $this->redirectToRoute('_tipos', array('id' => $tipoHospedaje->getId()));
-
         }
+    }catch (UniqueConstraintViolationException  $e) {
+        return $this->redirectToRoute('_errorTipo');
+    }
 
         return $this->render(':default/tipoHospedaje:altaTipoHospedaje.html.twig', array(
             'tipoHospedaje' => $tipoHospedaje,
