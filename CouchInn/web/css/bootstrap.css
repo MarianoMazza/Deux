@@ -122,6 +122,10 @@ button,
 input,
 optgroup,
 select,
+.mark-pers {
+  background-color: gainsboro;
+  padding: .2em;
+}
 textarea {
   color: inherit;
   font: inherit;

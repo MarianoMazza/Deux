@@ -47,54 +47,47 @@
 #}
 
 {% block panelhead %}
-    Publicaciones<br xmlns="http://www.w3.org/1999/html">
+    Publicaciones<br>
     {% if is_granted('ROLE_USER') %}
         <a href="{{ path('_altaPubli') }}" class="btn btn-primary">Agregar Publicacion</a>
     {% endif %}
 {% endblock %}
 
 {% block panelbody %}
-
-{#<table class="" style="color: #0f0f0f">
-    <thead>
-    <tr>
-        <th>Imagen</th>
-        <th>Descripcion</th>
-        <th>Usuario</th>
-        {% if is_granted('ROLE_USER') %}
-            <th></th>
-        {% endif %}
-    </tr>#}
-    </thead>
-    <tbody>
-    <div class="row-fluid">
-    {% for publicacion in publicaciones %}
-
-            <div class="col-md-4">
-                <div class="mark-pers">
-                    <div class="text-center">
-                    <div>
-                        <img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="240" height="160"/>
+    <table class="table table-striped" style="color: #0f0f0f">
+        <thead>
+        <tr>
+            <th>Imagen</th>
+            <th>Usuario</th>
+            <th>Descripcion</th>
+            {% if is_granted('ROLE_USER') %}
+                <th></th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for publicacion in publicaciones %}
+            <tr>
+                <td>
+                    <div class="col-md-3">
+                        <img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="130" height="90"/>
                     </div>
+                </td>
+                <td>{{ publicacion.usuario }}</td>
 
-                    {{ publicacion.usuario }}
-                    <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
-                    {% if is_granted('ROLE_USER') %}
-
+                <td><a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
+                {% if is_granted('ROLE_USER') %}
+                    <td>
                         {% if publicacion.usuario.id == user.id %}
                             <a href="{{ path('_modificarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-edit"></a>
                         {% endif %}
                         {% if publicacion.usuario.id == user.id or is_granted('ROLE_ADMIN') %}
                             <a href="{{ path('_eliminarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-erase"></a>
                         {% endif %}
-                        <br/>
-                    {% endif %}
-                    </div>
-                </div>
-            </div>
-
-    {% endfor %}
-    </div>
-    </tbody>
-{#</table>#}
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
