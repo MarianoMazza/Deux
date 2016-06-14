@@ -22,7 +22,6 @@ class UsuarioType extends BaseType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', null, array('label' => 'Email:'))
             ->add('username', null, array('label' => 'Nombre de usuario:'))
             ->add('plainPassword', RepeatedType::class, array(
                 'type'=>'password',
@@ -30,6 +29,7 @@ class UsuarioType extends BaseType
                 'second_options' => array('label' => 'Repetir contraseña: '),
                 'invalid_message' => 'fos_user.password.mismatch',
             ))
+            ->add('email', null, array('label' => 'Email:'))
             ->add('fechaDeNacimiento', DateType::class, [
                 'years'=>range(1940, 2016),
                 'label'=>'Fecha de nacimiento: ',
