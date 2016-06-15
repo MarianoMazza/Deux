@@ -50,7 +50,6 @@ class PublicacionType extends AbstractType
             ->add('calle',TextType::class)
             ->add('descripcion',TextareaType::class)
             ->add('agregarPublicacion',SubmitType::class);
-            
     }
     
     /**

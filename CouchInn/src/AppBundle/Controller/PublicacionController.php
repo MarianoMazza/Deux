@@ -47,8 +47,6 @@ class PublicacionController extends Controller
             'user' => $this->getUser(),
         ));
     }
-
-
     /**
      * @Route("/home/altaPublicacion", name="_altaPubli")
      */
