@@ -89,6 +89,7 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     {
         parent::__construct();
         $this->addRole('ROLE_USER');
+        $this->pagos = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -375,7 +376,19 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     {
         return $this->misComentarios;
     }
-
+    /**
+     * return boolean
+     */
+    public function esPremium()
+    {
+        if (!$this->getPagos()->isEmpty()) {
+            if($this->getPagos()->last()->estaVencido()){
+                return false;
+            }
+            else return true;
+        }
+        return false;
+    }
     /**
      * Add pagos
      *

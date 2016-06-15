@@ -21,7 +21,6 @@ class UsuarioController extends Controller
     public function recoverPassAction(Request $request){
         return $this->render(':default/usuario:recoverPass.html.twig');
     }
-
     /**
      * Lists all Usuario entities.
      * @Route("/admin/usuarios", name="_listaDeUsuarios")
