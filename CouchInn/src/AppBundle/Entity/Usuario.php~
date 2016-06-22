@@ -75,6 +75,10 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Pago", mappedBy="usuario")
      */
     private $pagos;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Solicitud", mappedBy="usuario")
+     */
+    private $misSolicitudes;
 
     public function __construct()
     {

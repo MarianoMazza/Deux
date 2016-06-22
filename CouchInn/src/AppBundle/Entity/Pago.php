@@ -10,7 +10,6 @@ namespace AppBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @ORM\Entity()
@@ -28,10 +27,6 @@ class Pago
      * @ORM\Column(type="integer")
      */
     private $monto;
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $tarjeta;
     /**
      * @ORM\Column(type="date")
      */
@@ -51,6 +46,7 @@ class Pago
     {
         return $this->id;
     }
+
     /**
      * Set monto
      *
@@ -60,25 +56,7 @@ class Pago
     {
         $this->monto = $monto;
     }
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getTarjeta()
-    {
-        return $this->tarjeta;
-    }
 
-    /**
-     * Set monto
-     *
-     * @param integer $monto
-     */
-    public function setTarjeta($tarjeta)
-    {
-        $this->tarjeta = $tarjeta;
-    }
     /**
      * Get monto
      *
@@ -88,18 +66,7 @@ class Pago
     {
         return $this->monto;
     }
-    /**
-     * estaVencido
-     *
-     * @return boolean
-     */
-    public function estaVencido()
-    {
-        if($this->vencimiento<= new \DateTime('today')){
-            return true;
-        }
-        else return false;
-    }
+
     /**
      * Set vencimiento
      *

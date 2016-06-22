@@ -102,6 +102,11 @@ class Publicacion
      */
     private $comentarios;
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Solicitud", mappedBy="deUsuario")
+     */
+    private $solicitudes;
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -541,5 +546,38 @@ class Publicacion
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     * Add solicitudes
+     *
+     * @param \AppBundle\Entity\Solicitud $solicitudes
+     * @return Publicacion
+     */
+    public function addSolicitude(\AppBundle\Entity\Solicitud $solicitudes)
+    {
+        $this->solicitudes[] = $solicitudes;
+
+        return $this;
+    }
+
+    /**
+     * Remove solicitudes
+     *
+     * @param \AppBundle\Entity\Solicitud $solicitudes
+     */
+    public function removeSolicitude(\AppBundle\Entity\Solicitud $solicitudes)
+    {
+        $this->solicitudes->removeElement($solicitudes);
+    }
+
+    /**
+     * Get solicitudes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSolicitudes()
+    {
+        return $this->solicitudes;
     }
 }

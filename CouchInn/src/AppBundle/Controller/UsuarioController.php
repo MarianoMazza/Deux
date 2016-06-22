@@ -16,12 +16,6 @@ use AppBundle\Form\UsuarioType;
 class UsuarioController extends Controller
 {
     /**
-     * @Route("/recoveryPass", name="_recoveryPass")
-     */
-    public function recoverPassAction(Request $request){
-        return $this->render(':default/usuario:recoverPass.html.twig');
-    }
-    /**
      * Lists all Usuario entities.
      * @Route("/admin/usuarios", name="_listaDeUsuarios")
      */
@@ -37,7 +31,7 @@ class UsuarioController extends Controller
 
     /**
      * Finds and displays a Usuario entity.
-     * @Route("/miperfil", name="_miperfil")
+     * @Route("/user/miperfil", name="_miperfil")
      */
     public function showAction()
     {
@@ -52,7 +46,7 @@ class UsuarioController extends Controller
 
     /**
      * Displays a form to edit an existing Usuario entity.
-     * @Route("/modificar", name="_modificar")
+     * @Route("/user/modificar", name="_modificar")
      */
     public function editAction(Request $request)
     {
@@ -66,7 +60,7 @@ class UsuarioController extends Controller
             $em->persist($usuario);
             $em->flush();
 
-            return $this->redirectToRoute('_hecho', array('id' => $usuario->getId()));
+            return $this->redirectToRoute('_miperfil', array('id' => $usuario->getId()));
         }
 
         $editForm->remove('plainPassword');
@@ -94,7 +88,7 @@ class UsuarioController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->remove($usuario);
                 $em->flush();
-                return $this->redirectToRoute('_hecho');
+                return $this->redirectToRoute('_listaDeUsuarios');
             }
         } catch (Exception $e) {
             return $this->redirectToRoute('_error', [
