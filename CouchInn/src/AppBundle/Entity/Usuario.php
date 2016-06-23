@@ -85,6 +85,13 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      */
     private $pagos;
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Pregunta", mappedBy="aUsuario")
+     */
+    private $misPreguntasParaResponder;
+
+
     public function __construct()
     {
         parent::__construct();
@@ -244,7 +251,8 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     {
         return $this->publicaciones;
     }
-
+    
+    
     /**
      * Add calificaciones
      *
@@ -420,5 +428,26 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     public function getPagos()
     {
         return $this->pagos;
+    }
+
+    /**
+     * Set misPreguntasParaResponder
+     *
+     * @param string $misPreguntasParaResponder
+     */
+    public function setMisPreguntasParaResponder($misPreguntasParaResponder)
+    {
+        $this->misPreguntasParaResponder = $misPreguntasParaResponder;
+
+    }
+
+    /**
+     * Get misPreguntasParaResponder
+     *
+     * @return string
+     */
+    public function getMisPreguntasParaResponder()
+    {
+        return $this->misPreguntasParaResponder;
     }
 }

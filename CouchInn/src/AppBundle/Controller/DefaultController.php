@@ -29,6 +29,20 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/hecho2", name="_hecho2")
+     */
+    public function succesAction2(){
+        return $this->render(':default:hecho2.html.twig');
+    }
+
+    /**
+     * @Route("/hecho3", name="_hecho3")
+     */
+    public function succesAction3(){
+        return $this->render(':default:hecho3.html.twig');
+    }
+
+    /**
      * @Route("/error/{err}", name="_error")
      */
     public function errorAction($err)

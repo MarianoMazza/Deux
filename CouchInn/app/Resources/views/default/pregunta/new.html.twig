@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block panelhead %}Hacer una Pregunta{% endblock %}
+
+{% block panelbody %}
+    <div class="formulario">
+
+
+        {{ form_start(form, {'attr' : {'role' : 'form'}}) }}
+        <div class="main container">
+            <div class="col-md-5">
+                <div class="form-group">
+                    {{ form_label(form.pregunta) }}
+                    {{ form_widget(form.pregunta, { 'attr' : {'class' : 'form-control','placeholder' : 'Escribe una Pregunta'} })}}
+                </div>
+                <div class="form-group">
+
+                    {{ form_widget(form.Preguntar, { 'attr' : {'class' : 'btn label-default'} }) }}
+                    <a href='{{ path('_listaPubli') }}' class="btn active">Cancelar</a>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

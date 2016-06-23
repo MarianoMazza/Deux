@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Pregunta</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ preguntum.id }}</td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{{ preguntum.fecha }}</td>
+            </tr>
+            <tr>
+                <th>Pregunta</th>
+                <td>{{ preguntum.pregunta }}</td>
+            </tr>
+            <tr>
+                <th>Deusuario</th>
+                <td>{{ preguntum.deUsuario }}</td>
+            </tr>
+            <tr>
+                <th>Publicacion</th>
+                <td>{{ preguntum.publicacion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('pregunta_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('pregunta_edit', { 'id': preguntum.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

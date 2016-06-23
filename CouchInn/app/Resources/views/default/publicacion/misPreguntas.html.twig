@@ -1,0 +1,46 @@
+{% extends '::base.html.twig' %}
+
+{% block panelhead %}
+    Publicaciones<br>
+    {% if is_granted('ROLE_USER') %}
+        <a href="{{ path('_altaPubli') }}" class="btn btn-primary">Agregar Publicacion</a>
+    {% endif %}
+{% endblock %}
+
+{% block panelbody %}
+    <table class="table table-striped" style="color: #0f0f0f">
+        <thead>
+        <tr>
+            <th>Imagen</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>Publicacion</th>
+            <td>Pregunta</td>
+            {% if is_granted('ROLE_USER') %}
+                <th></th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for publicacion in publicaciones %}
+            <tr>
+                <td>
+                    <div class="col-md-3">
+                        <img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="100" height="80"/>
+                    </div>
+                </td>
+                <td>{{ publicacion.usuario }}</td>
+
+                <td><a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
+                {% if is_granted('ROLE_USER') %}
+                    <td>
+                        {% if publicacion.usuario.id == user.id or is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('_eliminarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-erase"></a>
+                        {% endif %}
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

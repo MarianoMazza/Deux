@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Entity\Publicacion;
 use AppBundle\Form\PublicacionType;
+use AppBundle\Entity\Pregunta;
+use AppBundle\Form\PreguntaType;
 
 /**
  * Publicacion controller.
@@ -31,7 +33,7 @@ class PublicacionController extends Controller
             'user' => $this->getUser(),
         ));
     }
-
+    
 
     /**
      * Lists all Publicacion entities.
@@ -47,6 +49,9 @@ class PublicacionController extends Controller
             'user' => $this->getUser(),
         ));
     }
+
+
+
     /**
      * @Route("/home/altaPublicacion", name="_altaPubli")
      */
