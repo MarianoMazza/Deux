@@ -19,7 +19,7 @@ class SolicitudController extends Controller
 {
     /**
      * Lists all Solicitud entities.
-     *
+     * @Route("/user/solicitudes", name="lista_solicitudes")
      */
     public function indexAction()
     {
