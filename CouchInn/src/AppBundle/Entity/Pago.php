@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="pagos")
+ * @ORM\Table(name="pago")
  */
 class Pago
 {
