@@ -32,28 +32,27 @@ class Publicacion
      */
     private $reservado;
     /**
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="string", nullable=TRUE)
      */
     private $foto;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=TRUE)
      */
     private $path;
     /**
-     * @ORM\Column(type="text", length=500)
+     * @ORM\Column(type="text", length=500, nullable=TRUE)
      */
     private $foto2;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=TRUE)
      */
     private $path2;
     /**
-     * @ORM\Column(type="text", length=500)
+     * @ORM\Column(type="text", length=500, nullable=TRUE)
      */
     private $foto3;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=TRUE)
      */
     private $path3;
     /**
