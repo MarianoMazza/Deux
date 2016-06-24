@@ -25,10 +25,12 @@ class Solicitud
     private $id;
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Publicacion", inversedBy="solicitudes")
+     * @ORM\JoinColumn(name="publicacion_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $publicacion;
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario", inversedBy="misSolicitudes")
+     * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $usuario;
     /**

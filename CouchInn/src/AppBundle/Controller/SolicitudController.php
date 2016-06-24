@@ -120,7 +120,7 @@ class SolicitudController extends Controller
             $em->persist($solicitud);
             $em->flush();
 
-            return $this->redirectToRoute('solicitud_edit', array('id' => $solicitud->getId()));
+            return $this->redirectToRoute('lista_solicitudes');
         }
     }
 
@@ -133,16 +133,11 @@ class SolicitudController extends Controller
         $solicitud = $this->getDoctrine()
             ->getRepository('AppBundle:Solicitud')
             ->find($id);
-        $form = $this->createDeleteForm($solicitud);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($solicitud);
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('_hecho');
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($solicitud);
+        $em->flush();
+        return $this->redirectToRoute('lista_solicitudes');
     }
 
     /**

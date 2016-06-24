@@ -16,7 +16,7 @@
         </thead>
         <tbody>
         {% for solicitud in solicitudes %}
-            {% if (solicitud.publicacion.usuario.id == user.id) %}
+            {% if (solicitud.publicacion.usuario.id == user.id and solicitud.ok == 1) %}
                 <tr>
                     <td>{{ solicitud.fecha|date('Y-m-d') }}</td>
                     <td>{{ solicitud.publicacion.descripcion }}</td>
@@ -43,7 +43,7 @@
         <tbody>
         {% for solicitud in misSolicitudes %}
             <tr>
-                <td>{{ solicitud.fecha }}</td>
+                <td>{{ solicitud.fecha|date('d-m-Y') }}</td>
                 <td>{{ solicitud.publicacion.descripcion }}</td>
                 <td>
                     {% if (solicitud.ok == 1) %}
