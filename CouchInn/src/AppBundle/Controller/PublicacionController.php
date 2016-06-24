@@ -25,16 +25,31 @@ class PublicacionController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $publicaciones = $em->getRepository('AppBundle:Publicacion')->findAll();
-
         return $this->render(':default/publicacion:publicaciones.html.twig', array(
             'publicaciones' => $publicaciones,
             'user' => $this->getUser(),
         ));
     }
-    
 
+
+    /**
+     * Lists all Publicacion entities.
+     * @Route("/home/publicacionesFiltradas", name="_filtradas")
+     */
+    public function filtrar(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $publicaciones = $em->getRepository('AppBundle:Publicacion')->findAll();
+        $inputData = $request->get('inputData');
+        dump($request);
+        return $this->render(':default/publicacion:publicacionesFiltradas.html.twig', array(
+            'publicaciones' => $publicaciones,
+            'user' => $this->getUser(),
+            'cantidad' => $inputData,
+        ));
+    }
     /**
      * Lists all Publicacion entities.
      * @Route("/home/misPublicaciones", name="_misPublicaciones")
@@ -79,7 +94,6 @@ class PublicacionController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($publicacion);
             $em->flush();
-
             return $this->redirectToRoute('_listaPubli', array('id' => $publicacion->getId()));
         }elseif ($form->isSubmitted()){
             $error = 'Las fechas que usted ha ingresado son incorrectas.';
