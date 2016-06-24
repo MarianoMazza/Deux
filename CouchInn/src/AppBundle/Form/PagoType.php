@@ -19,9 +19,7 @@ class PagoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('monto', TextType::class)
-            ->add('vencimiento', DateType::class)
-            ->add('usuario', TextType::class)
+            ->add('tarjeta', TextType::class)
             ->add ('Pagar', SubmitType::class)
         ;
     }
