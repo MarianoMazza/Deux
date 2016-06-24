@@ -9,6 +9,9 @@
     <a href="{{ path('_calificarPublicacion', {'id': publicacion.id, 'cal':2}) }}" class="glyphicon glyphicon-thumbs-down" style="color: red">
     </a>
     {{ calificacionesMalas }}
+    {% if is_granted('ROLE_USER') %}
+        <a href="{{ path('_hospedarme', {'id': publicacion.id}) }}" class="btn btn-link pull-right"><label class="glyphicon glyphicon-arrow-up"></label>Solicitar hospedaje</a>
+    {% endif %}
 {% endblock %}
 {% endif %}
 
@@ -67,11 +70,12 @@
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     </div>
     <div class="panel-heading col-md-12" style="padding: 20px 0px">
-
-        <ul class="nav nav-tabs">
-            <li class="active"><a><label style="color: white">Comentarios</label></a></li>
-        </ul>
-
+        <br><br>
+        <div class="col-md-2 text">
+            <label>Comentarios</label>
+        </div>
+        <div class="col-md-12 line"><hr></div>
+        <br><br>
         <div id="comentarios"><br>
             <a href="{{path('_comentario', {'paraUsuarioId':publicacion.usuario.id, 'id': publicacion.id})}}" class="btn btn-default active">Comentar</a>
             <br><br>
@@ -81,17 +85,13 @@
                     <tr>
                         <td>
                             <div style="padding: 20px 0px">
-                                Usuario: {{ comentario.deUsuario.username }}<br>
+                                {{ comentario.deUsuario.username }}<br>
+                                {{ comentario.fecha|date('Y-m-d') }}
                             </div>
                         </td>
                         <td>
                             <div>
-                                Fecha: {{ comentario.fecha|date('Y-m-d') }}
-                            </div>
-                        </td>
-                        <td>
-                            <div>
-                                Comentario: {{ comentario.comentario }}
+                                {{ comentario.comentario }}
                             </div>
                         </td>
                     </tr>

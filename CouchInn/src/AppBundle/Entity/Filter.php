@@ -9,14 +9,16 @@
 namespace AppBundle\Entity;
 
 
+use AppBundle\Controller\PublicacionController;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="pago")
+ * @ORM\Table(name="pagos")
  */
-class Pago
+class Filter
 {
     /**
      * @ORM\Column(type="integer")
@@ -25,13 +27,25 @@ class Pago
      */
     private $id;
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $usado;
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $fechaDisponibleInicio;
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $fechaDisponibleFin;
+    /**
      * @ORM\Column(type="integer")
      */
     private $monto;
     /**
      * @ORM\Column(type="integer")
      */
-    private $tarjeta;
+    private $maxPersonas;
     /**
      * @ORM\Column(type="date")
      */
@@ -43,31 +57,80 @@ class Pago
     private $usuario;
 
     /**
+     * Set monto
+     *
+     * @param integer $monto
+     */
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-    /**
-     * Set monto
-     *
-     * @param integer $monto
-     */
     public function setMonto($monto)
     {
         $this->monto = $monto;
+    }
+    public function setUsado($usado)
+    {
+        $this->usado = $usado;
+    }
+    /**
+    *
+     */
+    public function getUsado()
+    {
+        return $this->usado;
+    }
+    /**
+     * Set fechaDePublicacion
+     *
+     * @param \DateTime $fecha
+     * @return PublicacionController
+     */
+    public function setfechaDisponibleInicio($fecha)
+    {
+        $this->fechaDisponibleInicio = $fecha;
+    }
+    /**
+     * Get fechaDePublicacion
+     *
+     * @return \DateTime
+     */
+    public function getfechaDisponibleInicio()
+    {
+        return $this->fechaDisponibleInicio;
+    }
+    /**
+     * Set fechaDePublicacion
+     *
+     * @param \DateTime $fecha
+     * @return PublicacionController
+     */
+    public function setfechaDisponibleFin($fecha)
+    {
+        $this->fechaDisponibleFin = $fecha;
+    }
+    /**
+     * Get fechaDePublicacion
+     *
+     * @return \DateTime
+     */
+    public function getfechaDisponibleFin()
+    {
+        return $this->fechaDisponibleFin;
     }
     /**
      * Get id
      *
      * @return integer
      */
-    public function getTarjeta()
+    public function getMaxPersonas()
     {
-        return $this->tarjeta;
+        return $this->maxPersonas;
     }
 
     /**
@@ -75,9 +138,9 @@ class Pago
      *
      * @param integer $monto
      */
-    public function setTarjeta($tarjeta)
+    public function setMaxPersonas($maxPersonas)
     {
-        $this->tarjeta = $tarjeta;
+        $this->maxPersonas = $maxPersonas;
     }
     /**
      * Get monto

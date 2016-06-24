@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PublicacionType extends AbstractType
+class PublicacionPremiumType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -30,6 +30,14 @@ class PublicacionType extends AbstractType
                 'data_class'=>null
             ])
             ->add('path', HiddenType::class)
+            ->add('foto2', FileType::class, [
+                'data_class'=>null
+            ])
+            ->add('path2', HiddenType::class)
+            ->add('foto3', FileType::class, [
+                'data_class'=>null
+            ])
+            ->add('path3', HiddenType::class)
             ->add('fechaDisponibleInicio',DateType::class,[
                 'years'=>range(date('Y'), date('Y')+3),
                 'data'=>new \DateTime('now'),
@@ -50,7 +58,6 @@ class PublicacionType extends AbstractType
             ->add('calle',TextType::class)
             ->add('descripcion',TextareaType::class)
             ->add('agregarPublicacion',SubmitType::class);
-            
     }
     
     /**

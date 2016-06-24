@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block panelhead %}
+    Solicitar hospedaje
+{% endblock %}
+
+{% block panelbody %}
+    {% if error is not empty %}
+        {{ error }}
+    {% endif %}
+    <br>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}

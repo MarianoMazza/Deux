@@ -36,13 +36,26 @@ class PagoController extends Controller
         return $this->render(':default:pagoHecho.html.twig');
     }
     /**
+     * return boolean
+     */
+    public function puedePagar()
+    {
+        if (!$this->getUser()->getPagos()->isEmpty()) {
+            if($this->getUser()->getPagos()->last()->estaVencido()){
+               return true;
+            }
+            else return false;
+        }
+        return true;
+    }
+    /**
      * Creates a new Pago entity.
      * @Route("/pago",name="_pago")
      */
     public function newAction(Request $request)
     {
         if ($this->getUser()->esPremium()) {
-            return $this->redirectToRoute('_pagoHecho'); }
+            return $this->render(':default:pagoHecho.html.twig'); }
             else {
             $pago = new Pago();
             $form = $this->createForm('AppBundle\Form\PagoType', $pago);

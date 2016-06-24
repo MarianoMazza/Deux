@@ -28,14 +28,33 @@ class Publicacion
      */
     private $id;
     /**
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="boolean")
+     */
+    private $reservado;
+    /**
+     * @ORM\Column(type="string", nullable=TRUE)
      */
     private $foto;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=TRUE)
      */
     private $path;
+    /**
+     * @ORM\Column(type="text", length=500, nullable=TRUE)
+     */
+    private $foto2;
+    /**
+     * @ORM\Column(type="string", nullable=TRUE)
+     */
+    private $path2;
+    /**
+     * @ORM\Column(type="text", length=500, nullable=TRUE)
+     */
+    private $foto3;
+    /**
+     * @ORM\Column(type="string", nullable=TRUE)
+     */
+    private $path3;
     /**
      * @ORM\Column(type="text", length=500)
      */
@@ -101,6 +120,11 @@ class Publicacion
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comentario", mappedBy="publicacion")
      */
     private $comentarios;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Solicitud", mappedBy="deUsuario")
+     */
+    private $solicitudes;
+    
     /**
      * Constructor
      */
@@ -463,7 +487,44 @@ class Publicacion
     {
         return $this->foto;
     }
+    /**
+     * Set foto2
+     *
+     * @param $foto2
+     */
+    public function setFoto2(UploadedFile $foto2 = null)
+    {
+        $this->foto2 = $foto2;
+    }
 
+    /**
+     * Get foto2
+     *
+     * @return string
+     */
+    public function getFoto2()
+    {
+        return $this->foto2;
+    }
+    /**
+     * Set foto3
+     *
+     * @param $foto3
+     */
+    public function setFoto3(UploadedFile $foto3 = null)
+    {
+        $this->foto3 = $foto3;
+    }
+
+    /**
+     * Get foto3
+     *
+     * @return string
+     */
+    public function getFoto3()
+    {
+        return $this->foto3;
+    }
     /**
      * Set fechaDisponibleInicio
      *
@@ -541,5 +602,107 @@ class Publicacion
     public function getPath()
     {
         return $this->path;
+    }
+
+    /**
+     * Add solicitudes
+     *
+     * @param \AppBundle\Entity\Solicitud $solicitudes
+     * @return Publicacion
+     */
+    public function addSolicitude(\AppBundle\Entity\Solicitud $solicitudes)
+    {
+        $this->solicitudes[] = $solicitudes;
+
+        return $this;
+    }
+
+    /**
+     * Remove solicitudes
+     *
+     * @param \AppBundle\Entity\Solicitud $solicitudes
+     */
+    public function removeSolicitude(\AppBundle\Entity\Solicitud $solicitudes)
+    {
+        $this->solicitudes->removeElement($solicitudes);
+    }
+
+    /**
+     * Get solicitudes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSolicitudes()
+    {
+        return $this->solicitudes;
+    }
+
+    /**
+     * Set reservado
+     *
+     * @param boolean $reservado
+     * @return Publicacion
+     */
+    public function setReservado($reservado)
+    {
+        $this->reservado = $reservado;
+
+        return $this;
+    }
+
+    /**
+     * Get reservado
+     *
+     * @return boolean 
+     */
+    public function getReservado()
+    {
+        return $this->reservado;
+    }
+
+    /**
+     * Set path2
+     *
+     * @param string $path2
+     * @return Publicacion
+     */
+    public function setPath2($path2)
+    {
+        $this->path2 = $path2;
+
+        return $this;
+    }
+
+    /**
+     * Get path2
+     *
+     * @return string 
+     */
+    public function getPath2()
+    {
+        return $this->path2;
+    }
+
+    /**
+     * Set path3
+     *
+     * @param string $path3
+     * @return Publicacion
+     */
+    public function setPath3($path3)
+    {
+        $this->path3 = $path3;
+
+        return $this;
+    }
+
+    /**
+     * Get path3
+     *
+     * @return string 
+     */
+    public function getPath3()
+    {
+        return $this->path3;
     }
 }

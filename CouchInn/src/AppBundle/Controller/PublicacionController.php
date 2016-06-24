@@ -2,15 +2,26 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Filter;
 use Doctrine\ORM\Mapping as ORM;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 use AppBundle\Entity\Publicacion;
 use AppBundle\Form\PublicacionType;
-use AppBundle\Entity\Pregunta;
-use AppBundle\Form\PreguntaType;
 
 /**
  * Publicacion controller.
@@ -31,24 +42,26 @@ class PublicacionController extends Controller
             'user' => $this->getUser(),
         ));
     }
-
-
     /**
      * Lists all Publicacion entities.
-     * @Route("/home/publicacionesFiltradas", name="_filtradas")
+     * @Route("/home/crearFiltro", name="_filtradas")
      */
     public function filtrar(Request $request)
     {
+        $filtro = new Filter();
+        $form = $this->createForm('AppBundle\Form\FilterType', $filtro);
+        $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
-
         $publicaciones = $em->getRepository('AppBundle:Publicacion')->findAll();
-        $inputData = $request->get('inputData');
-        dump($request);
-        return $this->render(':default/publicacion:publicacionesFiltradas.html.twig', array(
-            'publicaciones' => $publicaciones,
-            'user' => $this->getUser(),
-            'cantidad' => $inputData,
-        ));
+        if (!($filtro->getMaxPersonas()==null) and !($filtro->getMonto()==null)){
+            return $this->render(':default/publicacion:publicacionesFiltradas.html.twig', array('maxPersonas' => $filtro->getMaxPersonas(),
+                    'monto'=>$filtro->getMonto(),
+                    'fechaInicio'=>$filtro->getfechaDisponibleInicio(),
+                    'fechaFin'=>$filtro->getfechaDisponibleFin(),
+                'publicaciones' => $publicaciones,'user' => $this->getUser())
+                );
+        }
+        return $this->render(':default/publicacion:Filtrar.html.twig', array('form' => $form->createView()));
     }
     /**
      * Lists all Publicacion entities.
@@ -66,7 +79,6 @@ class PublicacionController extends Controller
     }
 
 
-
     /**
      * @Route("/home/altaPublicacion", name="_altaPubli")
      */
@@ -75,11 +87,12 @@ class PublicacionController extends Controller
         $error = null;
         $publicacion = new Publicacion();
         $publicacion->setUsuario($this->getUser());
+        $publicacion->setReservado(false);
 
         $form = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
         $form->handleRequest($request);
   
-        if (!empty($publicacion) and new \DateTime('today') <= $publicacion->getFechaDisponibleInicio() and $publicacion->getFechaDisponibleInicio() < $publicacion->getFechaDisponibleFin()) {
+        if (!empty($publicacion) and new \DateTime('today') <= $publicacion->getFechaDisponibleInicio() and $publicacion->getFechaDisponibleInicio() < $publicacion->getFechaDisponibleFin() and (!empty($publicacion->getTipo()))) {
             $foto = $form['foto']->getData();
             $dir = 'uploads/fotos';
 
@@ -159,6 +172,12 @@ class PublicacionController extends Controller
             ->find($id);
         $deleteForm = $this->createDeleteForm($publicacion);
         $editForm = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
+        $editForm->add('reservado', ChoiceType::class, [
+            'choices' => [
+                'Reservado' => true,
+                'No reservado' => false,
+            ]
+        ]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {

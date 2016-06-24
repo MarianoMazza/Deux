@@ -5,51 +5,8 @@
     Publicaciones<br>
     {% if is_granted('ROLE_USER') %}
         <a href="{{ path('_altaPubli') }}" class="btn btn-primary">Agregar Publicacion</a>
-        <form action="{{ path("_filtradas") }}" id="miFormulario" method="GET">
-        <div class="col-xs-3">
-            <input type="text" class="form-control" id="cantidad" placeholder="Maximo personas">
-        </div>
-        <div class="col-xs-3">
-            <input type="text" class="form-control" id="coste" placeholder="Maximo coste">
-        </div>
-        <div class="form-group">
-            <label for="sel1">Pais:</label>
-            <select class="selectpicker" id="sel1">
-        {% for publicacion in publicaciones %}
-                <option>publicacion.pais</option>
-        {% endfor %}
-            </select>
-            <label for="sel2">Provincia:</label>
-            <select class="selectpicker">
-        {% for publicacion in publicaciones %}
-                <option>publicacion.provincia</option>
-        {% endfor %}
-            </select>
-            <label for="sel3">Localidad:</label>
-            <select class="selectpicker">
-                {% for publicacion in publicaciones %}
-                <option>publicacion.localidad</option>
-                {% endfor %}
-            </select>
-        </div>
-            <button type="submit" class="btn btn-default" id="select">Submit</button>
-        </form>
     {% endif %}
     <a href="{{ path('_filtradas') }}" class="btn bg-danger" id="2">Filtrar</a>
-    <script>
-        $(document).ready(function () {
-            $('#miformulario').submit(function() {
-                var inputData= $('#cantidad').val();
-                $.ajax({
-                    type: 'GET',
-                    url: "{{path('_filtradas')}}",
-                    data: {
-                        'inputData': inputData
-                    }
-            });  alert(JSON.stringify(inputData));
-            });
-        });
-    </script>
 {% endblock %}
 
 {#
