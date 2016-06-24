@@ -29,25 +29,49 @@ class PagoController extends Controller
             'pagos' => $pagos,
         ));
     }
-
+    /**
+     * @Route("/pagoYaHecho", name="_pagoHecho")
+     */
+    public function pagoHecho(){
+        return $this->render(':default:pagoHecho.html.twig');
+    }
+    /**
+     * return boolean
+     */
+    public function puedePagar()
+    {
+        if (!$this->getUser()->getPagos()->isEmpty()) {
+            if($this->getUser()->getPagos()->last()->estaVencido()){
+               return true;
+            }
+            else return false;
+        }
+        return true;
+    }
     /**
      * Creates a new Pago entity.
      * @Route("/pago",name="_pago")
      */
     public function newAction(Request $request)
     {
-        $pago = new Pago();
-        $form = $this->createForm('AppBundle\Form\PagoType', $pago);
-        $form->handleRequest($request);
+        if ($this->getUser()->esPremium()) {
+            return $this->render(':default:pagoHecho.html.twig'); }
+            else {
+            $pago = new Pago();
+            $form = $this->createForm('AppBundle\Form\PagoType', $pago);
+            $pago->setUsuario($this->getUser());
+            $pago->setMonto(100);
+            $pago->setVencimiento(new \DateTime('today'));
+            $pago->getVencimiento()->modify('+1 month');
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($pago);
-            $em->flush();
-
-            return $this->redirectToRoute('pago_show', array('id' => $pago->getId()));
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($pago);
+                $em->flush();
+                return $this->redirectToRoute('_pago', array('id' => $pago->getId()));
+            }
         }
-
         return $this->render('default/pago.html.twig', array(
             'pago' => $pago,
             'form' => $form->createView(),

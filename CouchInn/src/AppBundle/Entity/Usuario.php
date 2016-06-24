@@ -16,6 +16,15 @@ use FOS\UserBundle\Model\User as BaseUser;
 /**
  * @ORM\Entity
  * @ORM\Table(name="usuarios")
+ *
+ * @ORM\AttributeOverrides({
+ *     @ORM\AttributeOverride(name="email",
+ *          column=@ORM\Column(name="email", type="string", length=50, unique=false, nullable=true)
+ *      ),
+ *     @ORM\AttributeOverride(name="emailCanonical",
+ *         column=@ORM\Column(name="emailCanonical", type="string", length=50, unique=false, nullable=true)
+ *     )
+ * })
  */
 class Usuario extends BaseUser implements UserInterface, \Serializable
 {
@@ -75,10 +84,8 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Pago", mappedBy="usuario")
      */
     private $pagos;
-    /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Solicitud", mappedBy="usuario")
-     */
-    private $misSolicitudes;
+
+
     /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Pregunta", mappedBy="aUsuario")
      */
@@ -89,6 +96,7 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     {
         parent::__construct();
         $this->addRole('ROLE_USER');
+        $this->pagos = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -376,7 +384,19 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     {
         return $this->misComentarios;
     }
-
+    /**
+     * return boolean
+     */
+    public function esPremium()
+    {
+        if (!$this->getPagos()->isEmpty()) {
+            if($this->getPagos()->last()->estaVencido()){
+                return false;
+            }
+            else return true;
+        }
+        return false;
+    }
     /**
      * Add pagos
      *
@@ -411,65 +431,20 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     }
 
     /**
-     * Add misSolicitudes
+     * Set misPreguntasParaResponder
      *
-     * @param \AppBundle\Entity\Solicitud $misSolicitudes
-     * @return Usuario
+     * @param string $misPreguntasParaResponder
      */
-    public function addMisSolicitude(\AppBundle\Entity\Solicitud $misSolicitudes)
+    public function setMisPreguntasParaResponder($misPreguntasParaResponder)
     {
-        $this->misSolicitudes[] = $misSolicitudes;
+        $this->misPreguntasParaResponder = $misPreguntasParaResponder;
 
-        return $this;
-    }
-
-    /**
-     * Remove misSolicitudes
-     *
-     * @param \AppBundle\Entity\Solicitud $misSolicitudes
-     */
-    public function removeMisSolicitude(\AppBundle\Entity\Solicitud $misSolicitudes)
-    {
-        $this->misSolicitudes->removeElement($misSolicitudes);
-    }
-
-    /**
-     * Get misSolicitudes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getMisSolicitudes()
-    {
-        return $this->misSolicitudes;
-    }
-
-    /**
-     * Add misPreguntasParaResponder
-     *
-     * @param \AppBundle\Entity\Pregunta $misPreguntasParaResponder
-     * @return Usuario
-     */
-    public function addMisPreguntasParaResponder(\AppBundle\Entity\Pregunta $misPreguntasParaResponder)
-    {
-        $this->misPreguntasParaResponder[] = $misPreguntasParaResponder;
-
-        return $this;
-    }
-
-    /**
-     * Remove misPreguntasParaResponder
-     *
-     * @param \AppBundle\Entity\Pregunta $misPreguntasParaResponder
-     */
-    public function removeMisPreguntasParaResponder(\AppBundle\Entity\Pregunta $misPreguntasParaResponder)
-    {
-        $this->misPreguntasParaResponder->removeElement($misPreguntasParaResponder);
     }
 
     /**
      * Get misPreguntasParaResponder
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return string
      */
     public function getMisPreguntasParaResponder()
     {
