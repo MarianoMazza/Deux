@@ -409,4 +409,70 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     {
         return $this->pagos;
     }
+
+    /**
+     * Add misSolicitudes
+     *
+     * @param \AppBundle\Entity\Solicitud $misSolicitudes
+     * @return Usuario
+     */
+    public function addMisSolicitude(\AppBundle\Entity\Solicitud $misSolicitudes)
+    {
+        $this->misSolicitudes[] = $misSolicitudes;
+
+        return $this;
+    }
+
+    /**
+     * Remove misSolicitudes
+     *
+     * @param \AppBundle\Entity\Solicitud $misSolicitudes
+     */
+    public function removeMisSolicitude(\AppBundle\Entity\Solicitud $misSolicitudes)
+    {
+        $this->misSolicitudes->removeElement($misSolicitudes);
+    }
+
+    /**
+     * Get misSolicitudes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMisSolicitudes()
+    {
+        return $this->misSolicitudes;
+    }
+
+    /**
+     * Add misPreguntasParaResponder
+     *
+     * @param \AppBundle\Entity\Pregunta $misPreguntasParaResponder
+     * @return Usuario
+     */
+    public function addMisPreguntasParaResponder(\AppBundle\Entity\Pregunta $misPreguntasParaResponder)
+    {
+        $this->misPreguntasParaResponder[] = $misPreguntasParaResponder;
+
+        return $this;
+    }
+
+    /**
+     * Remove misPreguntasParaResponder
+     *
+     * @param \AppBundle\Entity\Pregunta $misPreguntasParaResponder
+     */
+    public function removeMisPreguntasParaResponder(\AppBundle\Entity\Pregunta $misPreguntasParaResponder)
+    {
+        $this->misPreguntasParaResponder->removeElement($misPreguntasParaResponder);
+    }
+
+    /**
+     * Get misPreguntasParaResponder
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMisPreguntasParaResponder()
+    {
+        return $this->misPreguntasParaResponder;
+    }
 }

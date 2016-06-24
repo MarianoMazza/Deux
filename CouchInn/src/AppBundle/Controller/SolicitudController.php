@@ -89,20 +89,6 @@ class SolicitudController extends Controller
     }
 
     /**
-     * Finds and displays a Solicitud entity.
-     *
-     */
-    public function showAction(Solicitud $solicitud)
-    {
-        $deleteForm = $this->createDeleteForm($solicitud);
-
-        return $this->render('solicitud/show.html.twig', array(
-            'solicitud' => $solicitud,
-            'delete_form' => $deleteForm->createView(),
-        ));
-    }
-
-    /**
      * Displays a form to edit an existing Solicitud entity.
      * @Route("/accion/{id}/{ok}", name="_accion")
      */
@@ -119,6 +105,12 @@ class SolicitudController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($solicitud);
             $em->flush();
+            if ($ok == 2){
+                $publicacion = $this->getDoctrine()
+                    ->getRepository('AppBundle:Publicacion')
+                    ->findOneBy(['publicacion' => $solicitud->getPublicacion()]);
+                $publicacion->setReservado(true);
+            }
 
             return $this->redirectToRoute('lista_solicitudes');
         }

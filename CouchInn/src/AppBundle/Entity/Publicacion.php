@@ -28,6 +28,10 @@ class Publicacion
      */
     private $id;
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $reservado;
+    /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
      */
@@ -632,5 +636,74 @@ class Publicacion
     public function getSolicitudes()
     {
         return $this->solicitudes;
+    }
+
+    /**
+     * Set reservado
+     *
+     * @param boolean $reservado
+     * @return Publicacion
+     */
+    public function setReservado($reservado)
+    {
+        $this->reservado = $reservado;
+
+        return $this;
+    }
+
+    /**
+     * Get reservado
+     *
+     * @return boolean 
+     */
+    public function getReservado()
+    {
+        return $this->reservado;
+    }
+
+    /**
+     * Set path2
+     *
+     * @param string $path2
+     * @return Publicacion
+     */
+    public function setPath2($path2)
+    {
+        $this->path2 = $path2;
+
+        return $this;
+    }
+
+    /**
+     * Get path2
+     *
+     * @return string 
+     */
+    public function getPath2()
+    {
+        return $this->path2;
+    }
+
+    /**
+     * Set path3
+     *
+     * @param string $path3
+     * @return Publicacion
+     */
+    public function setPath3($path3)
+    {
+        $this->path3 = $path3;
+
+        return $this;
+    }
+
+    /**
+     * Get path3
+     *
+     * @return string 
+     */
+    public function getPath3()
+    {
+        return $this->path3;
     }
 }

@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Filter;
 use Doctrine\ORM\Mapping as ORM;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\AbstractType;
@@ -86,6 +87,7 @@ class PublicacionController extends Controller
         $error = null;
         $publicacion = new Publicacion();
         $publicacion->setUsuario($this->getUser());
+        $publicacion->setReservado(false);
 
         $form = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
         $form->handleRequest($request);
@@ -170,6 +172,12 @@ class PublicacionController extends Controller
             ->find($id);
         $deleteForm = $this->createDeleteForm($publicacion);
         $editForm = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
+        $editForm->add('reservado', ChoiceType::class, [
+            'choices' => [
+                'Reservado' => true,
+                'No reservado' => false,
+            ]
+        ]);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
