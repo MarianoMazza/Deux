@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block panelhead %}
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% block panelhead %}
     Publicacion
     <a href="{{ path('_calificarPublicacion', {'id': publicacion.id, 'cal':1}) }}" class="glyphicon glyphicon-thumbs-up" style="color: green">
     </a>
@@ -9,6 +10,7 @@
     </a>
     {{ calificacionesMalas }}
 {% endblock %}
+{% endif %}
 
 {% block panelbody %}
     <div class="col-md-8">
@@ -17,17 +19,20 @@
             {{ publicacion.tipo.tipo }}
         </div>
         <br><br>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div>
             <label>Fecha Disponible:</label><br>
             Desde: {{ publicacion.fechaDisponibleInicio|date('Y-m-d') }}<br>
             Hasta: {{ publicacion.fechaDisponibleFin|date('Y-m-d') }}
         </div>
         <br><br>
+    {% endif %}
         <div>
             <label>Descripcion:</label><br>
             {{ publicacion.descripcion }}
         </div>
         <br><br>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div>
             <label>¿Dónde queda?</label><br>
             Pais:
@@ -37,9 +42,11 @@
             Dirección:
             {{ publicacion.calle }}<br>
         </div>
+        {% endif %}
     </div>
 
     <div class="col-md-4">
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <div>
             <label>Publicado por:</label>
             {{ publicacion.usuario.username }}
@@ -53,9 +60,11 @@
             <label>El día:</label>
             {{ publicacion.fechaDePublicacion|date('Y-m-d') }}
         </div>
+    {% endif %}
         <div>
             <img class="img-responsive" src="{{ asset('uploads/fotos/' ~ publicacion.path) }}">
         </div>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     </div>
     <div class="panel-heading col-md-12" style="padding: 20px 0px">
 
@@ -94,6 +103,7 @@
             <a href="{{path('_nuevaPregunta', {'paraUsuarioId':publicacion.usuario.id, 'id': publicacion.id})}}"
                class="btn btn-default active">Hacer una pregunta</a>
         </div>
+    {% endif %}
     </div>
 
 {% endblock %}
