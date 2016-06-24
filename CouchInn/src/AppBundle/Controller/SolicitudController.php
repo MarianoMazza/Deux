@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Publicacion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -26,8 +27,9 @@ class SolicitudController extends Controller
 
         $solicitudes = $em->getRepository('AppBundle:Solicitud')->findAll();
 
-        return $this->render('solicitud/index.html.twig', array(
+        return $this->render('default/solicitud/notificaciones.twig', array(
             'solicitudes' => $solicitudes,
+            'misSolicitudes' => $this->getUser()->misSolicitudes(),
         ));
     }
 
@@ -37,28 +39,51 @@ class SolicitudController extends Controller
      */
     public function newAction(Request $request, $id)
     {
+        $error = null;
+        $publicacion = $this->getDoctrine()
+            ->getRepository('AppBundle:Publicacion')
+            ->find($id);
         $solicitud = new Solicitud();
         $form = $this->createForm('AppBundle\Form\SolicitudType', $solicitud);
+        $form
+            ->add('desde', DateType::class,[
+                'years'=>range($publicacion->getFechaDisponibleInicio()->format('Y'), $publicacion->getFechaDisponibleFin()->format('Y')),
+                'months'=>range($publicacion->getFechaDisponibleInicio()->format('m'), $publicacion->getFechaDisponibleFin()->format('m')),
+                'days'=>range($publicacion->getFechaDisponibleInicio()->format('d'), $publicacion->getFechaDisponibleFin()->format('d')),
+            ])
+            ->add('hasta', DateType::class,[
+                'years'=>range($publicacion->getFechaDisponibleInicio()->format('Y'), $publicacion->getFechaDisponibleFin()->format('Y')),
+                'months'=>range($publicacion->getFechaDisponibleInicio()->format('m'), $publicacion->getFechaDisponibleFin()->format('m')),
+                'days'=>range($publicacion->getFechaDisponibleInicio()->format('d'), $publicacion->getFechaDisponibleFin()->format('d')),
+            ]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $publicacion = $this->getDoctrine()
-                ->getRepository('AppBundle:Publicacion')
-                ->find($id);
-            $solicitud->setPublicacion($publicacion);
-            $solicitud->setFecha(new \DateTime('today'));
-            $solicitud->setOk(false);
-            $solicitud->setUsuario($this->getUser());
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($solicitud);
-            $em->flush();
+        $solicitudes = $this->getDoctrine()
+            ->getRepository('AppBundle:Solicitud')
+            ->findOneBy(['usuario'=>$this->getUser()]);
 
-            return $this->redirectToRoute('_listaPubli', array('id' => $solicitud->getId()));
+        if (empty($solicitudes)){
+            if ($form->isSubmitted() && $solicitud->getDesde() <= $solicitud->getHasta()) {
+                $solicitud->setPublicacion($publicacion);
+                $solicitud->setFecha(new \DateTime('today'));
+                $solicitud->setOk(1);
+                $solicitud->setUsuario($this->getUser());
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($solicitud);
+                $em->flush();
+
+                return $this->redirectToRoute('_listaPubli', array('id' => $solicitud->getId()));
+            }elseif ($form->isSubmitted()){
+                $error = 'Las fechas que usted ha ingresado son incorrectas.';
+            }
+        }else{
+            $error = 'Usted ya ha enviado una solicitud de hospedaje para esta publicacion.';
         }
 
         return $this->render('default/solicitud/solicitud.html.twig', array(
             'solicitud' => $solicitud,
             'form' => $form->createView(),
+            'error' => $error,
         ));
     }
 
@@ -78,35 +103,35 @@ class SolicitudController extends Controller
 
     /**
      * Displays a form to edit an existing Solicitud entity.
-     *
+     * @Route("/accion/{id}/{ok}", name="_accion")
      */
-    public function editAction(Request $request, Solicitud $solicitud)
+    public function editAction(Request $request, $id, $ok)
     {
-        $deleteForm = $this->createDeleteForm($solicitud);
+        $solicitud = $this->getDoctrine()
+            ->getRepository('AppBundle:Solicitud')
+            ->find($id);
         $editForm = $this->createForm('AppBundle\Form\SolicitudType', $solicitud);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if (!empty($solicitud)) {
+            $solicitud->setOk($ok);
             $em = $this->getDoctrine()->getManager();
             $em->persist($solicitud);
             $em->flush();
 
             return $this->redirectToRoute('solicitud_edit', array('id' => $solicitud->getId()));
         }
-
-        return $this->render('solicitud/edit.html.twig', array(
-            'solicitud' => $solicitud,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
     }
 
     /**
      * Deletes a Solicitud entity.
-     *
+     * @Route("/eliminarSolicitud/{id}", name="_eliminarSolicitud")
      */
-    public function deleteAction(Request $request, Solicitud $solicitud)
+    public function deleteAction(Request $request, $id)
     {
+        $solicitud = $this->getDoctrine()
+            ->getRepository('AppBundle:Solicitud')
+            ->find($id);
         $form = $this->createDeleteForm($solicitud);
         $form->handleRequest($request);
 
@@ -116,7 +141,7 @@ class SolicitudController extends Controller
             $em->flush();
         }
 
-        return $this->redirectToRoute('solicitud_index');
+        return $this->redirectToRoute('_hecho');
     }
 
     /**
@@ -129,7 +154,7 @@ class SolicitudController extends Controller
     private function createDeleteForm(Solicitud $solicitud)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('solicitud_delete', array('id' => $solicitud->getId())))
+            ->setAction($this->generateUrl('_eliminarSolicitud', array('id' => $solicitud->getId())))
             ->setMethod('DELETE')
             ->getForm()
         ;

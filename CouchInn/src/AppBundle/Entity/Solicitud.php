@@ -44,7 +44,7 @@ class Solicitud
      */
     private $hasta;
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer")
      */
     private $ok;
 
@@ -130,7 +130,7 @@ class Solicitud
     /**
      * Set ok
      *
-     * @param boolean $ok
+     * @param integer $ok
      * @return Solicitud
      */
     public function setOk($ok)
@@ -143,7 +143,7 @@ class Solicitud
     /**
      * Get ok
      *
-     * @return boolean 
+     * @return integer
      */
     public function getOk()
     {
