@@ -18,7 +18,7 @@
         {% for solicitud in solicitudes %}
             {% if (solicitud.publicacion.usuario.id == user.id) %}
                 <tr>
-                    <td>{{ solicitud.fecha }}</td>
+                    <td>{{ solicitud.fecha|format('d-m-Y') }}</td>
                     <td>{{ solicitud.publicacion.descripcion }}</td>
                     <td>
                         <a href="{{ path('_accion', {'id': solicitud.id, 'ok': 2}) }}" class="btn btn-link">Aceptar</a>

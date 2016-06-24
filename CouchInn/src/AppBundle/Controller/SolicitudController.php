@@ -29,7 +29,8 @@ class SolicitudController extends Controller
 
         return $this->render('default/solicitud/notificaciones.twig', array(
             'solicitudes' => $solicitudes,
-            'misSolicitudes' => $this->getUser()->misSolicitudes(),
+            'misSolicitudes' => $this->getUser()->getMisSolicitudes(),
+            'user' => $this->getUser(),
         ));
     }
 
