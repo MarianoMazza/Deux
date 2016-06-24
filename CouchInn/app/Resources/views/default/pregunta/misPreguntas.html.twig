@@ -1,0 +1,49 @@
+{% extends '::base.html.twig' %}
+
+{% block panelbody %}
+    <table class="table table-striped" style="color: #0f0f0f">
+        <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>Publicacion</th>
+            <td>Pregunta</td>
+            {% if is_granted('ROLE_USER') %}
+                <th></th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for pregunta in preguntas if  app.user.username  == pregunta.aUsuario.username and pregunta.respondido == false %}
+            <tr>
+                <td>
+                    <div style="padding: 20px 0px">
+                        {{ pregunta.deUsuario.username }}<br>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        {{ pregunta.fecha|date('Y-m-d') }}
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        {{ pregunta.publicacion.descripcion }}
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        {{ pregunta.pregunta }}
+                    </div>
+                </td>
+
+                <td>
+                    <a href="{{path('_nuevaRespuesta', {'id': pregunta.id})}}"
+                       class="btn btn-default active">Responder</a>
+                </td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

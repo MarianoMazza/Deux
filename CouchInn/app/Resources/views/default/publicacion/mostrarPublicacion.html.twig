@@ -90,6 +90,10 @@
                 </tbody>
             </table>
         </div>
+        <div id="pregunta"><br>
+            <a href="{{path('_nuevaPregunta', {'paraUsuarioId':publicacion.usuario.id, 'id': publicacion.id})}}"
+               class="btn btn-default active">Hacer una pregunta</a>
+        </div>
     </div>
 
 {% endblock %}

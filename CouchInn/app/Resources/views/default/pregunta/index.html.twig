@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Pregunta list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fecha</th>
+                <th>Pregunta</th>
+                <th>Deusuario</th>
+                <th>Publicacion</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for preguntum in preguntas %}
+            <tr>
+                <td><a href="{{ path('pregunta_show', { 'id': preguntum.id }) }}">{{ preguntum.id }}</a></td>
+                <td>{{ preguntum.fecha }}</td>
+                <td>{{ preguntum.pregunta }}</td>
+                <td>{{ preguntum.deUsuario }}</td>
+                <td>{{ preguntum.publicacion }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('pregunta_show', { 'id': preguntum.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('pregunta_edit', { 'id': preguntum.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('pregunta_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

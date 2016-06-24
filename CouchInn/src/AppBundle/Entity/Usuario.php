@@ -79,6 +79,11 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Solicitud", mappedBy="usuario")
      */
     private $misSolicitudes;
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Pregunta", mappedBy="aUsuario")
+     */
+    private $misPreguntasParaResponder;
+
 
     public function __construct()
     {
@@ -238,7 +243,8 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     {
         return $this->publicaciones;
     }
-
+    
+    
     /**
      * Add calificaciones
      *
@@ -435,5 +441,38 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     public function getMisSolicitudes()
     {
         return $this->misSolicitudes;
+    }
+
+    /**
+     * Add misPreguntasParaResponder
+     *
+     * @param \AppBundle\Entity\Pregunta $misPreguntasParaResponder
+     * @return Usuario
+     */
+    public function addMisPreguntasParaResponder(\AppBundle\Entity\Pregunta $misPreguntasParaResponder)
+    {
+        $this->misPreguntasParaResponder[] = $misPreguntasParaResponder;
+
+        return $this;
+    }
+
+    /**
+     * Remove misPreguntasParaResponder
+     *
+     * @param \AppBundle\Entity\Pregunta $misPreguntasParaResponder
+     */
+    public function removeMisPreguntasParaResponder(\AppBundle\Entity\Pregunta $misPreguntasParaResponder)
+    {
+        $this->misPreguntasParaResponder->removeElement($misPreguntasParaResponder);
+    }
+
+    /**
+     * Get misPreguntasParaResponder
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMisPreguntasParaResponder()
+    {
+        return $this->misPreguntasParaResponder;
     }
 }

@@ -39,6 +39,22 @@ class Publicacion
     /**
      * @ORM\Column(type="text", length=500)
      */
+    private $foto2;
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $path2;
+    /**
+     * @ORM\Column(type="text", length=500)
+     */
+    private $foto3;
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $path3;
+    /**
+     * @ORM\Column(type="text", length=500)
+     */
     private $descripcion;
     /**
      * @ORM\Column(type="date")
@@ -468,7 +484,44 @@ class Publicacion
     {
         return $this->foto;
     }
+    /**
+     * Set foto2
+     *
+     * @param $foto2
+     */
+    public function setFoto2(UploadedFile $foto2 = null)
+    {
+        $this->foto2 = $foto2;
+    }
 
+    /**
+     * Get foto2
+     *
+     * @return string
+     */
+    public function getFoto2()
+    {
+        return $this->foto2;
+    }
+    /**
+     * Set foto3
+     *
+     * @param $foto3
+     */
+    public function setFoto3(UploadedFile $foto3 = null)
+    {
+        $this->foto3 = $foto3;
+    }
+
+    /**
+     * Get foto3
+     *
+     * @return string
+     */
+    public function getFoto3()
+    {
+        return $this->foto3;
+    }
     /**
      * Set fechaDisponibleInicio
      *

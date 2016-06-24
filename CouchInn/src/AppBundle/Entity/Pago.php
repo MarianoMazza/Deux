@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="pagos")
+ * @ORM\Table(name="pago")
  */
 class Pago
 {
