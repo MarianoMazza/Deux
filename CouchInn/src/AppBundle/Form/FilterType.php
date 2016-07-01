@@ -36,6 +36,11 @@ class FilterType extends AbstractType
                 'years'=>range(date('Y'), date('Y')+3),
                 'data'=>new \DateTime('tomorrow'),
             ],array('required' => false))
+            ->add('pais',CountryType::class,array('required' => false))
+            ->add('tipo','entity',
+                array('label' => 'TipoHospedaje: ',
+                    'class' => 'AppBundle:TipoHospedaje',
+                    'property' => 'tipo'),array('required' => false))
             ->add('filtrar',SubmitType::class);
     }
     
