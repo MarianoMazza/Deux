@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block panelbody %}
+    {% if error is not empty %}
+        {{ error }}
+    {% endif %}
 
     <div id="editInfo">
         <div class="formulario">

@@ -32,30 +32,30 @@
     <tbody>
     <div class="row-fluid">
         {% for publicacion in publicaciones %}
+            {% if publicacion.reservado == false %}
+                <div class="col-md-4">
+                    <div class="mark-pers">
+                        <div class="text-center">
+                            <div>
+                                <img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="240" height="160"/>
+                            </div>
 
-            <div class="col-md-4">
-                <div class="mark-pers">
-                    <div class="text-center">
-                        <div>
-                            <img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="240" height="160"/>
+                            {{ publicacion.usuario }}
+                            <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
+                            {% if is_granted('ROLE_USER') %}
+
+                                {% if publicacion.usuario.id == user.id %}
+                                    <a href="{{ path('_modificarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-edit"></a>
+                                {% endif %}
+                                {% if publicacion.usuario.id == user.id or is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('_eliminarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-erase"></a>
+                                {% endif %}
+                                <br/>
+                            {% endif %}
                         </div>
-
-                        {{ publicacion.usuario }}
-                        <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
-                        {% if is_granted('ROLE_USER') %}
-
-                            {% if publicacion.usuario.id == user.id %}
-                                <a href="{{ path('_modificarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-edit"></a>
-                            {% endif %}
-                            {% if publicacion.usuario.id == user.id or is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('_eliminarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-erase"></a>
-                            {% endif %}
-                            <br/>
-                        {% endif %}
                     </div>
                 </div>
-            </div>
-
+            {% endif %}
         {% endfor %}
     </div>
     </tbody>

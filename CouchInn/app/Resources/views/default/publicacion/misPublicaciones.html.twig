@@ -63,6 +63,7 @@
             {% if is_granted('ROLE_USER') %}
                 <th></th>
             {% endif %}
+            <th>Estado</th>
         </tr>
         </thead>
         <tbody>
@@ -76,6 +77,7 @@
                 <td>{{ publicacion.usuario }}</td>
 
                 <td><a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
+                <td>{% if publicacion.reservado == true %}Reservado{% else %}Disponible{% endif %}</td>
                 {% if is_granted('ROLE_USER') %}
                     <td>
                         {% if publicacion.usuario.id == user.id %}
