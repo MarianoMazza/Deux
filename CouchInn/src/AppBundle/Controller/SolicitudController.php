@@ -120,7 +120,7 @@ class SolicitudController extends Controller
      * Deletes a Solicitud entity.
      * @Route("/eliminarSolicitud/{id}", name="_eliminarSolicitud")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
         $solicitud = $this->getDoctrine()
             ->getRepository('AppBundle:Solicitud')
