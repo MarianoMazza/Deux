@@ -8,18 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
-use Symfony\Component\Form\Extension\Core\Type\CountryType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
 use AppBundle\Entity\Publicacion;
 use AppBundle\Form\PublicacionType;
 
@@ -215,8 +203,8 @@ class PublicacionController extends Controller
          $editForm = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
         $editForm->add('reservado', ChoiceType::class, [
             'choices' => [
-                'Reservado' => true,
-                'No reservado' => false,
+                'true' => 'Reservado',
+                'false' => 'Sin reservar',
             ]
         ]);
         $editForm->handleRequest($request);
