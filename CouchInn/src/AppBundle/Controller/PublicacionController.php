@@ -185,17 +185,6 @@ class PublicacionController extends Controller
                 'delete_form' => $deleteForm->createView(),
             ));
         }
-        else{
-            return $this->render(':default/publicacion:mostrarPublicacionPremium.html.twig', array(
-                'calificacionesBuenas' => count($calificacionesBuenas),
-                'calificacionesMalas' => count($calificacionesMalas),
-                'calificacionDelUsuarioBuenas' => count($calificacionDelusuarioBuenas),
-                'calificacionesDelUsuarioMalas' => count($calificacionesDelUsuarioMalas),
-                'publicacion' => $publicacion,
-                'comentarios' => $publicacion->getComentarios(),
-                'delete_form' => $deleteForm->createView(),
-            ));
-        }
     }
 
     /**
@@ -208,13 +197,7 @@ class PublicacionController extends Controller
             ->getRepository('AppBundle:Publicacion')
             ->find($id);
         $deleteForm = $this->createDeleteForm($publicacion);
-        if ($this->getUser()->esPremium()) {
-            $editForm = $this->createForm('AppBundle\Form\PublicacionPremiumType', $publicacion);
-        }
-        else
-        {
-            $editForm = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
-        }
+         $editForm = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
         $editForm->add('reservado', ChoiceType::class, [
             'choices' => [
                 'Reservado' => true,
@@ -235,29 +218,10 @@ class PublicacionController extends Controller
             $foto->move($dir, $name);
             $publicacion->setPath($name);
 
-            if ($this->getUser()->esPremium()) {
-                $foto2 = $editForm['foto2']->getData();
-                $extension2 = $foto2->guessExtension();
-                if (!$extension2) {
-                    $extension2 = 'bin';
-                }
-                $name2 = md5(uniqid()).'.'.$extension2;
-                $foto2->move($dir, $name2);
-                $publicacion->setPath2($name2);
-
-                $foto3 = $editForm['foto3']->getData();
-                $extension3 = $foto3->guessExtension();
-                if (!$extension3) {
-                    $extension3 = 'bin';
-                }
-                $name3 = md5(uniqid()).'.'.$extension3;
-                $foto3->move($dir, $name3);
-                $publicacion->setPath3($name3);
-            }
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($publicacion);
             $em->flush();
+
             return $this->redirectToRoute('_mostrarPublicacion', array('id' => $publicacion->getId()));
         }
 
