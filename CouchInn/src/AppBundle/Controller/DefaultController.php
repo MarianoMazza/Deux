@@ -18,7 +18,18 @@ class DefaultController extends Controller
      * @Route("/", name="_index")
      */
     public function indexAction(){
-        return $this->render(':default:index.html.twig');
+        if ($this->getUser() ==null) {
+            return $this->render(':default:index.html.twig');
+        }
+        else{
+            $em = $this->getDoctrine()->getManager();
+            dump($this->getUser());
+            $publicaciones = $em->getRepository('AppBundle:Publicacion')->findAll();
+            return $this->render(':default/publicacion:publicaciones.html.twig', array(
+                'publicaciones' => $publicaciones,
+                'user' => $this->getUser(),
+            ));
+        }
     }
 
     /**
