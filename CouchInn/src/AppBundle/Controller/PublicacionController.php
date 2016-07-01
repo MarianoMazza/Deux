@@ -53,11 +53,26 @@ class PublicacionController extends Controller
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
         $publicaciones = $em->getRepository('AppBundle:Publicacion')->findAll();
-        if (!($filtro->getMaxPersonas()==null) and !($filtro->getMonto()==null)){
+
+        if (!($filtro->getMaxPersonas()==null) or !($filtro->getMonto()==null) or !($filtro->getfechaDisponibleInicio()== null) or !($filtro->getfechaDisponibleFin()== null)
+        or !($filtro->getTipo()==null) or !($filtro->getPais()==null)){
+            if($filtro->getMaxPersonas()== null){
+                $filtro->setMaxPersonas(0);
+            }
+            if($filtro->getMonto()== null){
+                $filtro->setMonto(99999999999);
+            }
+            if($filtro->getfechaDisponibleInicio()== null){
+                $filtro->setfechaDisponibleInicio(new \DateTime('11-11-1990'));
+            }
+            if($filtro->getfechaDisponibleFin()== null){
+                $filtro->setfechaDisponibleFin(new \DateTime('12-12-9999'));
+            }
             return $this->render(':default/publicacion:publicacionesFiltradas.html.twig', array('maxPersonas' => $filtro->getMaxPersonas(),
                     'monto'=>$filtro->getMonto(),
                     'fechaInicio'=>$filtro->getfechaDisponibleInicio(),
                     'fechaFin'=>$filtro->getfechaDisponibleFin(),
+                    'tipo'=>$filtro->getTipo(),'pais'=>$filtro->getPais(),
                 'publicaciones' => $publicaciones,'user' => $this->getUser())
                 );
         }
