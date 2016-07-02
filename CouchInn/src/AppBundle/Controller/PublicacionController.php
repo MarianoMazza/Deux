@@ -159,21 +159,25 @@ class PublicacionController extends Controller
             ->getRepository('AppBundle:CalificacionPublicacion')
             ->findBy([
                 'calificacion'=>1,
+                'publicacion'=>$publicacion,
             ]);
         $calificacionesMalas = $this->getDoctrine()
             ->getRepository('AppBundle:CalificacionPublicacion')
             ->findBy([
                 'calificacion'=>2,
+                'publicacion'=>$publicacion,
             ]);
         $calificacionDelusuarioBuenas = $this->getDoctrine()
             ->getRepository('AppBundle:CalificacionUsuario')
             ->findBy([
                 'calificacion'=>1,
+                'paraUsuario'=>$publicacion->getUsuario(),
             ]);
         $calificacionesDelUsuarioMalas = $this->getDoctrine()
             ->getRepository('AppBundle:CalificacionUsuario')
             ->findBy([
                 'calificacion'=>2,
+                'paraUsuario'=>$publicacion->getUsuario(),
             ]);
         $deleteForm = $this->createDeleteForm($publicacion);
 
