@@ -48,7 +48,7 @@ class CalificacionPublicacionController extends Controller
                 'deUsuario'=>$this->getUser()->getId(),
             ]);
 
-        if (empty($calificacionPublicacion)){
+        if (empty($calificaciones)){
             $em = $this->getDoctrine()->getManager();
             $em->persist($calificacionPublicacion);
             $em->flush();

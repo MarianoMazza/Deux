@@ -67,9 +67,6 @@
     <div>
         <img class="img-responsive" src="{{ asset('uploads/fotos/' ~ publicacion.path) }}">
     </div>
-    <div>
-        {% include '../solicitud/solicitud.html.twig' %}
-    </div>
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         </div>
         <div class="panel-heading col-md-12" style="padding: 20px 0px">
