@@ -53,11 +53,26 @@ class PublicacionController extends Controller
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
         $publicaciones = $em->getRepository('AppBundle:Publicacion')->findAll();
-        if (!($filtro->getMaxPersonas()==null) and !($filtro->getMonto()==null)){
+
+        if (!($filtro->getMaxPersonas()==null) or !($filtro->getMonto()==null) or !($filtro->getfechaDisponibleInicio()== null) or !($filtro->getfechaDisponibleFin()== null)
+        or !($filtro->getTipo()==null) or !($filtro->getPais()==null)){
+            if($filtro->getMaxPersonas()== null){
+                $filtro->setMaxPersonas(0);
+            }
+            if($filtro->getMonto()== null){
+                $filtro->setMonto(99999999999);
+            }
+            if($filtro->getfechaDisponibleInicio()== null){
+                $filtro->setfechaDisponibleInicio(new \DateTime('11-11-1990'));
+            }
+            if($filtro->getfechaDisponibleFin()== null){
+                $filtro->setfechaDisponibleFin(new \DateTime('12-12-9999'));
+            }
             return $this->render(':default/publicacion:publicacionesFiltradas.html.twig', array('maxPersonas' => $filtro->getMaxPersonas(),
                     'monto'=>$filtro->getMonto(),
                     'fechaInicio'=>$filtro->getfechaDisponibleInicio(),
                     'fechaFin'=>$filtro->getfechaDisponibleFin(),
+                    'tipo'=>$filtro->getTipo(),'pais'=>$filtro->getPais(),
                 'publicaciones' => $publicaciones,'user' => $this->getUser())
                 );
         }
@@ -92,7 +107,12 @@ class PublicacionController extends Controller
         $publicacion->setUsuario($this->getUser());
         $publicacion->setReservado(false);
 
-        $form = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
+        if ($this->getUser()->esPremium()) {
+            $form = $this->createForm('AppBundle\Form\PublicacionPremiumType', $publicacion);
+        }
+        else {
+            $form = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
+        }
         $form->handleRequest($request);
   
         if (!empty($publicacion) and new \DateTime('today') <= $publicacion->getFechaDisponibleInicio() and $publicacion->getFechaDisponibleInicio() < $publicacion->getFechaDisponibleFin() and (!empty($publicacion->getTipo()))) {
@@ -106,6 +126,25 @@ class PublicacionController extends Controller
             $name = md5(uniqid()).'.'.$extension;
             $foto->move($dir, $name);
             $publicacion->setPath($name);
+            if ($this->getUser()->esPremium()) {
+                $foto2 = $form['foto2']->getData();
+                $extension2 = $foto2->guessExtension();
+                if (!$extension2) {
+                    $extension2 = 'bin';
+                }
+                $name2 = md5(uniqid()).'.'.$extension2;
+                $foto2->move($dir, $name2);
+                $publicacion->setPath2($name2);
+
+                $foto3 = $form['foto3']->getData();
+                $extension3 = $foto3->guessExtension();
+                if (!$extension3) {
+                    $extension3 = 'bin';
+                }
+                $name3 = md5(uniqid()).'.'.$extension3;
+                $foto3->move($dir, $name3);
+                $publicacion->setPath3($name3);
+            }
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($publicacion);
@@ -154,6 +193,7 @@ class PublicacionController extends Controller
 
         $deleteForm = $this->createDeleteForm($publicacion);
 
+
         return $this->render(':default/publicacion:mostrarPublicacion.html.twig', array(
             'calificacionesBuenas'=>count($calificacionesBuenas),
             'calificacionesMalas'=>count($calificacionesMalas),
@@ -164,6 +204,19 @@ class PublicacionController extends Controller
             'preguntas' =>$publicacion->getPregunta(),
             'delete_form' => $deleteForm->createView(),
         ));
+
+        if(!$publicacion->getUsuario()->esPremium()) {
+            return $this->render(':default/publicacion:mostrarPublicacion.html.twig', array(
+                'calificacionesBuenas' => count($calificacionesBuenas),
+                'calificacionesMalas' => count($calificacionesMalas),
+                'calificacionDelUsuarioBuenas' => count($calificacionDelusuarioBuenas),
+                'calificacionesDelUsuarioMalas' => count($calificacionesDelUsuarioMalas),
+                'publicacion' => $publicacion,
+                'comentarios' => $publicacion->getComentarios(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }
+
     }
 
     /**
@@ -176,7 +229,7 @@ class PublicacionController extends Controller
             ->getRepository('AppBundle:Publicacion')
             ->find($id);
         $deleteForm = $this->createDeleteForm($publicacion);
-        $editForm = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
+         $editForm = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
         $editForm->add('reservado', ChoiceType::class, [
             'choices' => [
                 'Reservado' => true,

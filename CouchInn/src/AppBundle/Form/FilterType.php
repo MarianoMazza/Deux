@@ -26,16 +26,21 @@ class FilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('maxPersonas',NumberType::class)
-            ->add('monto',NumberType::class)
+            ->add('maxPersonas',NumberType::class,array('required' => false))
+            ->add('monto',NumberType::class,array('required' => false))
             ->add('fechaDisponibleInicio',DateType::class,[
                 'years'=>range(date('Y'), date('Y')+3),
                 'data'=>new \DateTime('now'),
-            ])
+            ],array('required' => false))
             ->add('fechaDisponibleFin',DateType::class,[
                 'years'=>range(date('Y'), date('Y')+3),
                 'data'=>new \DateTime('tomorrow'),
-            ])
+            ],array('required' => false))
+            ->add('pais',CountryType::class,array('required' => false))
+            ->add('tipo','entity',
+                array('label' => 'TipoHospedaje: ',
+                    'class' => 'AppBundle:TipoHospedaje',
+                    'property' => 'tipo'),array('required' => false))
             ->add('filtrar',SubmitType::class);
     }
     

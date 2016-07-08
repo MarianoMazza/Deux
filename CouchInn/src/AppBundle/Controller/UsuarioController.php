@@ -28,7 +28,19 @@ class UsuarioController extends Controller
             'usuarios' => $usuarios,
         ));
     }
-
+    /**
+     * return boolean
+     */
+    public function esPremium()
+    {
+        if (!$this->getUser()->getPagos()->isEmpty()) {
+            if($this->getUser()->getPagos()->last()->estaVencido()){
+                return false;
+            }
+            else return true;
+        }
+        return false;
+    }
     /**
      * Finds and displays a Usuario entity.
      * @Route("/user/miperfil", name="_miperfil")

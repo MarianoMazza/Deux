@@ -13,6 +13,9 @@ use AppBundle\Controller\PublicacionController;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
@@ -31,21 +34,78 @@ class Filter
      */
     private $usado;
     /**
-     * @ORM\Column(type="date")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\TipoHospedaje", inversedBy="publicaciones")
+     * @ORM\JoinColumn(name="tipo_id", referencedColumnName="id")
+     */
+    private $tipo;
+    /**
+     * @ORM\Column(type="string")
+     * @Assert\Country(
+     *     message="El país ingresado es inválido"
+     * )
+     */
+    private $pais;
+    /**
+     * @ORM\Column(type="date",nullable=true)
      */
     private $fechaDisponibleInicio;
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date",nullable=true)
      */
     private $fechaDisponibleFin;
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer",nullable=true)
      */
     private $monto;
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer",nullable=true)
      */
     private $maxPersonas;
+    /**
+     * Set pais
+     *
+     * @param string $pais
+     * @return PublicacionController
+     */
+    public function setPais($pais)
+    {
+        $this->pais = $pais;
+
+        return $this;
+    }
+
+    /**
+     * Get pais
+     *
+     * @return string
+     */
+    public function getPais()
+    {
+        return $this->pais;
+    }
+    /**
+     * Set tipo
+     *
+     * @param \AppBundle\Entity\TipoHospedaje $tipo
+     * @return PublicacionController
+     */
+    public function setTipo(\AppBundle\Entity\TipoHospedaje $tipo = null)
+    {
+        $this->tipo = $tipo;
+
+        return $this;
+    }
+
+
+    /**
+     * Get tipo
+     *
+     * @return \AppBundle\Entity\Publicacion
+     */
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
     /**
      * @ORM\Column(type="date")
      */
