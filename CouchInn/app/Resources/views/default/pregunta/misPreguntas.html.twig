@@ -14,7 +14,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for pregunta in preguntas if  app.user.username  == pregunta.aUsuario.username and pregunta.respondido == false %}
+        {% for pregunta in preguntas if  app.user.username  == pregunta.aUsuario.username %}
             <tr>
                 <td>
                     <div style="padding: 20px 0px">
@@ -36,11 +36,12 @@
                         {{ pregunta.pregunta }}
                     </div>
                 </td>
-
-                <td>
-                    <a href="{{path('_nuevaRespuesta', {'id': pregunta.id})}}"
-                       class="btn btn-default active">Responder</a>
-                </td>
+                {% if pregunta.respondido == false %}
+                    <td>
+                        <a href="{{path('_nuevaRespuesta', {'id': pregunta.id})}}"
+                           class="btn btn-default active">Responder</a>
+                    </td>
+                {% endif %}
 
             </tr>
         {% endfor %}

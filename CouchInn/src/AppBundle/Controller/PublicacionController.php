@@ -69,11 +69,14 @@ class PublicacionController extends Controller
      */
     public function myAction()
     {
-
         $publicaciones = $this->getUser()->getPublicaciones();
+        $preguntas = $this->getDoctrine()
+            ->getRepository('AppBundle:Pregunta')
+            ->findAll();
 
         return $this->render(':default/publicacion:misPublicaciones.html.twig', array(
             'publicaciones' => $publicaciones,
+            'preguntas' =>$preguntas,
             'user' => $this->getUser(),
         ));
     }
@@ -148,6 +151,7 @@ class PublicacionController extends Controller
             ->findBy([
                 'calificacion'=>2,
             ]);
+
         $deleteForm = $this->createDeleteForm($publicacion);
 
         return $this->render(':default/publicacion:mostrarPublicacion.html.twig', array(
@@ -157,6 +161,7 @@ class PublicacionController extends Controller
             'calificacionesDelUsuarioMalas'=>count($calificacionesDelUsuarioMalas),
             'publicacion' => $publicacion,
             'comentarios' => $publicacion->getComentarios(),
+            'preguntas' =>$publicacion->getPregunta(),
             'delete_form' => $deleteForm->createView(),
         ));
     }

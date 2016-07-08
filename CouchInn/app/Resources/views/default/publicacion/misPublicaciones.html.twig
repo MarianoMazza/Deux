@@ -74,8 +74,9 @@
                     </div>
                 </td>
                 <td>{{ publicacion.usuario }}</td>
-
                 <td><a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
+
+
                 {% if is_granted('ROLE_USER') %}
                     <td>
                         {% if publicacion.usuario.id == user.id %}
@@ -84,6 +85,20 @@
                         {% if publicacion.usuario.id == user.id or is_granted('ROLE_ADMIN') %}
                             <a href="{{ path('_eliminarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-erase"></a>
                         {% endif %}
+                        {% if publicacion.usuario.id == user.id %}
+                            <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }} #seccion-preguntas"  class= "btn btn-default">Preguntas</a>
+                        {% endif %}
+
+                    {% set counter = 0 %}
+                    {% for pregunta in preguntas %}
+
+                            {% if app.user.username  == pregunta.aUsuario.username and pregunta.publicacion.id ==
+                            publicacion.id and pregunta.respondido == false %}
+                                {% set counter = counter + 1 %}
+                            {% endif %}
+                    {% endfor %}
+                    {{ "(Tienes " ~counter~ " Preguntas)" }}
+
                     </td>
                 {% endif %}
             </tr>

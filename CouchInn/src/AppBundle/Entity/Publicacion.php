@@ -121,6 +121,10 @@ class Publicacion
      */
     private $comentarios;
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Pregunta", mappedBy="publicacion")
+     */
+    private $pregunta;
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Solicitud", mappedBy="deUsuario")
      */
     private $solicitudes;
@@ -466,6 +470,16 @@ class Publicacion
     public function getComentarios()
     {
         return $this->comentarios;
+    }
+
+    /**
+     * Get pregunta
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPregunta()
+    {
+        return $this->pregunta;
     }
 
     /**

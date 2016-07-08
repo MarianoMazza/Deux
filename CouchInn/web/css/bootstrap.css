@@ -127,6 +127,11 @@ select,
   padding: .2em;
   margin: .4em;
 }
+.mark-pers2 {
+  background-color: darkgray;
+  padding: .2em;
+  margin: .4em;
+}
 textarea {
   color: inherit;
   font: inherit;
