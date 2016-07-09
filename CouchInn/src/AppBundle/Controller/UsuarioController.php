@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Filter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,12 +10,42 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Entity\Usuario;
 use AppBundle\Form\UsuarioType;
+use Symfony\Component\Validator\Constraints\Date;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Usuario controller.
  */
 class UsuarioController extends Controller
 {
+    /**
+     * @Route("/admin/cantEnMes", name="_cantidadEnMes")
+     */
+    public function usuariosRegistradosMes(Request $request)
+    {
+        $error = null;
+        $mes = new Filter();
+        $form = $this->createForm('AppBundle\Form\mesType', $mes);
+        
+        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $usuariosTotal = $em->getRepository('AppBundle:Usuario')->findAll();
+        $usuarios = array();
+        if($mes->getfechaDisponibleInicio()==null) {
+            return $this->render(':default/administrador:cantUsuarios.html.twig', array(
+                'form' => $form->createView(),
+            ));
+        }
+        foreach($usuariosTotal as $user)
+        {
+            if ($user->getFechaRegistro()->format('M') == $mes->getfechaDisponibleInicio()->format('M')){
+                $usuarios[] = $user;
+            }
+        }
+        return $this->render(':default/administrador:cantidadUsuariosMes.html.twig', array(
+            'usuarios' => count($usuarios),
+        ));
+    }
     /**
      * Lists all Usuario entities.
      * @Route("/admin/usuarios", name="_listaDeUsuarios")

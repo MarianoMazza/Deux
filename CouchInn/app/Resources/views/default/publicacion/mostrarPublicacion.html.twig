@@ -12,6 +12,9 @@
     {% if is_granted('ROLE_USER') %}
         <a href="{{ path('_hospedarme', {'id': publicacion.id}) }}" class="btn btn-link pull-right"><label class="glyphicon glyphicon-arrow-up"></label>Solicitar hospedaje</a>
     {% endif %}
+    {% if not is_granted('ROLE_USER') %}
+        <a href="{{ path('fos_user_registration_register', {'id': publicacion.id}) }}" class="btn btn-link pull-right"><label class="glyphicon glyphicon-arrow-up"></label>Solicitar hospedaje</a>
+    {% endif %}
 {% endblock %}
 {% endif %}
 
