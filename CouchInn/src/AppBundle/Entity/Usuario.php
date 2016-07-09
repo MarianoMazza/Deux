@@ -44,6 +44,13 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      */
     private $provincia;
     /**
+     * @ORM\Column(type="date")
+     * @Assert\Date(
+     *     message="La fecha ingresada es inválida"
+     * )
+     */
+    private $fechaRegistro;
+    /**
      * @ORM\Column(type="string", length=30)
      */
     private $localidad;
@@ -113,6 +120,28 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     public function getFechaDeNacimiento()
     {
         return $this->fechaDeNacimiento;
+    }
+    /**
+     * Set fechaRegistro
+     *
+     * @param \DateTime $fechaRegistro
+     * @return Usuario
+     */
+    public function setFechaRegistro($fechaRegistro)
+    {
+        $this->fechaRegistro = $fechaRegistro;
+
+        return $this;
+    }
+
+    /**
+     * Get fechaRegistro
+     *
+     * @return \DateTime
+     */
+    public function getFechaRegistro()
+    {
+        return $this->fechaRegistro;
     }
 
     /**
