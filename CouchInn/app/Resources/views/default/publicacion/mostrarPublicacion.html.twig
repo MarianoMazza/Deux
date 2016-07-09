@@ -105,16 +105,17 @@
 
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
     <div class="mark-pers2">
+
         <table class="table table-striped" style="color: #0f0f0f">
             <thead>
             <tr>
                 <th>Usuario</th>
-                <th>Fecha</th>
-                <th>Publicacion</th>
+
                 <th>Pregunta</th>
                 {% if is_granted('ROLE_USER') %}
-                    <th></th>
+
                 {% endif %}
             </tr>
             </thead>
@@ -124,22 +125,12 @@
             <div class="col-md-2 text">
                 <label>Preguntas</label>
             </div>
-
             {% for pregunta in preguntas %}
                 <tr>
                     <td>
                         <div style="padding: 20px 0px">
                             {{ pregunta.deUsuario.username }}<br>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
                             {{ pregunta.fecha|date('Y-m-d') }}
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            {{ pregunta.publicacion.descripcion }}
                         </div>
                     </td>
                     <td>
@@ -147,15 +138,19 @@
                             {{ pregunta.pregunta }}
                         </div>
                     </td>
+                    </tr>
 
+                <tr>
 
                     {% if  (app.user.username  == pregunta.deUsuario.username or app.user.username == pregunta.aUsuario) and pregunta.respondido == true %}
                     <td>
                         <div>
                             <label>Respuesta: </label>
                             {{ pregunta.respuesta }}
+                            <br><br>
                         </div>
                     </td>
+
                     {% endif %}
 
 
@@ -164,13 +159,17 @@
                         <td>
                             <a href="{{path('_nuevaRespuesta', {'id': pregunta.id})}}"
                                class="btn btn-default active">Responder</a>
+                            <br><br>
                         </td>
+
                     {% endif %}
+
                 </tr>
+
             {% endfor %}
             </tbody>
         </table>
-
+        </div>
         {% if publicacion.usuario != app.user.username %}
         <div id="pregunta"><br>
             <a href="{{path('_nuevaPregunta', {'paraUsuarioId':publicacion.usuario.id, 'id': publicacion.id})}}"
@@ -179,7 +178,7 @@
         {% endif %}
         {% endif %}
         </div>
-    </div>
+
 
 
 {% endblock %}
