@@ -72,11 +72,14 @@ class PublicacionController extends Controller
      */
     public function myAction()
     {
-
         $publicaciones = $this->getUser()->getPublicaciones();
+        $preguntas = $this->getDoctrine()
+            ->getRepository('AppBundle:Pregunta')
+            ->findAll();
 
         return $this->render(':default/publicacion:misPublicaciones.html.twig', array(
             'publicaciones' => $publicaciones,
+            'preguntas' =>$preguntas,
             'user' => $this->getUser(),
         ));
     }
@@ -179,7 +182,20 @@ class PublicacionController extends Controller
                 'calificacion'=>2,
                 'paraUsuario'=>$publicacion->getUsuario(),
             ]);
+
         $deleteForm = $this->createDeleteForm($publicacion);
+
+
+        return $this->render(':default/publicacion:mostrarPublicacion.html.twig', array(
+            'calificacionesBuenas'=>count($calificacionesBuenas),
+            'calificacionesMalas'=>count($calificacionesMalas),
+            'calificacionDelUsuarioBuenas'=>count($calificacionDelusuarioBuenas),
+            'calificacionesDelUsuarioMalas'=>count($calificacionesDelUsuarioMalas),
+            'publicacion' => $publicacion,
+            'comentarios' => $publicacion->getComentarios(),
+            'preguntas' =>$publicacion->getPregunta(),
+            'delete_form' => $deleteForm->createView(),
+        ));
 
         if(!$publicacion->getUsuario()->esPremium()) {
             return $this->render(':default/publicacion:mostrarPublicacion.html.twig', array(
@@ -192,6 +208,7 @@ class PublicacionController extends Controller
                 'delete_form' => $deleteForm->createView(),
             ));
         }
+
     }
 
     /**

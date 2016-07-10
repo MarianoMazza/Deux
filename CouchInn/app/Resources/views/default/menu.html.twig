@@ -15,7 +15,12 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ path('fos_user_profile_show') }}">Ver mi perfil</a></li>
-                    <li><a href="{{ path('_pago') }}">Pagar Premium</a></li>
+                    {%if (app.user.esPremium()) %}
+                        <li><a href="{{ path('_pago') }}">¡Ya eres Premium!</a></li>
+                    {% endif %}
+                    {%if not(app.user.esPremium()) %}
+                        <li><a href="{{ path('_pago') }}">Pagar Premium</a></li>
+                    {% endif %}
                     <li><a href="{{ path('fos_user_change_password') }}">Cambiar mi contraseña</a></li>
                     <li><a href="{{ path('fos_user_security_logout') }}">Cerrar Sesión</a></li>
                 </ul>
@@ -35,8 +40,6 @@
             <ul class="dropdown-menu">
                 <li><a href="{{ path('_misPublicaciones') }}">Mis Publicaciones</a></li>
                 <li><a href="{{ path('lista_solicitudes') }}">Mis Solicitudes</a></li>
-                <li><a href="{{ path('_misPreguntas') }}">Mis Preguntas</a></li>
-                <li><a href="{{ path('_misRespuestas') }}">Mis Respuestas</a></li>
 
             </ul>
             {% endif %}
@@ -50,6 +53,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="{{ path('_listaDeUsuarios') }}">Usuarios</a></li>
                     <li><a href="{{ path('_tipos') }}">Tipos de hospedaje</a></li>
+                    <li><a href="{{ path('_cantidadEnMes') }}">Cantidad de usuarios registrados</a></li>
                 </ul>
             {% endif %}
         </div>

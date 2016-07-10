@@ -2,7 +2,6 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Entity\Filter;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
@@ -18,7 +17,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class FilterType extends AbstractType
+class mesType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -27,22 +26,11 @@ class FilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('maxPersonas',NumberType::class,array('required' => false))
-            ->add('monto',NumberType::class,array('required' => false))
-            ->add('fechaDisponibleInicio',DateType::class,[
-                'years'=>range(date('Y'), date('Y')+3),
-                'data'=>new \DateTime('now'),
-            ],array('required' => false))
-            ->add('fechaDisponibleFin',DateType::class,[
-                'years'=>range(date('Y'), date('Y')+3),
-                'data'=>new \DateTime('tomorrow'),
-            ],array('required' => false))
-            ->add('pais',CountryType::class,array('required' => false))
-            ->add('tipo','entity',
-                array('label' => 'TipoHospedaje: ',
-                    'class' => 'AppBundle:TipoHospedaje',
-                    'property' => 'tipo'),array('required' => false,'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day')))
-            ->add('filtrar',SubmitType::class);
+            ->add('fechaDisponibleInicio',DateType::class,array('format' => 'dd-MM-yyyy',
+                'label' => 'Mes y año',
+                'days'=> array(1),
+                'empty_value'  => array('year' => '----', 'month' => '----', 'day' => false)))
+            ->add('Aceptar',SubmitType::class);
     }
     
     /**

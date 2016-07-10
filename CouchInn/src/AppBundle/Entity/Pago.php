@@ -11,6 +11,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\DateTime;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
@@ -30,12 +31,22 @@ class Pago
     private $monto;
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Length(min=16,max="16")
      */
     private $tarjeta;
+    /**
+     * @ORM\Column(type="integer")
+     * @Assert\Length(min="3",max="3")
+     */
+    private $codSeguridad;
     /**
      * @ORM\Column(type="date")
      */
     private $vencimiento;
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $tipoTarjeta;
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario", inversedBy="pagos")
      * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
@@ -120,6 +131,44 @@ class Pago
         return $this->vencimiento;
     }
 
+    /**
+     * Set codSeguridad
+     *
+     * @param integer $codSeguridad
+     */
+    public function setCodSeguridad($codSeguridad)
+    {
+        $this->codSeguridad = $codSeguridad;
+    }
+
+    /**
+     * Get codSeguridad
+     *
+     * @return integer
+     */
+    public function getCodSeguridad()
+    {
+        return $this->codSeguridad;
+    }
+    /**
+     * Set vencimiento
+     *
+     * @param string $tipoTarjeta
+     */
+    public function setTipoTarjeta($tipoTarjeta)
+    {
+        $this->tipoTarjeta = $tipoTarjeta;
+    }
+
+    /**
+     * Get vencimiento
+     *
+     * @return string
+     */
+    public function getTipoTarjeta()
+    {
+        return $this->tipoTarjeta;
+    }
     /**
      * Get usuario
      *

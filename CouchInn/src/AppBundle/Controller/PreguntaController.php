@@ -90,7 +90,7 @@ class PreguntaController extends Controller
             $em->persist($preguntum);
             $em->flush();
 
-            return $this->redirectToRoute('_hecho2', array('id' => $preguntum->getId()));
+            return $this->redirectToRoute('_mostrarPublicacion', array('id' => $publicacion->getId()));
         }
 
         return $this->render(':default/pregunta:new.html.twig', array(
@@ -128,6 +128,7 @@ class PreguntaController extends Controller
             ->remove('pregunta')
             ->remove('Preguntar');
         $editForm->handleRequest($request);
+        $publicacion = $preguntum->getPublicacion();
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $preguntum->setRespondido(true);
@@ -135,7 +136,7 @@ class PreguntaController extends Controller
             $em->persist($preguntum);
             $em->flush();
 
-            return $this->redirectToRoute('_hecho3', array('id' => $preguntum->getId()));
+            return $this->redirectToRoute('_mostrarPublicacion', array('id' =>$publicacion->getId()));
         }
 
         return $this->render(':default/pregunta:responder.html.twig', array(
