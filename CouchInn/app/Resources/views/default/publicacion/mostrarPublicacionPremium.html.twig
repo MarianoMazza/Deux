@@ -92,10 +92,80 @@
                 </tbody>
             </table>
         </div>
-        <div id="pregunta"><br>
-            <a href="{{path('_nuevaPregunta', {'paraUsuarioId':publicacion.usuario.id, 'id': publicacion.id})}}"
-               class="btn btn-default active">Hacer una pregunta</a>
-        </div>
+
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+
+            <div class="mark-pers2">
+
+                <table class="table table-striped" style="color: #0f0f0f">
+                    <thead>
+                    <tr>
+                        <th>Usuario</th>
+
+                        <th><div style="padding: 0px 150px">Pregunta</div></th>
+                        {% if is_granted('ROLE_USER') %}
+
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <br><br>
+                    <a name="seccion-preguntas"></a>
+                    <div class="col-md-2 text">
+                        <label>Preguntas</label>
+                    </div>
+                    {% for pregunta in preguntas %}
+                        <tr>
+                            <td>
+                                <div style="padding: 10px 0px">
+                                    {{ pregunta.deUsuario.username }}<br>
+                                    {{ pregunta.fecha|date('Y-m-d') }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="right">
+                                    {{ pregunta.pregunta }}
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+
+                            {% if  (app.user.username  == pregunta.deUsuario.username or app.user.username == pregunta.aUsuario) and pregunta.respondido == true %}
+                                <td>
+                                    <div class="mark-pers">
+                                        <label>Respuesta: </label>
+                                        {{ pregunta.respuesta }}
+                                    </div>
+                                    <br>
+                                </td>
+
+                            {% endif %}
+
+
+
+                            {% if app.user.username  == pregunta.aUsuario.username and pregunta.respondido == false %}
+                                <td>
+                                    <a href="{{path('_nuevaRespuesta', {'id': pregunta.id})}}"
+                                       class="btn btn-default active">Responder</a>
+                                    <br><br>
+                                </td>
+
+                            {% endif %}
+
+                        </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if publicacion.usuario != app.user.username %}
+                <div id="pregunta"><br>
+                    <a href="{{path('_nuevaPregunta', {'paraUsuarioId':publicacion.usuario.id, 'id': publicacion.id})}}"
+                       class="btn btn-default active">Hacer una pregunta</a>
+                </div>
+            {% endif %}
+        {% endif %}
     </div>
 
 {% endblock %}
