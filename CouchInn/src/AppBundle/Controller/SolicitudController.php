@@ -82,6 +82,7 @@ class SolicitudController extends Controller
         }
 
         return $this->render('default/solicitud/solicitud.html.twig', array(
+            'publicacion' => $publicacion,
             'solicitud' => $solicitud,
             'form' => $form->createView(),
             'error' => $error,
