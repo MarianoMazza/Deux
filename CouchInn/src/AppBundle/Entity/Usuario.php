@@ -95,6 +95,7 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
     public function __construct()
     {
         parent::__construct();
+        $this->setFechaRegistro(new \DateTime('today'));
         $this->addRole('ROLE_USER');
         $this->pagos = new \Doctrine\Common\Collections\ArrayCollection();
     }
