@@ -2,20 +2,20 @@
 
 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
     {% block panelhead %}
-    Publicacion
-    <a href="{{ path('_calificarPublicacion', {'id': publicacion.id, 'cal':1}) }}" class="glyphicon glyphicon-thumbs-up" style="color: green">
-    </a>
-    {{ calificacionesBuenas }}
-    <a href="{{ path('_calificarPublicacion', {'id': publicacion.id, 'cal':2}) }}" class="glyphicon glyphicon-thumbs-down" style="color: red">
-    </a>
-    {{ calificacionesMalas }}
-    {% if is_granted('ROLE_USER') %}
-        <a href="{{ path('_hospedarme', {'id': publicacion.id}) }}" class="btn btn-link pull-right"><label class="glyphicon glyphicon-arrow-up"></label>Solicitar hospedaje</a>
-    {% endif %}
-    {% if not is_granted('ROLE_USER') %}
-        <a href="{{ path('fos_user_registration_register', {'id': publicacion.id}) }}" class="btn btn-link pull-right"><label class="glyphicon glyphicon-arrow-up"></label>Solicitar hospedaje</a>
-    {% endif %}
-{% endblock %}
+        Publicacion
+        <a href="{{ path('_calificarPublicacion', {'id': publicacion.id, 'cal':1}) }}" class="glyphicon glyphicon-thumbs-up" style="color: green">
+        </a>
+        {{ calificacionesBuenas }}
+        <a href="{{ path('_calificarPublicacion', {'id': publicacion.id, 'cal':2}) }}" class="glyphicon glyphicon-thumbs-down" style="color: red">
+        </a>
+        {{ calificacionesMalas }}
+        {% if is_granted('ROLE_USER') %}
+            <a href="{{ path('_hospedarme', {'id': publicacion.id}) }}" class="btn btn-link pull-right"><label class="glyphicon glyphicon-arrow-up"></label>Solicitar hospedaje</a>
+        {% endif %}
+        {% if not is_granted('ROLE_USER') %}
+            <a href="{{ path('fos_user_registration_register', {'id': publicacion.id}) }}" class="btn btn-link pull-right"><label class="glyphicon glyphicon-arrow-up"></label>Solicitar hospedaje</a>
+        {% endif %}
+    {% endblock %}
 {% endif %}
 
 {% block panelbody %}
@@ -54,16 +54,16 @@
     </div>
 
     <div class="col-md-4">
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <div>
-            <label>Publicado por:</label>
-            {{ publicacion.usuario.username }}
-            <a href="{{ path('_calificacionUsuario', {'paraUsuario': publicacion.usuario.id, 'cal': 1, 'publicacionid': publicacion.id}) }}" class="glyphicon glyphicon-thumbs-up" style="color: green"></a>
-            {{ calificacionDelUsuarioBuenas }}
-            <a href="{{ path('_calificacionUsuario', {'paraUsuario': publicacion.usuario.id, 'cal': 2, 'publicacionid': publicacion.id}) }}" class="glyphicon glyphicon-thumbs-down" style="color: red"></a>
-            {{ calificacionesDelUsuarioMalas }}
-        </div>
-    {% endif %}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div>
+                <label>Publicado por:</label>
+                {{ publicacion.usuario.username }}
+                <a href="{{ path('_calificacionUsuario', {'paraUsuario': publicacion.usuario.id, 'cal': 1, 'publicacionid': publicacion.id}) }}" class="glyphicon glyphicon-thumbs-up" style="color: green"></a>
+                {{ calificacionDelUsuarioBuenas }}
+                <a href="{{ path('_calificacionUsuario', {'paraUsuario': publicacion.usuario.id, 'cal': 2, 'publicacionid': publicacion.id}) }}" class="glyphicon glyphicon-thumbs-down" style="color: red"></a>
+                {{ calificacionesDelUsuarioMalas }}
+            </div>
+        {% endif %}
         <br>
         <div>
             <label>El día:</label>
@@ -82,7 +82,7 @@
         <br><br>
         <div id="comentarios"><br>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a href="{{path('_comentario', {'paraUsuarioId':publicacion.usuario.id, 'id': publicacion.id})}}" class="btn btn-default active">Comentar</a>
+                <a href="{{path('_comentario', {'paraUsuarioId':publicacion.usuario.id, 'id': publicacion.id})}}" class="btn btn-default active">Comentar</a>
             {% endif %}
             <br><br>
             <table class="table panel-body col-md-12">
@@ -108,81 +108,80 @@
 
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <div class="mark-pers2">
-        <table class="table table-striped" style="color: #0f0f0f">
-            <thead>
-            <tr>
-                <th>Usuario</th>
-                <th>Fecha</th>
-                <th>Publicacion</th>
-                <th>Pregunta</th>
-                {% if is_granted('ROLE_USER') %}
-                    <th></th>
-                {% endif %}
-            </tr>
-            </thead>
-            <tbody>
-            <br><br>
-            <a name="seccion-preguntas"></a>
-            <div class="col-md-2 text">
-                <label>Preguntas</label>
+
+            <div class="mark-pers2">
+
+                <table class="table table-striped" style="color: #0f0f0f">
+                    <thead>
+                    <tr>
+                        <th>Usuario</th>
+
+                        <th><div style="padding: 0px 150px">Pregunta</div></th>
+                        {% if is_granted('ROLE_USER') %}
+
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <br><br>
+                    <a name="seccion-preguntas"></a>
+                    <div class="col-md-2 text">
+                        <label>Preguntas</label>
+                    </div>
+                    {% for pregunta in preguntas %}
+                        <tr>
+                            <td>
+                                <div style="padding: 10px 0px">
+                                    {{ pregunta.deUsuario.username }}<br>
+                                    {{ pregunta.fecha|date('Y-m-d') }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="right">
+                                    {{ pregunta.pregunta }}
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+
+                            {% if  (app.user.username  == pregunta.deUsuario.username or app.user.username == pregunta.aUsuario) and pregunta.respondido == true %}
+                                <td>
+                                    <div class="mark-pers">
+                                        <label>Respuesta: </label>
+                                        {{ pregunta.respuesta }}
+                                    </div>
+                                    <br>
+                                </td>
+
+                            {% endif %}
+
+
+
+                            {% if app.user.username  == pregunta.aUsuario.username and pregunta.respondido == false %}
+                                <td>
+                                    <a href="{{path('_nuevaRespuesta', {'id': pregunta.id})}}"
+                                       class="btn btn-default active">Responder</a>
+                                    <br><br>
+                                </td>
+
+                            {% endif %}
+
+                        </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
-
-            {% for pregunta in preguntas %}
-                <tr>
-                    <td>
-                        <div style="padding: 20px 0px">
-                            {{ pregunta.deUsuario.username }}<br>
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            {{ pregunta.fecha|date('Y-m-d') }}
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            {{ pregunta.publicacion.descripcion }}
-                        </div>
-                    </td>
-                    <td>
-                        <div>
-                            {{ pregunta.pregunta }}
-                        </div>
-                    </td>
-
-
-                    {% if  (app.user.username  == pregunta.deUsuario.username or app.user.username == pregunta.aUsuario) and pregunta.respondido == true %}
-                    <td>
-                        <div>
-                            <label>Respuesta: </label>
-                            {{ pregunta.respuesta }}
-                        </div>
-                    </td>
-                    {% endif %}
-
-
-
-                    {% if app.user.username  == pregunta.aUsuario.username and pregunta.respondido == false %}
-                        <td>
-                            <a href="{{path('_nuevaRespuesta', {'id': pregunta.id})}}"
-                               class="btn btn-default active">Responder</a>
-                        </td>
-                    {% endif %}
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-        {% if publicacion.usuario != app.user.username %}
-        <div id="pregunta"><br>
-            <a href="{{path('_nuevaPregunta', {'paraUsuarioId':publicacion.usuario.id, 'id': publicacion.id})}}"
-               class="btn btn-default active">Hacer una pregunta</a>
-        </div>
+            {% if publicacion.usuario != app.user.username %}
+                <div id="pregunta"><br>
+                    <a href="{{path('_nuevaPregunta', {'paraUsuarioId':publicacion.usuario.id, 'id': publicacion.id})}}"
+                       class="btn btn-default active">Hacer una pregunta</a>
+                </div>
+            {% endif %}
         {% endif %}
-        {% endif %}
-        </div>
     </div>
+
 
 
 {% endblock %}
