@@ -44,7 +44,7 @@ class Usuario extends BaseUser implements UserInterface, \Serializable
      */
     private $provincia;
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date",nullable=true)
      * @Assert\Date(
      *     message="La fecha ingresada es inválida"
      * )
