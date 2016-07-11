@@ -139,7 +139,7 @@ class PublicacionController extends Controller
             $em->flush();
             return $this->redirectToRoute('_listaPubli', array('id' => $publicacion->getId()));
         }elseif ($form->isSubmitted()){
-            $error = 'Las fechas que usted ha ingresado son incorrectas.';
+            $error = 'Las fechas que usted ha ingresado ncorrectas.';
         }
 
         return $this->render(':default/publicacion:altaPubli.html.twig', array(
@@ -186,18 +186,18 @@ class PublicacionController extends Controller
         $deleteForm = $this->createDeleteForm($publicacion);
 
 
-        return $this->render(':default/publicacion:mostrarPublicacion.html.twig', array(
-            'calificacionesBuenas'=>count($calificacionesBuenas),
-            'calificacionesMalas'=>count($calificacionesMalas),
-            'calificacionDelUsuarioBuenas'=>count($calificacionDelusuarioBuenas),
-            'calificacionesDelUsuarioMalas'=>count($calificacionesDelUsuarioMalas),
-            'publicacion' => $publicacion,
-            'comentarios' => $publicacion->getComentarios(),
-            'preguntas' =>$publicacion->getPregunta(),
-            'delete_form' => $deleteForm->createView(),
-        ));
-
-        if(!$publicacion->getUsuario()->esPremium()) {
+        if($publicacion->getUsuario()->esPremium()) {
+            return $this->render(':default/publicacion:mostrarPublicacionPremium.html.twig', array(
+                'calificacionesBuenas' => count($calificacionesBuenas),
+                'calificacionesMalas' => count($calificacionesMalas),
+                'calificacionDelUsuarioBuenas' => count($calificacionDelusuarioBuenas),
+                'calificacionesDelUsuarioMalas' => count($calificacionesDelUsuarioMalas),
+                'publicacion' => $publicacion,
+                'comentarios' => $publicacion->getComentarios(),
+                'preguntas' => $publicacion->getPregunta(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }else {
             return $this->render(':default/publicacion:mostrarPublicacion.html.twig', array(
                 'calificacionesBuenas' => count($calificacionesBuenas),
                 'calificacionesMalas' => count($calificacionesMalas),
@@ -205,10 +205,10 @@ class PublicacionController extends Controller
                 'calificacionesDelUsuarioMalas' => count($calificacionesDelUsuarioMalas),
                 'publicacion' => $publicacion,
                 'comentarios' => $publicacion->getComentarios(),
+                'preguntas' => $publicacion->getPregunta(),
                 'delete_form' => $deleteForm->createView(),
             ));
         }
-
     }
 
     /**
