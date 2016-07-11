@@ -9,30 +9,11 @@
     <a href="{{ path('_filtradas') }}" class="btn bg-danger" id="2">Filtrar</a>
 {% endblock %}
 
-{#
-{% block panelhead %}
-    Publicaciones<br xmlns="http://www.w3.org/1999/html">
-    {% if is_granted('ROLE_USER') %}
-        <a href="{{ path('_altaPubli') }}" class="btn btn-primary">Agregar Publicacion</a>
-    {% endif %}
-{% endblock %}
-{% block panelbody %}
-{#<table class="" style="color: #0f0f0f">
-    <thead>
-    <tr>
-        <th>Imagen</th>
-        <th>Descripcion</th>
-        <th>Usuario</th>
-        {% if is_granted('ROLE_USER') %}
-            <th></th>
-        {% endif %}
-    </tr>
-    </thead>#}
 {% block panelbody %}
     <tbody>
     <div class="row-fluid">
         {% for publicacion in publicaciones %}
-            {% if publicacion.reservado == false %}
+            {% if publicacion.reservado == 0 %}
                 <div class="col-md-4">
                     <div class="mark-pers">
                         <div class="text-center">

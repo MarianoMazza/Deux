@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block panelhead %}
+    Solicitudes de hospedaje
+{% endblock %}
+
+{% block panelbody %}
+
+    <div class="col-sm-6">
+        <div>
+            <img class="img-responsive" src="{{ asset('uploads/fotos/' ~ publicacion.path) }}">
+        </div>
+        <div>
+            <label>Descripcion:</label><br>
+            {{ publicacion.descripcion }}
+        </div>
+    </div>
+    <div class="col-sm-6 pull-right">
+        <label>¿Dónde queda?</label><br>
+        Pais:
+        {{ publicacion.pais }}<br>
+        Provincia:
+        {{ publicacion.provincia }}<br>
+        Ciudad:
+        {{ publicacion.localidad }}<br>
+        Dirección:
+        {{ publicacion.calle }}<br>
+    </div>
+
+    <div>
+        <label>
+            Solicitudes
+        </label>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Publicacion</th>
+            <th>Accion</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for solicitud in solicitudes %}
+            {% if (solicitud.publicacion.usuario.id == user.id and solicitud.ok == 1) %}
+                <tr>
+                    <td>{{ solicitud.fecha|date('Y-m-d') }}</td>
+                    <td>{{ solicitud.publicacion.descripcion }}</td>
+                    <td>
+                        <a href="{{ path('_accion', {'id': solicitud.id, 'ok': 2}) }}" class="btn btn-link">Aceptar</a>
+                        <a href="{{ path('_accion', {'id': solicitud.id, 'ok': 3}) }}" class="btn btn-link">Rechazar</a>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

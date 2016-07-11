@@ -224,8 +224,8 @@ class PublicacionController extends Controller
          $editForm = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
         $editForm->add('reservado', ChoiceType::class, [
             'choices' => [
-                'true' => 'Reservado',
-                'false' => 'Sin reservar',
+                '1' => 'Reservado',
+                '0' => 'Sin reservar',
             ]
         ]);
         $editForm->handleRequest($request);

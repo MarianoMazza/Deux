@@ -1,3 +1,34 @@
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+{% extends 'base.html.twig' %}
+
+{% block panelhead %}
+    Solicitar mi hospedaje
+{% endblock %}
+
+{% block panelbody %}
+    <div class="col-sm-6">
+        <div>
+            <img class="img-responsive" src="{{ asset('uploads/fotos/' ~ publicacion.path) }}">
+        </div>
+        <div>
+            <label>Descripcion:</label><br>
+            {{ publicacion.descripcion }}
+        </div>
+        <div>
+            <label>¿Dónde queda?</label><br>
+            Pais:
+            {{ publicacion.pais }}<br>
+            Provincia:
+            {{ publicacion.provincia }}<br>
+            Ciudad:
+            {{ publicacion.localidad }}<br>
+            Dirección:
+            {{ publicacion.calle }}<br>
+        </div>
+    </div>
+
+    <div class="pull-right col-sm-6">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
