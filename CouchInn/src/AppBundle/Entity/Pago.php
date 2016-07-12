@@ -32,11 +32,13 @@ class Pago
     /**
      * @ORM\Column(type="integer")
      * @Assert\Length(min=16,max="16")
+     * @Assert\Type(type="integer")
      */
     private $tarjeta;
     /**
      * @ORM\Column(type="integer")
      * @Assert\Length(min="3",max="3")
+     * @Assert\Type(type="integer")
      */
     private $codSeguridad;
     /**
