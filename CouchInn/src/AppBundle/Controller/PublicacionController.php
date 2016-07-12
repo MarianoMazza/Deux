@@ -8,6 +8,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
 use AppBundle\Entity\Publicacion;
 use AppBundle\Form\PublicacionType;
 
@@ -51,10 +63,10 @@ class PublicacionController extends Controller
                 $filtro->setMonto(99999999999);
             }
             if($filtro->getfechaDisponibleInicio()== null){
-                $filtro->setfechaDisponibleInicio(new \DateTime('11-11-1990'));
+                $filtro->setfechaDisponibleInicio(new \DateTime('12-12-9999'));
             }
             if($filtro->getfechaDisponibleFin()== null){
-                $filtro->setfechaDisponibleFin(new \DateTime('12-12-9999'));
+                $filtro->setfechaDisponibleFin(new \DateTime('11-11-1990'));
             }
             return $this->render(':default/publicacion:publicacionesFiltradas.html.twig', array('maxPersonas' => $filtro->getMaxPersonas(),
                     'monto'=>$filtro->getMonto(),
