@@ -44,9 +44,17 @@ class Pago
      */
     private $vencimiento;
     /**
+     * @ORM\Column(type="date")
+     */
+    private $vencimientoTarjeta;
+    /**
      * @ORM\Column(type="string")
      */
     private $tipoTarjeta;
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $nombreCompleto;
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Usuario", inversedBy="pagos")
      * @ORM\JoinColumn(name="usuario_id", referencedColumnName="id")
@@ -124,11 +132,30 @@ class Pago
     /**
      * Get vencimiento
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getVencimiento()
     {
         return $this->vencimiento;
+    }
+    /**
+     * Set vencimientoTarjeta
+     *
+     * @param \DateTime $vencimientoTarjeta
+     */
+    public function setVencimientoTarjeta($vencimientoTarjeta)
+    {
+        $this->vencimientoTarjeta = $vencimientoTarjeta;
+    }
+
+    /**
+     * Get vencimientoTarjeta
+     *
+     * @return \DateTime
+     */
+    public function getVencimientoTarjeta()
+    {
+        return $this->vencimientoTarjeta;
     }
 
     /**
@@ -151,7 +178,7 @@ class Pago
         return $this->codSeguridad;
     }
     /**
-     * Set vencimiento
+     * Set tipoTarjeta
      *
      * @param string $tipoTarjeta
      */
@@ -161,13 +188,32 @@ class Pago
     }
 
     /**
-     * Get vencimiento
+     * Get tipoTarjeta
      *
      * @return string
      */
     public function getTipoTarjeta()
     {
         return $this->tipoTarjeta;
+    }
+    /**
+     * Set nombreCompleto
+     *
+     * @param string $tipoTarjeta
+     */
+    public function setNombreCompleto($nombreCompleto)
+    {
+        $this->nombreCompleto = $nombreCompleto;
+    }
+
+    /**
+     * Get nombreCompleto
+     *
+     * @return string
+     */
+    public function getNombreCompleto()
+    {
+        return $this->nombreCompleto;
     }
     /**
      * Get usuario
