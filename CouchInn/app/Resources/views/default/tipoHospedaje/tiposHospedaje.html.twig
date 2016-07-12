@@ -6,6 +6,9 @@
 {% endblock %}
 
 {% block panelbody %}
+    {% if error != null %}
+     {{ error }}
+    {% endif %}
     <table class="table table-striped" style="color: #0f0f0f">
         <thead>
         <tr>
