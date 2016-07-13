@@ -50,6 +50,8 @@
             {{ publicacion.localidad }}<br>
             Dirección:
             {{ publicacion.calle }}<br>
+            Valor:
+            {{ publicacion.costo }}
         </div>
     </div>
 
@@ -79,6 +81,9 @@
             <label>Comentarios</label>
         </div>
         <div class="col-md-12 line"><hr></div>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a href="{{path('_newComision', {'id': publicacion.id})}}" class="btn btn-default active">Simular Ganancia</a>
+        {% endif %}
         <br><br>
         <div id="comentarios"><br>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}

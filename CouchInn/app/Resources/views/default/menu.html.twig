@@ -35,7 +35,7 @@
         <div class="dropdown navbar-right" style="padding: 0px 20px">
             {% if is_granted('ROLE_USER') %}
             <a class="btn btn-primary dropdown-toggle btn-success" data-toggle="dropdown">
-                <span class="glyphicon glyphicon-chevron-down"></span> Mi Operaciones
+                <span class="glyphicon glyphicon-chevron-down"></span> Mis Operaciones
             </a>
             <ul class="dropdown-menu">
                 <li><a href="{{ path('_misPublicaciones') }}">Mis Publicaciones</a></li>
@@ -54,6 +54,7 @@
                     <li><a href="{{ path('_listaDeUsuarios') }}">Usuarios</a></li>
                     <li><a href="{{ path('_tipos') }}">Tipos de hospedaje</a></li>
                     <li><a href="{{ path('_cantidadEnMes') }}">Cantidad de usuarios registrados</a></li>
+                    <li><a href="{{ path('_newPorcentaje') }}">Modificar Porcentaje</a></li>
                 </ul>
             {% endif %}
         </div>

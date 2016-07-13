@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Comision list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fecha</th>
+                <th>Publicacion</th>
+                <th>Porcentaje</th>
+                <th>Monto</th>
+                <th>Ganancia</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comision in comisions %}
+            <tr>
+                <td><a href="{{ path('comision_show', { 'id': comision.id }) }}">{{ comision.id }}</a></td>
+                <td>{% if comision.fecha %}{{ comision.fecha|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ comision.publicacion }}</td>
+                <td>{{ comision.porcentaje }}</td>
+                <td>{{ comision.monto }}</td>
+                <td>{{ comision.ganancia }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('comision_show', { 'id': comision.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('comision_edit', { 'id': comision.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('comision_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

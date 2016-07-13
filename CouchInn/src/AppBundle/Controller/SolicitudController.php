@@ -110,6 +110,8 @@ class SolicitudController extends Controller
                     ->getRepository('AppBundle:Publicacion')
                     ->findOneBy(['publicacion' => $solicitud->getPublicacion()]);
                 $publicacion->setReservado(true);
+                
+                
             }
 
             return $this->redirectToRoute('lista_solicitudes');
