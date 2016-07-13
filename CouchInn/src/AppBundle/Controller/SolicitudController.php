@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Publicacion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -19,21 +20,38 @@ class SolicitudController extends Controller
 {
     /**
      * Lists all Solicitud entities.
-     * @Route("/user/solicitudes", name="lista_solicitudes")
+     * @Route("/publicacion/solicitudes/{id}", name="lista_solicitudes")
      */
-    public function indexAction()
+    public function indexAction($id)
     {
         $em = $this->getDoctrine()->getManager();
+        $publicacion = $this->getDoctrine()
+            ->getRepository('AppBundle:Publicacion')
+            ->find($id);
 
-        $solicitudes = $em->getRepository('AppBundle:Solicitud')->findAll();
+        $solicitudes = $em->getRepository('AppBundle:Solicitud')->findBy([
+            'publicacion'=>$publicacion,
+        ]);
 
-        return $this->render('default/solicitud/notificaciones.twig', array(
+        return $this->render(
+            'default/solicitud/notificaciones.html.twig', array(
             'solicitudes' => $solicitudes,
-            'misSolicitudes' => $this->getUser()->getMisSolicitudes(),
+            'publicacion'=>$publicacion,
             'user' => $this->getUser(),
         ));
     }
 
+    /**
+     * Lists all Solicitud entities.
+     * @Route("/user/misSolicitudes", name="lista_de_mis_solicitudes")
+     */
+    public function indexSolicitudesAction(){
+        return $this->render('default/solicitud/misSolicitudes.html.twig', array(
+            'misSolicitudes' => $this->getUser()->getMisSolicitudes(),
+            'user' => $this->getUser(),
+        ));
+    }
+    
     /**
      * Creates a new Solicitud entity.
      * @Route("/publicacion/{id}/hospedarme", name="_hospedarme")
@@ -56,6 +74,9 @@ class SolicitudController extends Controller
                 'years'=>range($publicacion->getFechaDisponibleInicio()->format('Y'), $publicacion->getFechaDisponibleFin()->format('Y')),
                 'months'=>range($publicacion->getFechaDisponibleInicio()->format('m'), $publicacion->getFechaDisponibleFin()->format('m')),
                 'days'=>range($publicacion->getFechaDisponibleInicio()->format('d'), $publicacion->getFechaDisponibleFin()->format('d')),
+            ])
+            ->add('submit', SubmitType::class, [
+                'label'=>'Enviar mi solicitud',
             ]);
         $form->handleRequest($request);
 
@@ -82,6 +103,7 @@ class SolicitudController extends Controller
         }
 
         return $this->render('default/solicitud/solicitud.html.twig', array(
+            'publicacion' => $publicacion,
             'solicitud' => $solicitud,
             'form' => $form->createView(),
             'error' => $error,
@@ -108,21 +130,20 @@ class SolicitudController extends Controller
             if ($ok == 2){
                 $publicacion = $this->getDoctrine()
                     ->getRepository('AppBundle:Publicacion')
-                    ->findOneBy(['publicacion' => $solicitud->getPublicacion()]);
+                    ->findOneBy(['id' => $solicitud->getPublicacion()]);
                 $publicacion->setReservado(true);
                 
                 
             }
-
-            return $this->redirectToRoute('lista_solicitudes');
         }
+        return $this->redirectToRoute('lista_de_mis_solicitudes');
     }
 
     /**
      * Deletes a Solicitud entity.
      * @Route("/eliminarSolicitud/{id}", name="_eliminarSolicitud")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
         $solicitud = $this->getDoctrine()
             ->getRepository('AppBundle:Solicitud')
@@ -131,22 +152,6 @@ class SolicitudController extends Controller
         $em = $this->getDoctrine()->getManager();
         $em->remove($solicitud);
         $em->flush();
-        return $this->redirectToRoute('lista_solicitudes');
-    }
-
-    /**
-     * Creates a form to delete a Solicitud entity.
-     *
-     * @param Solicitud $solicitud The Solicitud entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Solicitud $solicitud)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('_eliminarSolicitud', array('id' => $solicitud->getId())))
-            ->setMethod('DELETE')
-            ->getForm()
-        ;
+        return $this->redirectToRoute('lista_de_mis_solicitudes');
     }
 }

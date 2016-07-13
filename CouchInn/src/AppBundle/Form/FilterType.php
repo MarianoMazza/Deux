@@ -31,17 +31,17 @@ class FilterType extends AbstractType
             ->add('monto',NumberType::class,array('required' => false))
             ->add('fechaDisponibleInicio',DateType::class,[
                 'years'=>range(date('Y'), date('Y')+3),
-                'data'=>new \DateTime('now'),
-            ],array('required' => false))
+                'data'=>new \DateTime('now'),'required' => false
+            ])
             ->add('fechaDisponibleFin',DateType::class,[
                 'years'=>range(date('Y'), date('Y')+3),
-                'data'=>new \DateTime('tomorrow'),
-            ],array('required' => false))
+                'data'=>new \DateTime('tomorrow'),'required' => false
+            ])
             ->add('pais',CountryType::class,array('required' => false))
             ->add('tipo','entity',
                 array('label' => 'TipoHospedaje: ',
                     'class' => 'AppBundle:TipoHospedaje',
-                    'property' => 'tipo'),array('required' => false,'empty_value' => array('year' => 'Year', 'month' => 'Month', 'day' => 'Day')))
+                    'property' => 'tipo','required' => false))
             ->add('filtrar',SubmitType::class);
     }
     

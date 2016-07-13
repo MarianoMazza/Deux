@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block panelhead %}
+    Mis solicitudes
+{% endblock %}
+
+{% block panelbody %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Publicacion</th>
+            <th>Estado</th>
+            <th>Eliminar</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for solicitud in misSolicitudes %}
+            <tr>
+                <td>{{ solicitud.fecha|date('d-m-Y') }}</td>
+                <td><a href="{{ path('_mostrarPublicacion', {'id': solicitud.publicacion.id}) }}">{{ solicitud.publicacion.descripcion }}</a></td>
+                <td>
+                    {% if (solicitud.ok == 1) %}
+                        Esperando Respuesta
+                    {% elseif (solicitud.ok == 2) %}
+                        Aceptado
+                    {% elseif (solicitud.ok == 3) %}
+                        Rechazado
+                    {% endif %}
+                </td>
+                {% if solicitud.ok != 1 %}
+                    <td><a href="{{ path('_eliminarSolicitud', {'id': solicitud.id}) }}" class="glyphicon glyphicon-erase"></a></td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

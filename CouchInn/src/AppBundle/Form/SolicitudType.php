@@ -4,7 +4,6 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,7 +20,6 @@ class SolicitudType extends AbstractType
             ->add('ok', HiddenType::class)
             ->add('publicacion', HiddenType::class)
             ->add('usuario', HiddenType::class)
-            ->add('submit', SubmitType::class)
         ;
     }
     

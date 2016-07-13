@@ -3,6 +3,9 @@
 {% block panelhead %}Pago de Usuario Premium{% endblock %}
 
 {% block panelbody %}
+    {% if error != null %}
+      {{ error }}
+    {% endif %}
     <div class="formulario">
         {{ form_start(form) }}
         {{ form_row(form) }}

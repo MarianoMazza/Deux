@@ -63,10 +63,10 @@ class PublicacionController extends Controller
                 $filtro->setMonto(99999999999);
             }
             if($filtro->getfechaDisponibleInicio()== null){
-                $filtro->setfechaDisponibleInicio(new \DateTime('11-11-1990'));
+                $filtro->setfechaDisponibleInicio(new \DateTime('12-12-9999'));
             }
             if($filtro->getfechaDisponibleFin()== null){
-                $filtro->setfechaDisponibleFin(new \DateTime('12-12-9999'));
+                $filtro->setfechaDisponibleFin(new \DateTime('11-11-1990'));
             }
             return $this->render(':default/publicacion:publicacionesFiltradas.html.twig', array('maxPersonas' => $filtro->getMaxPersonas(),
                     'monto'=>$filtro->getMonto(),
@@ -174,21 +174,25 @@ class PublicacionController extends Controller
             ->getRepository('AppBundle:CalificacionPublicacion')
             ->findBy([
                 'calificacion'=>1,
+                'publicacion'=>$publicacion,
             ]);
         $calificacionesMalas = $this->getDoctrine()
             ->getRepository('AppBundle:CalificacionPublicacion')
             ->findBy([
                 'calificacion'=>2,
+                'publicacion'=>$publicacion,
             ]);
         $calificacionDelusuarioBuenas = $this->getDoctrine()
             ->getRepository('AppBundle:CalificacionUsuario')
             ->findBy([
                 'calificacion'=>1,
+                'paraUsuario'=>$publicacion->getUsuario(),
             ]);
         $calificacionesDelUsuarioMalas = $this->getDoctrine()
             ->getRepository('AppBundle:CalificacionUsuario')
             ->findBy([
                 'calificacion'=>2,
+                'paraUsuario'=>$publicacion->getUsuario(),
             ]);
 
         $deleteForm = $this->createDeleteForm($publicacion);
@@ -232,8 +236,8 @@ class PublicacionController extends Controller
          $editForm = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
         $editForm->add('reservado', ChoiceType::class, [
             'choices' => [
-                'Reservado' => true,
-                'No reservado' => false,
+                '1' => 'Reservado',
+                '0' => 'Sin reservar',
             ]
         ]);
         $editForm->handleRequest($request);
