@@ -97,7 +97,7 @@ class SolicitudController extends Controller
                 $em->persist($solicitud);
                 $em->flush();
 
-                return $this->redirectToRoute('_listaPubli', array('id' => $solicitud->getId()));
+                return $this->redirectToRoute('_mostrarPublicacion', array('id' => $solicitud->getPublicacion()->getId()));
             }elseif ($form->isSubmitted()){
                 $error = 'Las fechas que usted ha ingresado son incorrectas.';
             }
