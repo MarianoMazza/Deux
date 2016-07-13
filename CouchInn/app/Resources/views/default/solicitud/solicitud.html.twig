@@ -5,6 +5,12 @@
 {% endblock %}
 
 {% block panelbody %}
+    {% if error is not empty %}
+        <div>
+            {{ error }}<br><br>
+        </div>
+    {% endif %}
+
     <div class="col-sm-6">
         <div>
             <img class="img-responsive" src="{{ asset('uploads/fotos/' ~ publicacion.path) }}">

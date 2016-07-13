@@ -82,7 +82,10 @@ class SolicitudController extends Controller
 
         $solicitudes = $this->getDoctrine()
             ->getRepository('AppBundle:Solicitud')
-            ->findOneBy(['usuario'=>$this->getUser()]);
+            ->findOneBy([
+                'usuario'=>$this->getUser(),
+                'publicacion'=>$publicacion,
+            ]);
 
         if (empty($solicitudes)){
             if ($form->isSubmitted() && $solicitud->getDesde() <= $solicitud->getHasta()) {
