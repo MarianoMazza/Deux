@@ -23,13 +23,14 @@ class TipoHospedajeController extends Controller
      * @Route("/admin/tiposDeHospedaje", name="_tipos")
      */
     public function indexAction()
-    {
+    {   $error=null;
         $em = $this->getDoctrine()->getManager();
 
         $tipoHospedajes = $em->getRepository('AppBundle:TipoHospedaje')->findAll();
 
         return $this->render(':default/tipoHospedaje:tiposHospedaje.html.twig', array(
             'tipos' => $tipoHospedajes,
+            'error' => $error,
         ));
     }
 
@@ -103,6 +104,7 @@ class TipoHospedajeController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
+        $error=null;
         try{
             $tipoHospedaje = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->find($id);
             $publicaciones = $this->getDoctrine()
@@ -111,7 +113,12 @@ class TipoHospedajeController extends Controller
                     'tipo'=>$tipoHospedaje->getId()
                 ]);
             if (!empty($publicaciones)){
-                throw new Exception ('No puede eliminar este tipo de hospedaje ya que 1 o más publicaciones se encuentran relacionados al mismo.');
+                $tipoHospedajes = $this->getDoctrine()->getRepository('AppBundle:TipoHospedaje')->findAll();
+                $error='No puede eliminar este tipo de hospedaje ya que 1 o más publicaciones se encuentran relacionados al mismo.';
+                return $this->render(':default/tipoHospedaje:tiposHospedaje.html.twig', array(
+                    'tipos' => $tipoHospedajes,
+                    'error' => $error,
+                ));
             }
 
             $form = $this->createDeleteForm($tipoHospedaje);

@@ -28,6 +28,11 @@ class PagoType extends AbstractType
                     'Visa' => 'Visa',
                     'Mastercard' => 'Mastercard',
                 )))
+            ->add('nombreCompleto', TextType::class)
+            ->add('vencimientoTarjeta',DateType::class,[
+                'years'=>range(date('Y'), date('Y')+12),
+                'data'=>new \DateTime('tomorrow'),
+            ])
             ->add ('Pagar', SubmitType::class)
         ;
     }

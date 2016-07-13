@@ -54,9 +54,12 @@ class PagoController extends Controller
      */
     public function newAction(Request $request)
     {
+        $error = null;
         if ($this->getUser()->esPremium()) {
+
             return $this->render(':default:pagoHecho.html.twig'); }
             else {
+
             $pago = new Pago();
             $form = $this->createForm('AppBundle\Form\PagoType', $pago);
             $pago->setUsuario($this->getUser());
@@ -64,7 +67,14 @@ class PagoController extends Controller
             $pago->setVencimiento(new \DateTime('today'));
             $pago->getVencimiento()->modify('+1 month');
             $form->handleRequest($request);
-
+            if ($pago->getVencimientoTarjeta() != null and new \DateTime('today') >= $pago->getVencimientoTarjeta()){
+                $error = 'La fecha de vencimiento de tarjeta es incorrecta.';
+                return $this->render('default/pago.html.twig', array(
+                    'pago' => $pago,
+                    'form' => $form->createView(),
+                    'error' => $error,
+                ));
+            }
             if ($form->isSubmitted() && $form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($pago);
@@ -75,6 +85,7 @@ class PagoController extends Controller
         return $this->render('default/pago.html.twig', array(
             'pago' => $pago,
             'form' => $form->createView(),
+            'error' => $error,
         ));
     }
 
