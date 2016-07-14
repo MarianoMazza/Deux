@@ -65,17 +65,15 @@
         </div>
     </div>
     <div class="panel-heading col-md-12" style="padding: 20px 0px">
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a href="{{path('_newComision', {'id': publicacion.id})}}" class="btn btn-default active">Simular Ganancia</a>
-        {% endif %}
-        <br><br>
         <div class="col-md-2 text">
             <label>Comentarios</label>
         </div>
         <div class="col-md-12 line"><hr></div>
         <br><br>
         <div id="comentarios"><br>
-            <a href="{{path('_comentario', {'paraUsuarioId':publicacion.usuario.id, 'id': publicacion.id})}}" class="btn btn-default active">Comentar</a>
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <a href="{{path('_comentario', {'paraUsuarioId':publicacion.usuario.id, 'id': publicacion.id})}}" class="btn btn-default active">Comentar</a>
+            {% endif %}
             <br><br>
             <table class="table panel-body col-md-12">
                 <tbody>
