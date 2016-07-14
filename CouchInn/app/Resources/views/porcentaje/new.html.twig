@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block panelhead %}Modificar el porcentaje de las ganancias{% endblock %}
+
+{% block panelbody %}
+    <div class="formulario">
+
+
+        {{ form_start(form, {'attr' : {'role' : 'form'}}) }}
+        <div class="main container">
+            <div class="col-md-5">
+                <div class="form-group">
+                    {{ form_label(form.porcentaje) }}
+                    {{ form_widget(form.porcentaje, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese un porcetaje'} })}}
+                </div>
+                <div class="form-group">
+                    {{ form_label(form.Aceptar) }}
+                    {{ form_widget(form.Aceptar, { 'attr' : {'class' : 'btn label-default'} }) }}
+                    <a href='{{ path('_listaPubli') }}' class="btn active">Cancelar</a>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

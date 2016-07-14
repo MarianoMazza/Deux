@@ -88,6 +88,7 @@ class PagoController extends Controller
             'error' => $error,
         ));
     }
+    
 
     /**
      * Finds and displays a Pago entity.
