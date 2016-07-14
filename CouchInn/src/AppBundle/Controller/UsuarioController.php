@@ -38,7 +38,7 @@ class UsuarioController extends Controller
         }
         foreach($usuariosTotal as $user)
         {
-            if ($user->getFechaRegistro()->format('M') == $mes->getfechaDisponibleInicio()->format('M')){
+            if ($user->getFechaRegistro()->format('M') == $mes->getfechaDisponibleInicio()->format('M') and $user->getFechaRegistro()->format('Y') == $mes->getfechaDisponibleInicio()->format('Y')){
                 $usuarios[] = $user;
             }
         }
