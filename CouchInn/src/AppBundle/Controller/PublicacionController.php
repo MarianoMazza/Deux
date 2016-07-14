@@ -36,7 +36,8 @@ class PublicacionController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $publicaciones = $em->getRepository('AppBundle:Publicacion')->findAll();
+        $publicaciones = $em->getRepository('AppBundle:Publicacion')
+            ->findBy(array(), array('fechaDePublicacion'=>'DESC'));
         return $this->render(':default/publicacion:publicaciones.html.twig', array(
             'publicaciones' => $publicaciones,
             'user' => $this->getUser(),
@@ -233,7 +234,7 @@ class PublicacionController extends Controller
             ->getRepository('AppBundle:Publicacion')
             ->find($id);
         $deleteForm = $this->createDeleteForm($publicacion);
-         $editForm = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
+        $editForm = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
         $editForm->add('reservado', ChoiceType::class, [
             'choices' => [
                 '1' => 'Reservado',
@@ -253,6 +254,7 @@ class PublicacionController extends Controller
             $name = md5(uniqid()).'.'.$extension;
             $foto->move($dir, $name);
             $publicacion->setPath($name);
+            $publicacion->setFechaDePublicacion(new \DateTime('today'));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($publicacion);

@@ -59,14 +59,7 @@ class ComisionController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($comision);
             $em->flush();
-
-            return $this->redirectToRoute('_hecho', array('id' => $comision->getId()));
         }
-
-        return $this->render('comision/new.html.twig', array(
-            'comision' => $comision,
-            'form' => $form->createView(),
-        ));
     }
 
     /**

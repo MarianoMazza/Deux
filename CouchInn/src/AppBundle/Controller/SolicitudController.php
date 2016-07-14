@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comision;
 use AppBundle\Entity\Publicacion;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -97,6 +98,7 @@ class SolicitudController extends Controller
                 $em->persist($solicitud);
                 $em->flush();
 
+
                 return $this->redirectToRoute('_mostrarPublicacion', array('id' => $solicitud->getPublicacion()->getId()));
             }elseif ($form->isSubmitted()){
                 $error = 'Las fechas que usted ha ingresado son incorrectas.';
@@ -135,8 +137,24 @@ class SolicitudController extends Controller
                     ->getRepository('AppBundle:Publicacion')
                     ->findOneBy(['id' => $solicitud->getPublicacion()]);
                 $publicacion->setReservado(true);
-                
-                
+
+                //Alta de la comision correspondiente a la publicacion en la que se aceptó la solicitud
+                $comision = new Comision();
+                $porcentaje = $this->getDoctrine()->getRepository('AppBundle:Porcentaje')->findBy(array(),array('id'=>'DESC'));
+
+                $publicacion = $this->getDoctrine()->getRepository('AppBundle:Publicacion')->find($solicitud->getPublicacion()->getId());
+                $form = $this->createForm('AppBundle\Form\ComisionType', $comision);
+                $comision->setFecha(new \DateTime('today'));
+                $comision->setPublicacion($id);
+                $comision->setPorcentaje($porcentaje[0]->getPorcentaje());
+                $comision->setMonto($publicacion->getCosto());
+                $comision->setGanancia($publicacion->getCosto()*$comision->getPorcentaje()/100);
+
+                $form->handleRequest($request);
+
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($comision);
+                $em->flush();
             }
         }
         return $this->redirectToRoute('lista_de_mis_solicitudes');
