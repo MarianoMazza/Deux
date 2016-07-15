@@ -78,10 +78,6 @@
         </div>
     </div>
     <div class="panel-heading col-md-12" style="padding: 20px 0px">
-        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <a href="{{path('_newComision', {'id': publicacion.id})}}" class="btn btn-default active">Simular Ganancia</a>
-        {% endif %}
-        <br><br>
         <div class="col-md-2 text">
             <label>Comentarios</label>
         </div>
