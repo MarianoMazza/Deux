@@ -35,8 +35,8 @@
     <table class="table">
         <thead>
         <tr>
+            <th>Usuario</th>
             <th>Fecha</th>
-            <th>Publicacion</th>
             <th>Accion</th>
         </tr>
         </thead>
@@ -44,8 +44,8 @@
         {% for solicitud in solicitudes %}
             {% if (solicitud.publicacion.usuario.id == user.id and solicitud.ok == 1) %}
                 <tr>
+                    <td>{{ solicitud.usuario }}</td>
                     <td>{{ solicitud.fecha|date('Y-m-d') }}</td>
-                    <td>{{ solicitud.publicacion.descripcion }}</td>
                     <td>
                         <a href="{{ path('_accion', {'id': solicitud.id, 'ok': 2}) }}" class="btn btn-link">Aceptar</a>
                         <a href="{{ path('_accion', {'id': solicitud.id, 'ok': 3}) }}" class="btn btn-link">Rechazar</a>

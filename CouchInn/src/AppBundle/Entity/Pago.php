@@ -10,7 +10,6 @@ namespace AppBundle\Entity;
 
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -31,7 +30,7 @@ class Pago
     private $monto;
     /**
      * @ORM\Column(type="integer")
-     * @Assert\Length(min=16,max="16")
+     * @Assert\Length(min=6,max="6")
      * @Assert\Type(type="digit",
      *  message="Ingrese un valor numerico."
      * )

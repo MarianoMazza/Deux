@@ -4,9 +4,7 @@
 
 {% block panelbody %}
 
-    {% if error is not empty %}
-        {{ error }}
-    {% endif %}
+    {{ error|nl2br }}
 
     <div class="formulario">
         {{ form_start(form, {'attr' : {'role' : 'form'}}) }}

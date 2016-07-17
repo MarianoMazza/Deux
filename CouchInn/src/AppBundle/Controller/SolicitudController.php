@@ -86,6 +86,7 @@ class SolicitudController extends Controller
             ->findOneBy([
                 'usuario'=>$this->getUser(),
                 'publicacion'=>$publicacion,
+                'ok'=>1,
             ]);
 
         if (empty($solicitudes)){
@@ -157,7 +158,9 @@ class SolicitudController extends Controller
                 $em->flush();
             }
         }
-        return $this->redirectToRoute('lista_de_mis_solicitudes');
+        return $this->redirectToRoute('lista_solicitudes', [
+            'id'=>$solicitud->getPublicacion()->getId(),
+        ]);
     }
 
     /**

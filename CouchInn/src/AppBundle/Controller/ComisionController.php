@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Filter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -17,6 +18,45 @@ use AppBundle\Form\ComisionType;
 class ComisionController extends Controller
 {
     /**
+     * @Route("/admin/comisiones", name="comisiones_del_mes")
+     */
+    public function comisionesDelMesAction(Request $request)
+    {
+        $error = null;
+        $mes = new Filter();
+        $form = $this->createForm('AppBundle\Form\mesType', $mes);
+
+        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $comisiones = $em->getRepository('AppBundle:Comision')->findAll();
+        $comisions = array();
+        if($mes->getfechaDisponibleInicio()==null) {
+            return $this->render('comision/index.html.twig', array(
+                'form' => $form->createView(),
+            ));
+        }
+        foreach($comisiones as $comision)
+        {
+            if ($comision->getFecha()->format('M') == $mes->getfechaDisponibleInicio()->format('M') and $comision->getFecha()->format('Y') == $mes->getfechaDisponibleInicio()->format('Y')){
+                $comisiones[] = $comision;
+            }
+        }
+
+        $total = 0;
+        foreach ($comisiones as $comision){
+            $total += $comision->getGanancia();
+        }
+        $pagos = $em->getRepository('AppBundle:Pago')->findAll();
+        foreach ($pagos as $pago){
+            $total += $pago->getMonto();
+        }
+
+        return $this->render(':default/administrador:cantidadUsuariosMes.html.twig', array(
+            'comisions' => $comisions,
+            'total' => $total,
+        ));
+    }
+    /**
      * Lists all Comision entities.
      *
      * @Route("/", name="comision_index")
@@ -25,11 +65,20 @@ class ComisionController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $comisions = $em->getRepository('AppBundle:Comision')->findAll();
+
+        $total = 0;
+        foreach ($comisions as $comision){
+            $total += $comision->getGanancia();
+        }
+        $pagos = $em->getRepository('AppBundle:Pago')->findAll();
+        foreach ($pagos as $pago){
+            $total += $pago->getMonto();
+        }
 
         return $this->render('comision/index.html.twig', array(
             'comisions' => $comisions,
+            'total' => $total,
         ));
     }
 

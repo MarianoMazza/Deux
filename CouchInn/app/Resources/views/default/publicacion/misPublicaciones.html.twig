@@ -24,11 +24,11 @@
             <tr>
                 <td>
                     <div class="col-md-3">
-                        <img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="130" height="90"/>
+                        <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}"><img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="130" height="90"/></a>
                     </div>
                 </td>
                 <td>{{ publicacion.usuario }}</td>
-                <td><a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
+                <td>{{ publicacion.descripcion }}</td>
 
 
                 {% if is_granted('ROLE_USER') %}
@@ -37,13 +37,23 @@
                             <a href="{{ path('_modificarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-edit"></a>
                         {% endif %}
                         {% if publicacion.usuario.id == user.id or is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('_eliminarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-erase"></a>
+                            <a href="{{ path('_eliminarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-erase"></a><br>
                         {% endif %}
                         {% if publicacion.usuario.id == user.id %}
-                            <a href="{{ path('lista_solicitudes', {'id': publicacion.id}) }}" class="glyphicon glyphicon-arrow-up"></a>
+                            <a href="{{ path('lista_solicitudes', {'id': publicacion.id}) }}" class="glyphicon glyphicon-arrow-up">
+                                {% set counter = 0 %}
+                                {% for solicitud in solicitudes %}
+
+                                    {% if app.user.username  == solicitud.publicacion.usuario.username and solicitud.publicacion.id ==
+                                    publicacion.id and solicitud.ok == 1 %}
+                                        {% set counter = counter + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                                {{ "(Tienes " ~counter~ " Solicitud/es)" }}
+                            </a><br>
                         {% endif %}
                         {% if publicacion.usuario.id == user.id %}
-                            <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }} #seccion-preguntas"  class= "btn btn-default">Preguntas</a>
+                            <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }} #seccion-preguntas"  class="glyphicon glyphicon-alert">
                         {% endif %}
 
                     {% set counter = 0 %}
@@ -54,8 +64,8 @@
                                 {% set counter = counter + 1 %}
                             {% endif %}
                     {% endfor %}
-                    {{ "(Tienes " ~counter~ " Preguntas)" }}
-
+                    {{ "(Tienes " ~counter~ " Pregunta/s)" }}
+                    </a>
                     </td>
                 {% endif %}
             </tr>

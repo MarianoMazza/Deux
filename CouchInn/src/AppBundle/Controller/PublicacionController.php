@@ -8,18 +8,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
-use Symfony\Component\Form\Extension\Core\Type\CountryType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormBuilderInterface;
 use AppBundle\Entity\Publicacion;
 use AppBundle\Form\PublicacionType;
 
@@ -54,6 +42,7 @@ class PublicacionController extends Controller
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
         $publicaciones = $em->getRepository('AppBundle:Publicacion')->findAll();
+        if ($filtro->getMaxPersonas() )
 
         if (!($filtro->getMaxPersonas()==null) or !($filtro->getMonto()==null) or !($filtro->getfechaDisponibleInicio()== null) or !($filtro->getfechaDisponibleFin()== null)
         or !($filtro->getTipo()==null) or !($filtro->getPais()==null)){
@@ -89,10 +78,14 @@ class PublicacionController extends Controller
         $preguntas = $this->getDoctrine()
             ->getRepository('AppBundle:Pregunta')
             ->findAll();
+        $solicitudes = $this->getDoctrine()
+            ->getRepository('AppBundle:Solicitud')
+            ->findAll();
 
         return $this->render(':default/publicacion:misPublicaciones.html.twig', array(
             'publicaciones' => $publicaciones,
-            'preguntas' =>$preguntas,
+            'preguntas' => $preguntas,
+            'solicitudes' => $solicitudes,
             'user' => $this->getUser(),
         ));
     }
@@ -103,7 +96,7 @@ class PublicacionController extends Controller
      */
     public function newAction(Request $request)
     {
-        $error = null;
+        $error = '';
         $publicacion = new Publicacion();
         $publicacion->setUsuario($this->getUser());
         $publicacion->setReservado(false);
@@ -115,8 +108,8 @@ class PublicacionController extends Controller
             $form = $this->createForm('AppBundle\Form\PublicacionType', $publicacion);
         }
         $form->handleRequest($request);
-  
-        if (!empty($publicacion) and new \DateTime('today') <= $publicacion->getFechaDisponibleInicio() and $publicacion->getFechaDisponibleInicio() < $publicacion->getFechaDisponibleFin() and (!empty($publicacion->getTipo()))) {
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $foto = $form['foto']->getData();
             $dir = 'uploads/fotos';
 
@@ -151,8 +144,6 @@ class PublicacionController extends Controller
             $em->persist($publicacion);
             $em->flush();
             return $this->redirectToRoute('_listaPubli', array('id' => $publicacion->getId()));
-        }elseif ($form->isSubmitted()){
-            $error = 'Las fechas que usted ha ingresado ncorrectas.';
         }
 
         return $this->render(':default/publicacion:altaPubli.html.twig', array(
