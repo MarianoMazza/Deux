@@ -27,8 +27,8 @@ class FilterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('maxPersonas',NumberType::class,array('required' => false))
-            ->add('monto',NumberType::class,array('required' => false))
+            ->add('maxPersonas',IntegerType::class,array('required' => false))
+            ->add('monto',IntegerType::class,array('required' => false))
             ->add('fechaDisponibleInicio',DateType::class,[
                 'years'=>range(date('Y'), date('Y')+3),
                 'data'=>new \DateTime('now'),'required' => false

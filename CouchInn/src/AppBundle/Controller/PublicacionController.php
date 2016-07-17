@@ -42,10 +42,9 @@ class PublicacionController extends Controller
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
         $publicaciones = $em->getRepository('AppBundle:Publicacion')->findAll();
-        if ($filtro->getMaxPersonas() )
 
         if (!($filtro->getMaxPersonas()==null) or !($filtro->getMonto()==null) or !($filtro->getfechaDisponibleInicio()== null) or !($filtro->getfechaDisponibleFin()== null)
-        or !($filtro->getTipo()==null) or !($filtro->getPais()==null)){
+            or !($filtro->getTipo()==null) or !($filtro->getPais()==null)){
             if($filtro->getMaxPersonas()== null){
                 $filtro->setMaxPersonas(0);
             }
@@ -63,8 +62,8 @@ class PublicacionController extends Controller
                     'fechaInicio'=>$filtro->getfechaDisponibleInicio(),
                     'fechaFin'=>$filtro->getfechaDisponibleFin(),
                     'tipo'=>$filtro->getTipo(),'pais'=>$filtro->getPais(),
-                'publicaciones' => $publicaciones,'user' => $this->getUser())
-                );
+                    'publicaciones' => $publicaciones,'user' => $this->getUser())
+            );
         }
         return $this->render(':default/publicacion:Filtrar.html.twig', array('form' => $form->createView()));
     }
@@ -78,19 +77,13 @@ class PublicacionController extends Controller
         $preguntas = $this->getDoctrine()
             ->getRepository('AppBundle:Pregunta')
             ->findAll();
-        $solicitudes = $this->getDoctrine()
-            ->getRepository('AppBundle:Solicitud')
-            ->findAll();
 
         return $this->render(':default/publicacion:misPublicaciones.html.twig', array(
             'publicaciones' => $publicaciones,
-            'preguntas' => $preguntas,
-            'solicitudes' => $solicitudes,
+            'preguntas' =>$preguntas,
             'user' => $this->getUser(),
         ));
     }
-
-
     /**
      * @Route("/home/altaPublicacion", name="_altaPubli")
      */
