@@ -19,3 +19,9 @@ services:
         arguments: [ "%%%fos_user.profile.form.type%%%" ]
         tags:
             - { name: form.type, alias: app_user_profile }
+
+
+    app_bundle.service.listener:
+        class: AppBundle\Listener\LoadDataListener
+        tags:
+            - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadData }

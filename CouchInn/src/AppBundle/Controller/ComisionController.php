@@ -24,34 +24,38 @@ class ComisionController extends Controller
     {
         $error = null;
         $mes = new Filter();
-        $form = $this->createForm('AppBundle\Form\mesType', $mes);
+        $form = $this->createForm('AppBundle\Form\calendarioType', $mes);
 
         $form->handleRequest($request);
         $em = $this->getDoctrine()->getManager();
         $comisiones = $em->getRepository('AppBundle:Comision')->findAll();
         $comisions = array();
-        if($mes->getfechaDisponibleInicio()==null) {
-            return $this->render('comision/index.html.twig', array(
+        if($mes->getfechaDisponibleInicio()==null and $mes->getfechaDisponibleFin()==null) {
+            return $this->render(':default/administrador:ganancias.html.twig', array(
                 'form' => $form->createView(),
             ));
         }
         foreach($comisiones as $comision)
         {
-            if ($comision->getFecha()->format('M') == $mes->getfechaDisponibleInicio()->format('M') and $comision->getFecha()->format('Y') == $mes->getfechaDisponibleInicio()->format('Y')){
-                $comisiones[] = $comision;
+            if ($comision->getFecha()->format('M') <= $mes->getfechaDisponibleFin()->format('M') and $comision->getFecha()->format('M') >= $mes->getfechaDisponibleInicio()->format('M')
+            and $comision->getFecha()->format('Y') <= $mes->getfechaDisponibleFin()->format('Y') and $comision->getFecha()->format('Y') >= $mes->getfechaDisponibleInicio()->format('Y')){
+                $comisions[] = $comision;
             }
         }
 
         $total = 0;
-        foreach ($comisiones as $comision){
+        foreach ($comisions as $comision){
             $total += $comision->getGanancia();
         }
         $pagos = $em->getRepository('AppBundle:Pago')->findAll();
-        foreach ($pagos as $pago){
-            $total += $pago->getMonto();
+        foreach ($pagos as $pago) {
+            if ($pago->getVencimiento()->format('Y') <= $mes->getfechaDisponibleFin()->format('Y') and $pago->getVencimiento()->format('Y') >= $mes->getfechaDisponibleInicio()->format('Y')) {
+                if($pago->getVencimiento()->format('M') <= $mes->getfechaDisponibleFin()->format('M') and $pago->getVencimiento()->format('M') >= $mes->getfechaDisponibleInicio()->format('M')) {
+                    $total += $pago->getMonto();
+                }
+            }
         }
-
-        return $this->render(':default/administrador:cantidadUsuariosMes.html.twig', array(
+        return $this->render(':comision:index.html.twig', array(
             'comisions' => $comisions,
             'total' => $total,
         ));

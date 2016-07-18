@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block panelhead %}Seleccione las fechas entre las que desea conocer las ganancias{% endblock %}
+
+{% block panelbody %}
+    <div class="formulario">
+        {{ form_start(form) }}
+        {{ form_row(form) }}
+        {{ form_end(form) }}
+        <a href='{{ path('_listaPubli') }}' class="btn bg-danger">Cancelar</a>
+    </div>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/datePicker.css') }}" />
+    {% endblock %}
+    {% block javascripts %}
+
+        <script type="text/javascript" src="{{ asset('js/jquery-1.4.2.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/date.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/jquery.datePicker.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/datepicker.js') }}"></script>
+    {% endblock %}
+{% endblock %}
+
