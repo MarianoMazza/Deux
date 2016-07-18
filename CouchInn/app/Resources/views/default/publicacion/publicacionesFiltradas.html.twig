@@ -40,13 +40,11 @@
                         <div class="mark-pers">
                             <div class="text-center">
                                 <div>
-                                    <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">
-                                        <img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="240" height="160"/>
-                                    </a>
+                                    <img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="240" height="160"/>
                                 </div>
 
-                                <b>Usuario: </b>{{ publicacion.usuario }}<br>
-                                <b>Descripcion: </b><br>{{ publicacion.descripcion }}<br>
+                                {{ publicacion.usuario }}
+                                <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
                                 {% if is_granted('ROLE_USER') %}
 
                                     {% if publicacion.usuario.id == user.id %}
@@ -69,13 +67,11 @@
                         <div class="mark-pers">
                             <div class="text-center">
                                 <div>
-                                    <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">
-                                        <img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="240" height="160"/>
-                                    </a>
+                                    <img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="240" height="160"/>
                                 </div>
 
-                                <b>Usuario: </b>{{ publicacion.usuario }}<br>
-                                <b>Descripcion: </b><br>{{ publicacion.descripcion }}<br>
+                                {{ publicacion.usuario }}
+                                <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
                                 {% if is_granted('ROLE_USER') %}
 
                                     {% if publicacion.usuario.id == user.id %}
@@ -98,13 +94,11 @@
                         <div class="mark-pers">
                             <div class="text-center">
                                 <div>
-                                    <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">
-                                        <img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="240" height="160"/>
-                                    </a>
+                                    <img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="240" height="160"/>
                                 </div>
 
-                                <b>Usuario: </b>{{ publicacion.usuario }}<br>
-                                <b>Descripcion: </b><br>{{ publicacion.descripcion }}<br>
+                                {{ publicacion.usuario }}
+                                <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
                                 {% if is_granted('ROLE_USER') %}
 
                                     {% if publicacion.usuario.id == user.id %}
@@ -126,13 +120,11 @@
                 <div class="mark-pers">
                     <div class="text-center">
                         <div>
-                            <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">
-                                <img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="240" height="160"/>
-                            </a>
+                            <img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="240" height="160"/>
                         </div>
 
-                        <b>Usuario: </b>{{ publicacion.usuario }}<br>
-                        <b>Descripcion: </b><br>{{ publicacion.descripcion }}<br>
+                        {{ publicacion.usuario }}
+                        <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
                         {% if is_granted('ROLE_USER') %}
 
                             {% if publicacion.usuario.id == user.id %}
