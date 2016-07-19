@@ -11,11 +11,17 @@
     <link href="{{ asset('css/bootstrap-theme.min.css') }}" rel="stylesheet" type="text/css">
     <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/base.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/datePicker.css') }}" />
+    <script type="text/javascript" src="{{ asset('js/jquery-1.4.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/date.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.datePicker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/datepicker.js') }}"></script>
 
-
-
-    {% block estilos %}
+    {% block stylesheets %}
     {% endblock %}
+    {% block javascripts %}
+    {% endblock %}
+
 </head>
 <body>
 <div class="cover">
