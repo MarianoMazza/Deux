@@ -70,7 +70,10 @@ class ComisionController extends Controller
         }
         $pagos = $this->getDoctrine()->getRepository('AppBundle:Pago')->findAll();
         foreach ($pagos as $pago){
-            $total += $pago->getMonto();
+            if ($pago->getVencimiento()->modify('-1 month') >= $form->get('fechaDisponibleInicio')->getData()
+            and $pago->getVencimiento()->modify('-1 month') <= $form->get('fechaDisponibleFin')->getData()){
+                $total += $pago->getMonto();
+            }
         }
         return $this->render(':default/administrador:ganancias.html.twig', array(
             'comisiones' => $comisiones,
