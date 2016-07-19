@@ -33,8 +33,8 @@
     <div class="row-fluid">
         {% for publicacion in publicaciones %}
             {% if tipo != null and pais != null %}
-                {% if maxPersonas <= publicacion.maxPersonas and monto >= publicacion.costo and fechaInicio>=publicacion.fechaDisponibleInicio
-                and fechaFin<=publicacion.fechaDisponibleFin and tipo==publicacion.tipo and pais==publicacion.pais %}
+                {% if maxPersonas <= publicacion.maxPersonas and monto >= publicacion.costo and fechaInicio<=publicacion.fechaDisponibleInicio
+                and fechaFin>=publicacion.fechaDisponibleFin and tipo==publicacion.tipo and pais==publicacion.pais and publicacion.reservado == 1 %}
 
                     <div class="col-md-4">
                         <div class="mark-pers">
@@ -60,8 +60,8 @@
                     </div>
                 {%endif%}
             {% elseif pais != null %}
-                {% if maxPersonas <= publicacion.maxPersonas and monto >= publicacion.costo and fechaInicio>=publicacion.fechaDisponibleInicio
-                and fechaFin<=publicacion.fechaDisponibleFin and pais==publicacion.pais %}
+                {% if maxPersonas <= publicacion.maxPersonas and monto >= publicacion.costo and fechaInicio<=publicacion.fechaDisponibleInicio
+                and fechaFin>=publicacion.fechaDisponibleFin and pais==publicacion.pais %}
 
                     <div class="col-md-4">
                         <div class="mark-pers">
@@ -87,8 +87,8 @@
                     </div>
                 {%endif%}
             {% elseif tipo != null %}
-                {% if maxPersonas <= publicacion.maxPersonas and monto >= publicacion.costo and fechaInicio>=publicacion.fechaDisponibleInicio
-                and fechaFin<=publicacion.fechaDisponibleFin and tipo==publicacion.tipo %}
+                {% if maxPersonas <= publicacion.maxPersonas and monto >= publicacion.costo and fechaInicio<=publicacion.fechaDisponibleInicio
+                and fechaFin>=publicacion.fechaDisponibleFin and tipo==publicacion.tipo %}
 
                     <div class="col-md-4">
                         <div class="mark-pers">
@@ -113,33 +113,33 @@
                         </div>
                     </div>
                 {%endif%}
-                {% else %}
-            {% if maxPersonas <= publicacion.maxPersonas and monto >= publicacion.costo and fechaInicio>=publicacion.fechaDisponibleInicio
-            and fechaFin<=publicacion.fechaDisponibleFin %}
-            <div class="col-md-4">
-                <div class="mark-pers">
-                    <div class="text-center">
-                        <div>
-                            <img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="240" height="160"/>
+            {% else %}
+                {% if maxPersonas <= publicacion.maxPersonas and monto >= publicacion.costo and fechaInicio<=publicacion.fechaDisponibleInicio
+                and fechaFin>=publicacion.fechaDisponibleFin %}
+                    <div class="col-md-4">
+                        <div class="mark-pers">
+                            <div class="text-center">
+                                <div>
+                                    <img src="{{ asset('uploads/fotos/' ~ publicacion.path)  }}" width="240" height="160"/>
+                                </div>
+
+                                {{ publicacion.usuario }}
+                                <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
+                                {% if is_granted('ROLE_USER') %}
+
+                                    {% if publicacion.usuario.id == user.id %}
+                                        <a href="{{ path('_modificarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-edit"></a>
+                                    {% endif %}
+                                    {% if publicacion.usuario.id == user.id or is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('_eliminarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-erase"></a>
+                                    {% endif %}
+                                    <br/>
+                                {% endif %}
+                            </div>
                         </div>
-
-                        {{ publicacion.usuario }}
-                        <a href="{{ path('_mostrarPublicacion', {'id': publicacion.id}) }}">{{ publicacion.descripcion }}</a></td>
-                        {% if is_granted('ROLE_USER') %}
-
-                            {% if publicacion.usuario.id == user.id %}
-                                <a href="{{ path('_modificarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-edit"></a>
-                            {% endif %}
-                            {% if publicacion.usuario.id == user.id or is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('_eliminarPublicacion', {'id': publicacion.id}) }}" class="glyphicon glyphicon-erase"></a>
-                            {% endif %}
-                            <br/>
-                        {% endif %}
                     </div>
-                </div>
-            </div>
+                {%endif%}
             {%endif%}
-        {%endif%}
         {% endfor %}
     </div>
     </tbody>

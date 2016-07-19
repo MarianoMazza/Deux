@@ -3,6 +3,11 @@
 {% block panelhead %}
     Ganancias<br>
     {{ total }}(Totales incluyendo usuarios premium)
+    <div>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
 
 {% block panelbody %}

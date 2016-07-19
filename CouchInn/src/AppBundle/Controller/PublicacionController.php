@@ -31,6 +31,7 @@ class PublicacionController extends Controller
             'user' => $this->getUser(),
         ));
     }
+
     /**
      * Lists all Publicacion entities.
      * @Route("/home/crearFiltro", name="_filtradas")
@@ -52,10 +53,10 @@ class PublicacionController extends Controller
                 $filtro->setMonto(99999999999);
             }
             if($filtro->getfechaDisponibleInicio()== null){
-                $filtro->setfechaDisponibleInicio(new \DateTime('12-12-9999'));
+                $filtro->setfechaDisponibleInicio(new \DateTime('today'));
             }
             if($filtro->getfechaDisponibleFin()== null){
-                $filtro->setfechaDisponibleFin(new \DateTime('11-11-1990'));
+                $filtro->setfechaDisponibleFin(new \DateTime('tomorrow'));
             }
             return $this->render(':default/publicacion:publicacionesFiltradas.html.twig', array('maxPersonas' => $filtro->getMaxPersonas(),
                     'monto'=>$filtro->getMonto(),
@@ -67,6 +68,7 @@ class PublicacionController extends Controller
         }
         return $this->render(':default/publicacion:Filtrar.html.twig', array('form' => $form->createView()));
     }
+    
     /**
      * Lists all Publicacion entities.
      * @Route("/home/misPublicaciones", name="_misPublicaciones")
@@ -84,6 +86,7 @@ class PublicacionController extends Controller
             'user' => $this->getUser(),
         ));
     }
+
     /**
      * @Route("/home/altaPublicacion", name="_altaPubli")
      */
