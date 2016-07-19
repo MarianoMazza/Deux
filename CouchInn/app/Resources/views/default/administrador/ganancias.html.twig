@@ -3,11 +3,16 @@
 {% block panelhead %}Seleccione las fechas entre las que desea conocer las ganancias{% endblock %}
 
 {% block panelbody %}
-    <div class="formulario">
+    <div class="formulario col-sm-6">
         {{ form_start(form) }}
-        {{ form_row(form) }}
+            {{ form_row(form) }}
+            <br>
+            <input type="submit" value="Aceptar" class="btn btn-info">
+            <a href='{{ path('_listaPubli') }}' class="btn btn-default">Cancelar</a>
         {{ form_end(form) }}
-        <a href='{{ path('_listaPubli') }}' class="btn bg-danger">Cancelar</a>
+    </div>
+    <div class="col-sm-6 pull-right">
+        <label>Total de ganancias durante el período elegido:</label>${{ total }}
     </div>
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('css/datePicker.css') }}" />

@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,8 +17,14 @@ class PorcentajeType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $choices = [];
+        for ($i=0;$i<=50;$i++){
+            $choices[] += $i;
+        }
         $builder
-            ->add('porcentaje',IntegerType::class)
+            ->add('porcentaje',ChoiceType::class, [
+                'choices' => $choices
+            ])
             ->add('Aceptar',SubmitType::class)
         ;
     }

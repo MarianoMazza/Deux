@@ -79,10 +79,14 @@ class PublicacionController extends Controller
         $preguntas = $this->getDoctrine()
             ->getRepository('AppBundle:Pregunta')
             ->findAll();
+        $solicitudes = $this->getDoctrine()
+            ->getRepository('AppBundle:Solicitud')
+            ->findAll();
 
         return $this->render(':default/publicacion:misPublicaciones.html.twig', array(
             'publicaciones' => $publicaciones,
             'preguntas' =>$preguntas,
+            'solicitudes' =>$solicitudes,
             'user' => $this->getUser(),
         ));
     }

@@ -44,18 +44,20 @@ class PorcentajeController extends Controller
         $porcentaje = new Porcentaje();
         $form = $this->createForm('AppBundle\Form\PorcentajeType', $porcentaje);
         $form->handleRequest($request);
+        $actual = $this->getDoctrine()->getRepository('AppBundle:Porcentaje')->findBy(array(),array('id'=>'DESC'));
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($porcentaje);
             $em->flush();
 
-            return $this->redirectToRoute('_listaPubli', array('id' => $porcentaje->getId()));
+            return $this->redirectToRoute('_newPorcentaje', array('id' => $porcentaje->getId()));
         }
 
         return $this->render('porcentaje/new.html.twig', array(
             'porcentaje' => $porcentaje,
             'form' => $form->createView(),
+            'actual' => $actual[0],
         ));
     }
 

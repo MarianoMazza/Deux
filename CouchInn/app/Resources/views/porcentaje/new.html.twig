@@ -5,13 +5,21 @@
 {% block panelbody %}
     <div class="formulario">
 
-
+        <div class="col-sm-6 pull-right">
+            <label>Porcentaje actual:</label>
+            {% if actual is empty %}
+                <br>
+                Aún no se ha indicado ningún porcentaje.
+            {% else %}
+                %{{ actual.porcentaje }}
+            {% endif %}
+        </div>
         {{ form_start(form, {'attr' : {'role' : 'form'}}) }}
         <div class="main container">
             <div class="col-md-5">
                 <div class="form-group">
                     {{ form_label(form.porcentaje) }}
-                    {{ form_widget(form.porcentaje, { 'attr' : {'class' : 'form-control','placeholder' : 'Ingrese un porcetaje'} })}}
+                    {{ form_widget(form.porcentaje, { 'attr' : {'class' : 'form-control'} })}}
                 </div>
                 <div class="form-group">
                     {{ form_label(form.Aceptar) }}

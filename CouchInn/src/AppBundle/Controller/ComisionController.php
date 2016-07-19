@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Filter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -41,24 +42,38 @@ class ComisionController extends Controller
     public function indexAction(Request $request)
     {
         $total = 0;
-        $comision = new Comision();
-        $form = $this->createForm('AppBundle\Form\ComisionType', $comision);
+        $filtro = new Filter();
+        $form = $this->createForm('AppBundle\Form\FilterType', $filtro);
+        $form
+            ->remove('filtrar')
+            ->remove('maxPersonas')
+            ->remove('monto')
+            ->remove('pais')
+            ->remove('tipo');
         $form->handleRequest($request);
-
         $comisiones = [];
-        if ($form->isSubmitted() && $form->isValid()) {
+
+        if ($form->isSubmitted()) {
+            $repository = $this->getDoctrine()->getRepository('AppBundle:Comision');
+
+            $qb = $repository->createQueryBuilder('c')
+                ->where('c.fecha >= :inicio')
+                ->andWhere('c.fecha <= :fin')
+                ->setParameters([
+                    'inicio'=>$form->get('fechaDisponibleInicio')->getData(),
+                    'fin'=>$form->get('fechaDisponibleFin')->getData(),
+                ]);
+            $comisiones = $qb->getQuery()->getResult();
         }
-        /*
-        foreach ($comisions as $comision){
+        foreach ($comisiones as $comision){
             $total += $comision->getGanancia();
         }
-        $pagos = $em->getRepository('AppBundle:Pago')->findAll();
+        $pagos = $this->getDoctrine()->getRepository('AppBundle:Pago')->findAll();
         foreach ($pagos as $pago){
             $total += $pago->getMonto();
         }
-        */
-        return $this->render('comision/index.html.twig', array(
-            'comisions' => $comisiones,
+        return $this->render(':default/administrador:ganancias.html.twig', array(
+            'comisiones' => $comisiones,
             'total' => $total,
             'form' => $form->createView(),
         ));

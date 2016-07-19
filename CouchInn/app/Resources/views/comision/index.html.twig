@@ -5,7 +5,8 @@
     {{ total }}(Totales incluyendo usuarios premium)
     <div>
         {{ form_start(form) }}
-        {{ form_widget(form) }}
+            {{ form_widget(form) }}
+            <input type="submit" value="Aceptar">
         {{ form_end(form) }}
     </div>
 {% endblock %}
@@ -22,7 +23,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for comision in comisions %}
+        {% for comision in comisiones %}
             <tr>
                 <td>{% if comision.fecha %}{{ comision.fecha|date('Y-m-d') }}{% endif %}</td>
                 <td>{{ comision.publicacion }}</td>
